@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block title %}Startup Hero | Edición usuario {% endblock title %}
+{% block contenido %}   
+        <div class="container-fluid">
+           <div class="row">
+             <main class="col-sm-12 ml-sm-auto col-md-12 pt-3" role="main">
+
+	       	    <section class="content">
+	       	      	<div class="page-header">
+	       	      	    <h4>
+	       	      	        <a href="{% url 'app_usuarios:p_inicio' %}" class="btn btn-success">
+	       	      	            <span class="glyphicon glyphicon-chevron-left"></span> Regresar
+	       	      	        </a>
+	       	      	        <strong>Editando a: {{ usuario.usuario }} </strong>
+	       	      	    </h4>
+	       	      	</div><!-- page-header -->
+      		    <form role="form" method="POST" enctype="multipart/form-data">{% csrf_token %}
+
+      		    	{% if form.errors %}
+      		    	    <div class="alert alert-danger" role="alert">
+      		    	        {{ form.errors }}
+      		    	    </div>
+      		    	{% endif %}
+      		    	
+      		    	<fieldset class="form-group scheduler-border col-md-8">
+      		    	 		<legend class="scheduler-border">Datos de inicio sesión</legend>
+
+      		   	      <div class="form-row">
+      		   		        <div class="form-group col-xs-3">
+      		   		        <label >{{form.usuario.label_tag}} (*)</label>
+      		   		        {{form.usuario}}
+      		   		        </div>
+      		   		        <div class="form-group col-xs-3">
+      		   		          <label>{{ form.password.label_tag }}(Ingrese uno NUEVO, o dejarlo en blanco)</label>
+      		   		          <input type="password" name="password" class="form-control" required="">
+      		   		        </div>
+      		   	      </div>
+      		   	    </fieldset>
+      				<fieldset class="form-group scheduler-border col-md-8">
+      				 		<legend class="scheduler-border">Permisos</legend>
+      		    	  <div class="form-row">
+      		    	  	<div class="form-group col-xs-4">
+      		    	  	  <label>{{ form.tienda.label_tag }}(*)</label>
+      		    	  	  {{ form.tienda }}
+      		    	  	</div>
+      		    	  	<div class="form-group col-xs-4">
+      		    	  	  <label>Tipo de Usuario(*)</label>
+      		    	  	  <select name="tipo_usuario" required="" class="form-control">
+      		    	  	  	<option value="">--------</option>
+      		    	  	  {% for grupo in grupos %}
+      		    	  	  	<option value=" {{grupo.pk}} ">{{grupo.name}}</option>	    	  	  	
+      		    	  	  {% endfor %}
+      		    	  	  </select>
+      		    	  	</div>
+      		    	  </div>
+      		    	  <br>
+      		    	  <div class="form-row">
+      		    	  	<div class="form-group col-xs-3">
+      		    	  		<label >{{form.is_active.label_tag}} </label>
+      		    	  		{{form.is_active}}
+      		    	  	</div>
+      		    	  	<div class="form-group col-xs-3">
+      		    	  		<label >(Puede acceder a la parte de ADMIN) </label>
+      		    	  		{{form.is_staff}}
+      		    	  	</div>
+      		    	  	<div class="form-group col-xs-3">
+      		    	  		<label >{{form.is_superuser.label_tag}} </label>
+      		    	  		{{form.is_superuser}}
+      		    	  	</div>
+
+      		    	  </div>
+      				</fieldset>
+
+      				<div class="form-row">
+      		    	  <div class="form-group col-xs-10">
+      		    	      <button type="submit" class="btn btn-primary">Actualizar Usuario</button>
+      		    	  </div>
+      		    	</div>
+      		    </form>
+	       	    </section>
+             </main>
+           </div>
+         </div>
+
+{% endblock %}
+

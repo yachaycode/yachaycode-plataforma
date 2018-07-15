@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Startup Hero | Crear usuario{% endblock title %}
+{% block contenido %}
+<form method="post">
+  {% csrf_token %}
+  {{ form }}
+  <button type="submit">Guardar cambios</button>
+</form>
+{% endblock %}

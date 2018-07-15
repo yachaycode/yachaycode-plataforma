@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Startup Hero |Eliminar usuario {% endblock title %}
+{% block contenido %}
+         
+        <div class="container-fluid">
+           <div class="row">
+             <main class="col-sm-12 ml-sm-auto col-md-12 pt-3" role="main">
+             <section class="content-header">
+               <h1>
+                 <small>Eliminación de Usuario</small>
+               </h1>
+               <ol class="breadcrumb">
+                 <li><a href="{% url 'app_usuarios:p_inicio' %}"><i class="fa fa-dashboard"></i> Inicio</a></li>
+                 <li class="active">Elminar Usuario</li>
+               </ol>
+             </section>
+
+             <!-- Main content -->
+             <section class="content">
+               <form role="form" action="{% url 'app_usuarios:p_eliminar' usuarios.id %}" method="POST">{% csrf_token %}
+                     <p class="">¿Desea eliminar al Usuario <b>"{{ usuarios.usuario }}"</b>?</p>
+                     <input type="submit" value="Sí" class="btn btn-danger"> 
+                     <a href="{% url 'app_usuarios:p_inicio' %}" class="btn btn-default">No</a>
+                 </form>
+             </section>
+             </main>
+           </div>
+         </div>
+
+{% endblock %}
+

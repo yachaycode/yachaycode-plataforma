@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+
+        {% load static from staticfiles %}
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>{% block title %}Yachay Code{% endblock %}</title>
+        <link rel="shortcut icon" type="image/png" href=" {% static "img/favicon/faviconhero.png" %}"/>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %} ">
+        <link href="{% static "css/sticky-footer.css" %}" rel="stylesheet">
+                <!-- icon font -->
+        <link href="{% static "css/font-awesome.min.css" %}" rel="stylesheet">
+        <!-- estilo de pagina de inicio y menu izquierdo  -->
+        <link href="{% static "css/dashboard.css" %}" rel="stylesheet">
+        <!-- bordes de fieldset forms -->
+        <link href="{% static "css/estilo_formularios.css" %}" rel="stylesheet">
+        <!-- DataTables -->
+        <link rel="stylesheet" href="{% static "css/dataTables.bootstrap4.min.css" %} ">
+        <!-- Para seleccion de AUTOCOMPLETE busquedas-->
+        <link rel="stylesheet" href="{% static "css/select2.min.css" %}">
+        <!-- para fechas -->
+        <link rel="stylesheet" href="{% static "css/bootstrap-datetimepicker.min.css" %}">
+        <!-- para el footer -->
+        <link rel="stylesheet" href="{% static "css/stylos.css" %}">
+         <!-- material desing -->
+        <link rel="stylesheet" href="{% static "css/mdb.min.css" %}">
+        <link rel="stylesheet" href="{% static "css/style.css" %}">
+        <link rel="stylesheet" href="{% static "css/stylos.css" %}">
+        <link rel="stylesheet" href="{% static "css/jquery-ui.css" %}">
+        <!-- pay -->
+        <link rel="stylesheet" href="{% static "css/waitMe.min.css" %}">
+
+
+    </head>
+    <body>
+        
+        {% include 'messages.html' %}
+        {% include 'header.html' %}
+        {% block contenido %}{% endblock %}
+       <script src="{% static "js/jquery-3.2.1.slim.min.js" %}" ></script>
+       <!-- DataTables -->
+       <script  src=" {% static "js/jquery-3.2.1.min.js" %} "></script>
+       <script src=" {% static "js/jquery.dataTables.min.js" %}"></script>
+       <script src=" {% static "js/dataTables.bootstrap4.min.js" %} "></script>
+       <!-- para buscadores, autocomplete -->
+       <script src="{% static "js/select2.full.min.js" %} "></script>
+       <script  src=" {% static "js/jquery.validate.js" %} "></script>
+       <script  src=" {% static "js/functions.js" %} "></script>
+       <script src=" {% static "js/popper.min.js" %}" ></script>
+       <script  src=" {% static "js/bootstrap.min.js" %} "></script>
+       <!-- Para calendarios y fechas -->
+       <script  src=" {% static "js/bootstrap-datetimepicker.js" %} "></script>
+       <!-- para alertas de todo tipo -->
+      <!-- matrial desing -->
+      <script  src=" {% static "js/popper.min.js" %} "></script>
+      <script  src=" {% static "js/mdb.min.js" %} "></script>
+      <!--sccript propio-->
+      <script  src=" {% static "js/script.js" %} "></script>
+      <!--search-->
+      <script  src=" {% static "js/jquery-ui.js" %} "></script>
+      <!--Pay-->
+      <script src="https://checkout.culqi.com/v2"></script>
+      <script src="{% static "js/waitMe.min.js" %}"></script>
+
+</body>
+
+
+    </body>
+    {% include "footer.html" %}
+</html>

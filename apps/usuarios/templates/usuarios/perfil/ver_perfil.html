@@ -1,0 +1,284 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Startup Hero | ver perfil {% endblock title %}
+
+{% block contenido %}
+<!--ver perfil-->
+ <div class="container-fluid">
+    <div class="row ">
+       <div class="col-md-2 fond_verPerf paddin_perf1">
+          <div class="row">
+             <div class="col-md-12">
+                  <div class="img_verPer">
+                     <img src=" {{request.user.perfil_usuario.foto.url}} " class="" width="100" height="110">
+                  </div>
+                  <div class="center_text">
+                      <h3 class="h3-responsive product-name color_white"><strong>{{request.user.perfil_usuario.nombres}} </strong></h3>
+                  </div>
+                  <div class="img_verPer center_text">
+                    <a href=" {% url 'app_usuarios:p_editar_perfil' request.user.usuario %} " class="btn btn-red btn-rounded"><i class="fa fa-cog sub_menu_perf" aria-hidden="true"></i> Editar perfil</a>
+                  </div>
+                    <p class="color_white zise_font"><i class="fa fa-envelope" aria-hidden="true"></i>{{request.user.email}}</p>
+                         <p class="color_white zise_font"><i class="fa fa-map-marker" aria-hidden="true"></i> {{request.user.perfil_usuario.ciudad}}</p>
+
+                          <h4 class="h4-responsive product-name color_white"><strong>Información</strong></h4>
+                      <p class="color_white zise_font">cursos inscritos: {{request.user.inscripcion_curso_set.count}}</p>
+                      <p class="color_white zise_font">proyectos: {{cantidad_proyectos}}</p>
+             </div>
+          </div>
+       </div>
+<div class="col-md-10 fond_verPerf1">
+  <div class="container contene_discu">
+
+   <div class="row">
+       <div class="col-md-12">
+       <div class="contenedor">
+        <!-- Nav tabs -->
+        <ul class="nav tab1 " role="tablist">
+            <li class="nav-item nav_cur">
+
+                <a class="nav-link active" data-toggle="tab" href="#panel7" role="tab"><strong><span class="color_white">Mis cursos</span></strong></a>
+            </li>
+            <li class="nav-item nav_cur1 ">
+                <a class="nav-link" data-toggle="tab" href="#panel8" role="tab"><strong><span class="color_white">Mis proyectos</span></strong></a>
+            </li>
+        </ul>
+
+        <!-- Tab panels -->
+        <div class="tab-content" >
+            <!--Panel 1-->
+<div class="tab-pane fade in show active" id="panel7" role="tabpanel">
+                
+    <!--en cursos notas-->
+    <div class="container card card2">
+       <div class="row">
+          <div class="col-md-4">
+       {% for mi_curso in request.user.inscripcion_curso_set.all %}
+            <div class="row ">
+                <div class="col-md-4 ">
+                    <!--Card image-->
+                    <div class="view overlay hm-white-slight">
+                        <img src="{{mi_curso.curso.portada.url}}" class="img-fluid" alt="">
+                        <a href="{% url 'app_clases:p_clases' mi_curso.curso.slug  %}">
+                            <div class="mask"></div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-7 ">
+                   <!--Card content-->
+                    <div class="card-body">
+                        <!--Title-->
+                        <a href="{% url 'app_clases:p_clases' mi_curso.curso.slug  %} "><h5 class="card-title">{{mi_curso.curso.nombre}}</h5></a>
+                        <!--Text-->
+                        <p class="card-text">{{mi_curso.curso.resumen}}</p>
+                          
+                    </div>
+
+                   <div class="text-center">
+                          <span>0%</span>
+                    </div>
+                    <div class="card-data">
+                        <div class="progress">
+                             <div class="progress-bar" role="progressbar" style="width: 5%" aria-valuenow="25"
+                                  aria-valuemin="0" aria-valuemax="100">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card footer -->
+                </div>
+            </div> 
+          {% endfor %}
+          </div>
+
+          <div class="col-md-8 curso_notas">
+             <div class="row curso_not1 color_evalua">
+                <div class="col-md-12 cen_pad1">
+                   <p class=""><strong>Evaluacion del curso</strong></p>
+                </div>
+              </div>
+            <!--Table-->
+            <table class="table table-responsive">
+
+                <!--Table head-->
+                <thead class="mdb-color darken-3">
+                    <tr class="text-white">
+                        <th>Test 1</th>
+                        <th>test 2</th>
+                        <th>test 3</th>
+                        <th>Evaluación</th>
+                        <th>Certificado</th>
+                    </tr>
+                </thead>
+                <!--Table head-->
+
+                <!--Table body-->
+                <tbody>
+                    <tr>
+                        <td>por evaluar</td>
+                        <td>por evaluar</td>
+                        <td>por evaluar</td>
+                        <td>por evaluar</td>
+                        <td>no disponible</td>
+                    </tr>
+                  
+                </tbody>
+                <!--Table body-->
+            </table>
+            <!--Table-->
+                           
+             <!--<div class="row">
+                <div class="col-md-12">
+              <div class="row curso_not1 color_evalua">
+                <div class="col-md-12 cen_pad1">
+                   <p class=""><strong>Evaluacion del curso</strong></p>
+                </div>
+              </div>
+              <div class="row curso_not1 color_evalua1">
+                 <div class="col vert1 cen_pad">
+                   <p>Test 1</p>
+                 </div>
+                 <div class="col vert1 cen_pad">
+                    <p>Test 2</p>
+                 </div>
+                 <div class="col vert1 cen_pad">
+                    <p>Test 3</p>
+                 </div>
+                 <div class="col cen_pad">
+                    <p>Examen</p>
+                 </div>
+                  <div class="col cen_pad">
+                    <p>Certificado</p>
+                 </div>
+              </div>
+              <div class="row curso_not1">
+                {% for test1 in test1_facilitadores %}
+                {% if test1.estado_revision %}
+                 <div class="col vert1 cen_pad" >
+                    <p href="#">{{test1.promedio}}</p>
+                 </div>
+                 {% else %}
+                  <div class="col vert1 cen_pad" >
+                     <p href="#">Por evaluar</p>
+                  </div> 
+                {% endif %}
+
+                {% endfor %}
+                {% for test2 in test2_facilitadores %}
+                {% if test2.estado_revision %}
+                 <div class="col vert1 cen_pad">
+                    <a href="#">{{test2.promedio}}</a>
+                 </div>
+                {% else %}
+                <div class="col vert1 cen_pad">
+                    <a href="#">Por evaluar</a>
+                 </div> 
+                {% endif %}
+                {% endfor %}
+
+                 <div class="col vert1 cen_pad">
+                   <a href="#">por evaluar</a>
+                 </div>
+                 <div class="col cen_pad">
+                   <a href="#">por evaluar</a>
+                 </div>
+
+                   <div class="col cen_pad">
+                   <a href="#">Imprimirs</a>
+                 </div>
+
+              </div>
+              </div>
+               
+             </div>-->
+          </div>
+
+       </div>
+    </div>
+                
+</div>
+       
+            <div class="tab-pane fade" id="panel8" role="tabpanel">
+                
+                  <div class="col-md-12 curso_notas">
+                     <div class="row curso_not1 color_evalua">
+                        <div class="col-md-12 cen_pad1">
+                          {% if estado %}
+                          <h3>Mis proyectos</h3>
+                          <table class="table-responsive">
+                                <!--Table head-->
+                                <thead class="mdb-color darken-3">
+                                    <tr class="text-white">
+                                        <th>Titulo</th>
+                                        <th>Problema</th>
+                                        <th>Solución</th>
+                                        <th>Estado evaluación</th>
+                                        <th>Acción</th>
+                                    </tr>
+                                </thead>
+                                <!--Table head-->
+                                <!--Table body-->
+                                <tbody>
+                                  {% for proyecto in proyectos %} 
+                                    <tr>
+                                        <td>{{proyecto.titulo}}</td>
+                                        <td>{{proyecto.problema}}</td>
+                                        <td>{{ proyecto.resolucion }}</td>
+                                        <td>por evaluar</td>
+                                        <td class="text-right">
+                                            <a href=" {% url 'app_emprendedores:p_editar_proyecto' proyecto.slug %} " class="btn btn-warning btn-xs"><span class="fa fa-pencil"></span></a>
+                                        </td>
+                                    </tr>
+                                  {% endfor %}
+                                </tbody>
+                                <!--Table body-->
+                            </table>
+                            {% else %}
+                            <span>Aun no presentó su proyecto..!</span>
+                          {% endif %}
+                        </div>
+                      </div>
+                  </div>
+                           
+            </div>    
+        </div>
+         </div>
+        
+    </div>
+   </div>
+</div>
+</div>
+    </div>
+ </div>
+
+  <div class="container-fluid contenedor_color">
+       <div class="row paddin_perf">
+       </div>
+    </div>
+{% endblock %}
+
+<!--fin ver perfil-->  
+<!--<div class="container bord">
+    <div class="row font">
+       <div class="col-md-12">
+            <img src=" {{request.user.perfil_usuario.foto.url}} " class="rounded-circle z-depth-1-half" width="70" height="80">
+       </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 ">                 
+          <div class="card-body ">
+              <h5 class="card-title"> {{request.user.usuario}}</h5>
+              <h5 class="card-title"> <b> {{request.user.perfil_usuario.nombres}} {{request.user.perfil_usuario.apellidos}} </b></h3>
+              <hr>
+               <a href=" {% url 'app_usuarios:p_editar_perfil' request.user.usuario %} " class="btn btn-primary">Editar perfil</a>  
+               <p>Ultima acutualizacion  {{request.user.date_joined|date:'Y-m-d'}}</p> 
+              <h4>Informacion</h4>  
+              <ul class="list-unstyled">
+                        <li><a href="#"><i class="fa fa-user" aria-hidden="true"></i></i>Cursos inscritos</a><label for="">2</label></li>
+                        <li><a href=""><i class="fa fa-user" aria-hidden="true"></i>Proyectos</a><label for=""></label>1</li>
+              </ul>     
+          </div>
+        </div>
+        <div class="col-md-8">
+      </div>
+    </div>  
+</div>-->

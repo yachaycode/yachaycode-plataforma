@@ -1,0 +1,159 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Startup Hero | editar perfil {% endblock title %}
+
+{% block contenido %}
+
+  <!--star editar perfil-->
+  <div class="container-fluid contene_perfil">
+        <div class="row">
+        <div class="col-md-4 fond_perfi">
+            <div class="col-md-12 sub_menu_div">
+               <h6 class="card-title sub_menu_perf"><i class="fa fa-cog sub_menu_perf" aria-hidden="true"></i><strong> CONFIGURACIÓN</strong></h6>      
+            </div>
+            <div class="col-md-12 sub_menu_div">
+               <a class="" href="#"><strong><span class="sub_menu_perf">Perfil</span></strong></a>
+            </div>
+            <div class="col-md-12 sub_menu_div">
+               <a class="" href=" {% url 'app_usuarios:p_cuenta' request.user.usuario %} "><strong><span class="sub_menu_perf">Cuenta</span></strong></a>
+            </div>
+            <div class="col-md-12 sub_menu_div">
+               <p>PERFILES SOCIALES</p>
+            </div>
+        </div>
+        <div class="col-md-8 bord fond_perfi1">
+          <form method="POST" enctype="multipart/form-data">{% csrf_token %}
+            {% if form.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ form.errors }}
+                </div>
+            {% endif %}
+           <div class="container">
+              <div class="row my-3 d-flex justify-content-center">
+                  <div class="col-md-6">
+                      <h4 class="card-title">Perfil</h4>
+                  </div>
+                  <div class="col-md-6">
+                     <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                </div>
+              </div>
+               <hr>
+              <div class="row ">
+                 <div class="col-md-6 ">
+                    <img src="{{request.user.perfil_usuario.foto.url}}" class="rounded-circle z-depth-1-half" width="100" height="120">
+                 </div>
+                 <div class="col-md-6 ">
+                    <label for="">Actualizar foto:</label>
+                    {{form.foto}}
+                 </div>
+             </div>
+              <hr>
+             <div class="row">
+               <div class="col-md-6">
+                  <h4 class="card-title">Informacion personal</h4>
+               </div>
+             </div>
+
+             <div class="row esp">
+                  <div class="col-md-6">
+                      <div class="md-form">
+                        {{form.nombres}}
+                        {{form.nombres.label_tag}}
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="md-form">
+                        {{form.apellidos}}
+                        {{form.apellidos.label_tag}}
+                    </div>
+                  </div>
+             </div>
+
+            <div class="row esp">
+            <div class="col-md-6">
+                <div class="md-form hi">
+                    {{form.celular}}
+                    {{form.celular.label_tag}}
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    {{form.pais.label_tag}}
+                   {{form.pais}}
+                </div>
+            </div>
+
+           </div>
+
+           <div class="row esp">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col">
+                       <div class="form-group">
+                          {{form.fecha_nacimiento.label_tag}}
+                          {{form.fecha_nacimiento}}
+                          <p class="help-block">Formato de fecha. DIA/MES/AÑO </p>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                     {{form.sexo.label_tag}}
+                     {{form.sexo}}
+                </div>
+            </div>
+           </div>
+
+            <div class="row esp">
+                  <div class="col-md-6">
+                      <div class="md-form">
+                        {{form.ciudad}}
+                        {{form.ciudad.label_tag}}
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="md-form">
+                        {{form.ocupacion}}
+                        {{form.ocupacion.label_tag}}
+                    </div>
+                  </div>
+             </div>
+
+              <div class="row esp">
+                  <div class="col-md-6">
+                      <div class="md-form">
+                        {{form.profesion}}
+                        {{form.profesion.label_tag}}
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="md-form">
+                        {{form.sitio_web}}
+                        {{form.sitio_web.label_tag}}
+                    </div>
+                  </div>
+             </div>
+              <div class="row esp">
+                  <div class="col-md-12">
+                      <div class="md-form">
+                          {{form.biografia}}
+                          {{form.biografia.label_tag}}
+                      </div>
+                  </div>
+              </div>
+                <div class="row">
+                    <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                </div>
+          </div>
+        </form>
+        </div>
+      </div>
+  </div>
+    <div class="container-fluid contenedor_color">
+       <div class="row paddin_perf">
+       </div>
+    </div>
+{%endblock%}

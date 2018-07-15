@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Startup Hero | Cuenta {% endblock title %}
+
+{% block contenido %}
+
+      <!--star cuenta-->
+  <div class="container-fluid">
+    <div class="row ">
+        <div class="col-md-4 fond_perfi">
+            <div class="col-md-12 sub_menu_div">
+               <h6 class="card-title sub_menu_perf"><i class="fa fa-cog sub_menu_perf" aria-hidden="true"></i><strong> CONFIGURACIÓN</strong></h6>      
+            </div>
+            <div class="col-md-12 sub_menu_div">
+               <a class="" href="{% url 'app_usuarios:p_editar_perfil' request.user.usuario %}"><strong><span class="sub_menu_perf">Perfil</span></strong></a>
+            </div>
+            <div class="col-md-12 sub_menu_div">
+               <a class="" href="#"><strong><span class="sub_menu_perf">Cuenta</span></strong></a>
+            </div>
+          
+        </div>
+
+
+        <div class="col-md-8 bord fond_perfi1">
+           <div class="container">
+              <div class="row my-3 d-flex justify-content-center">
+                  <div class="col-md-12">
+                      <h4 class="card-title">Cuenta</h4>
+                  </div>
+                  {% if form.errors %}
+                      <div class="alert alert-danger" role="alert">
+                          {{ form.errors }}
+                      </div>
+                  {% endif %}
+               
+              </div>
+               <hr>
+
+             <div class="row esp">
+                  <div class="col-md-8">
+                   
+                        <label for="exampleSelect1">Nombre de usuario y correo</label>
+                        <p>
+                          Puedes cambiar tus datos. Cambiar tu usuario va afectar tu inicio de sesión y la URL de tu perfil.
+                        </p>
+                  
+                  </div>
+                
+             </div>
+              <form action=" {% url 'app_usuarios:p_cambiar_cuenta_usuario' %} " method="POST">{% csrf_token %}
+                <div class="row esp">
+                
+                  <div class="col-md-6">
+                      <div class="md-form">
+                        <input type="text" id="form52" class="form-control" value="{{request.user.usuario}}" name="usuario">
+                        <label for="form52" class="">Nombre de usuario</label>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="md-form">
+                      <input type="text" id="form51" class="form-control" value=" {{request.user.email}} " name="email">
+                      <label for="form51" class="">Nombre de Correo</label>
+                    </div>
+                  </div>
+                </div>
+                  <button type="submit" class="btn btn-primary">Actualizar datos</button>
+              </form>
+
+            <hr>
+             <div class="row my-3 d-flex justify-content-center">
+                 <div class="col-md-12">
+                     <h4 class="card-title">Contraseña</h4>
+                 </div>          
+             </div>
+            <form action=" {% url 'app_usuarios:p_cambio_contrasena' %}" method="POST">{% csrf_token %}
+              {% if form_password.errors %}
+                  <div class="alert alert-danger" role="alert">
+                      {{ form_password.errors }}
+                  </div>
+              {% endif %}
+               <div class="row peq1">
+                   <div class="col-md-6">
+                        <div class="md-form">
+                          {{form_password.old_password}}
+                          {{form_password.old_password.label_tag}}
+                      </div>
+                    </div>
+              </div>
+              <br>
+             <div class="row esp">
+                  <div class="col-md-6">
+                       <div class="md-form">
+                         {{form_password.new_password1}}
+                         {{form_password.new_password1.label_tag}}
+                     </div>
+                   </div>
+                  <div class="col-md-6">
+                       <div class="md-form">
+                         {{form_password.new_password2}}
+                         {{form_password.new_password2.label_tag}}
+                     </div>
+                   </div>
+             </div>
+             <div class="row ">
+                     <button type="submit" class="btn btn-primary">Cambiar contraseña</button>
+             </div>
+            </form>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid contenedor_color">
+       <div class="row paddin_perf">
+       </div>
+    </div>
+{%endblock%}

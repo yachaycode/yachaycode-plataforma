@@ -1,0 +1,343 @@
+{% extends "base.html" %}
+
+{% block title %}Future Startup Hero {% endblock title %}
+{% block contenido %}
+        {# carrusell #}
+        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+          <div class="carousel-inner" role="listbox">
+            <div class="carousel-item active">
+              <img class="d-block img-fluid" src="static/img_banner/banner1.jpg" alt="First slide">
+                <div class="carousel-caption d-none d-md-block">
+                  <h3>Desafio startup</h3>
+                  <p>Ven a validar una idea de emprendimiento</p>
+                  <button type="button" class="btn btn-primary">Inscribete ahora</button>
+                </div>
+            </div>
+          </div>
+          <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+
+        {# registro de Usuario #}
+        <div class="modal fade" id="registro_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" aria-hidden="true">
+         
+      <form role="form" id="form_reg_user" action=" {% url 'registrarse_usuario' %} "  method="POST" enctype="multipart/form-data">{% csrf_token %}
+              {% if form.errors %}
+                  <div class="alert alert-danger" role="alert">
+                      {{ form.errors }}
+                  </div>
+              {% endif %}
+
+         <!--star -->
+          <div class="modal-dialog cascading-modal" role="document">
+          
+            <div class="modal-content">
+    
+                <div class="modal-header light-blue darken-3 white-text">
+                    <h4 class="title"><i class="fa fa-user"></i> Registrarse</h4>
+                    <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+               
+                   <div class="modal-body">
+                     <div class="row my-3 d-flex justify-content-center">
+                     
+                     <a  href="{% url 'social:begin' 'facebook' %}"> <button type="button" class="btn btn-blue btn-rounded mr-md-3 z-depth-1a">Continuar con: <i class="fa fa-facebook blue-text text-center"></i></button></a>
+                     
+                      <a  href="{% url 'social:begin' 'twitter' %}" ><button type="button"class="btn btn-info btn-rounded mr-md-3 z-depth-1a">Continuar con:<i class="fa fa-twitter blue-text"></i></button></a>
+                   </div>
+   
+          
+                    <div class="md-form form-sm">
+                            <i class="fa fa-user prefix"></i>
+                           {{inscripcion_usuario.usuario}}
+                           {{inscripcion_usuario.usuario.label_tag}} 
+
+                          <div class="alert alert-danger alert_user_exist" role="alert" style="display: none">
+                            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                            <span class="sr-only">Error:</span>
+                            Usuario no disponible, escoja otro..!.
+                          </div>
+
+                    </div>
+
+                    <div class="md-form form-sm">
+                        <i class="fa fa-envelope prefix"></i>
+                        {{inscripcion_usuario.email}}
+                        {{inscripcion_usuario.email.label_tag}}
+                         <div class="alert alert-danger alert_email_exist" role="alert" style="display: none">
+                          <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                          <span class="sr-only">Error:</span>
+                          Correo ya se encuentra registrado, intente inciar o recuperar..!.
+                        </div>
+                    </div>
+    
+                    <div class="md-form form-sm">
+                        <i class="fa fa-lock prefix"></i>
+                        {{inscripcion_usuario.password}}
+                        {{inscripcion_usuario.password.label_tag}}
+                    </div>
+    
+                    <div class="text-center mt-1">                      
+                        <button type="button" class="btn btn-primary btn_registrar_user">Sigiente<i class="fa fa-sign-in ml-1"></i> </button>
+                    </div>   
+                </div>
+                <input type="hidden" value="false" class="user_status">
+                <input type="hidden" value="false" class="email_status">
+                <div class="modal-footer">
+                    <div class="options text-center text-md-right mt-1">
+                        <span class="tiene_cuenta">¿Ya tienes una cuenta?<a href="#">Iniciar sesión?</a></span>
+                    </div>
+                    <button type="button" class="btn btn-outline-info waves-effect ml-auto" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+           
+        </div>
+
+      </form>
+  </div>
+
+
+        {# Inicio de sesion #}
+        <div class="modal fade" id="login_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" data-backdrop="static">
+        
+            <form action=" {% url 'iniciar_sesion' %}" id="form_login_modal" method="post" class="form-signin">{% csrf_token %}
+              {% if form.errors %}
+                  <div class="alert alert-danger" role="alert">
+                      {{ form.errors }}
+                  </div>
+              {% endif %}
+
+              <!--star -->
+          <div class="modal-dialog cascading-modal" role="document">
+          
+            <div class="modal-content">
+    
+                <div class="modal-header light-blue darken-3 white-text">
+                    <h4 class="title"><i class="fa fa-user"></i>Iniciar sesion</h4>
+                    <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+               
+                   <div class="modal-body">
+                     <div class="row my-3 d-flex justify-content-center">
+                     
+                     <a  href="{% url 'social:begin' 'facebook' %}"> <button type="button" class="btn btn-blue btn-rounded mr-md-3 z-depth-1a">Continuar con: <i class="fa fa-facebook blue-text text-center"></i></button></a>
+                     
+                      <a  href="{% url 'social:begin' 'twitter' %}" ><button type="button"class="btn btn-info btn-rounded mr-md-3 z-depth-1a">Continuar con:<i class="fa fa-twitter blue-text"></i></button></a>
+                   </div>
+   
+          
+                       <div class="md-form form-sm">
+                          <i class="fa fa-envelope prefix"></i>
+                          <input type="email" id="inputEmail" class="form-control" name="email" required autofocus>
+                          <label for="form24">Correo electronico</label>
+                      </div>
+                      <div class="md-form form-sm">
+                            <i class="fa fa-lock prefix"></i>
+                            <input type="password" id="inputPassword"class="form-control" name="password" required>
+                            <label for="form25">Contraseña</label>
+                            <p class="font-small blue-text d-flex justify-content-end">Olvidastes tu<a href=" {% url 'password_reset' %} " class="blue-text ml-1"> Contraseña?</a></p>
+                      </div>
+                      <div class="md-form form-sm">
+                          <label>
+                            <input type="checkbox" value="remember-me"> Recordarme
+                          </label>
+                        </div>
+    
+                      <div class="text-center mt-1">                      
+                        <button type="submit" class="btn btn-primary ">Iniciar sesión<i class="fa fa-sign-in ml-1"></i> </button>
+
+                    </div>   
+                </div>
+              
+                <div class="modal-footer">
+                    <div class="options text-center text-md-right mt-1">
+                         <span class="no_tiene_cuenta">¿No tienes una cuenta? <a href="#">Registrate</a></span>
+                    </div>
+                    <button type="button" class="btn btn-outline-info waves-effect ml-auto" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+           
+        </div>
+          </form>
+            
+        </div>
+		
+       <!--end body -->
+       <!--enlases-->
+        <div class="container-fluid cont_enlace">
+           <div class="container cont_enlace1">
+              <div class="row">
+               <div class="col-md-12">
+                   <h3 class="h3-responsive product-name titulo_inde"><strong>COMIENZA TU APRENDIZAJE</strong></h3>
+               </div>
+            </div>
+            <div class="row encab_inde">
+                <div class="col-md-7">
+                   <h6 class="h6-responsive sub_title">HEROS IMPACTOS</h6>
+               </div>
+               <div class="col-md-5 btn_end">
+                   <a  href="#"> <button type="button" class="btn btn-White btn-rounded mr-md-3 z-depth-1a text_ind"> <i class="fa fa-whatsapp wapsap" aria-hidden="true"></i><span class="text_ind"> COVERSA CON NOSOTROS </span></button></a>
+               </div>
+            </div>
+            <div class="row">
+               <div class="col uno centrar">
+                  <p class="color_tam"><strong>APLICAR</strong></p>
+               </div>
+                <div class="col dos">
+                  <div class="row">
+                     <div class="col-md-12 sub_dos centrar">
+                         <p class="color_tam"><strong>EVENTOS</strong></p>
+                     </div>
+                     <div class="col-md-12 sub_dos1 centrar">
+                        <p class="color_tam"><strong>ALIADOS</strong></p>
+                     </div>
+                  </div>
+               </div>
+              <div class="col dos">
+                  <div class="row">
+                     <div class="col-md-12 sub_dos centrar">
+                         <p class="color_tam"><strong>EMPRENDEDORES</strong></p>
+                     </div>
+                     <div class="col-md-12 sub_dos1 centrar">
+                        <p class="color_tam"><strong>RECURSOS</strong></p>
+                     </div>
+                  </div>
+               </div>
+            </div>
+           </div>
+          
+      </div>
+      <!--estadisticas-->
+      <div class="container cont_estadi">
+           <div class="row">
+               <div class="col-md-12 centrar">
+                   <h3 class="h3-responsive product-name "><strong>FORMA PARTE DEL CAMBIO</strong></h3>
+                   <p>HEROS IMPACTOS</p>
+               </div>
+            </div>
+            <div class="row justify-content-around">
+               <div class="col-md-3">
+                  <div class="row">
+                    <div class="col-md-12 img_center">
+                       <img class="tm_img " src="static/img/sub.png" alt="">
+                    </div>
+                    <div class="col-md-12 centrar">
+                       <p>+200</p>
+                    </div>
+                    <div class="col-md-12 centrar">
+                       <p>lorem input lorem inputlorem inputlorem inputlorem input</p>
+                    </div>
+                  </div>
+               </div>
+               <div class="col-md-3">
+                  <div class="row">
+                    <div class="col-md-12 img_center">
+                       <img class="tm_img " src="static/img/mun.png" alt="">
+                    </div>
+                    <div class="col-md-12 centrar">
+                       <p>+200</p>
+                    </div>
+                    <div class="col-md-12 centrar">
+                       <p>lorem input lorem inputlorem inputlorem inputlorem input</p>
+                    </div>
+                  </div>
+               </div>
+                <div class="col-md-3">
+                  <div class="row">
+                    <div class="col-md-12 img_center">
+                       <img class="tm_img " src="static/img/ali.png" alt="">
+                    </div>
+                    <div class="col-md-12 centrar">
+                       <p>+200</p>
+                    </div>
+                    <div class="col-md-12 centrar">
+                       <p>lorem input lorem inputlorem inputlorem inputlorem input</p>
+                    </div>
+                  </div>
+               </div>
+            </div>
+      </div>
+    
+    <!-- Start cursos -->
+    <div class="container-fluid contenedor1">
+    <div class="container mrgev1">
+        <div class="row text-center">
+            <div class="col-md-12 mrg3">
+                 <h4><b>Cursos online de emprendimiento</b></h4>
+            </div>
+        </div>
+
+        <div class="row justify-content-center row-cur">
+        {% for curso in cursos %}
+        <div class="col-md-4 col1">             
+            <div class="card">
+
+                <div class="view overlay hm-white-slight">
+                    <img src=" {{curso.portada.url}} " class="img-fluid" alt="" >
+                    <a href="{% url 'app_cursos:p_detalle' curso.slug %}">
+                        <div class="mask"></div>
+                    </a>
+                </div>
+        
+                <!--content-->
+                <div class="card-body">
+                    <!--Title-->
+                     <a href="{% url 'app_cursos:p_detalle' curso.slug %}"> <h4 class="card-title">{{curso.nombre}}</h4></a>
+                    <hr>
+                    <!--Text-->
+                    <p class="card-text">{{curso.resumen}}</p>
+                  <a href="{% url 'app_cursos:p_detalle' curso.slug %}" class="btn btn-primary">Ingresar</a>  
+                </div>
+                <!--content-->
+                    
+                <!-- footer -->
+                <div class="card-data">
+                    <ul >
+                        {% if curso.es_gratis %}
+                        <span class="btn-success">Gratis</span>
+                        {% else %}
+                        <span>S/. {{ curso.costo }}</span>
+                        {% endif %}
+                    </ul>
+                </div>
+                <!-- footer -->
+
+            </div>
+        </div>
+      {% endfor %}
+      </div>    
+    </div>
+        <div class="row justify-content-center ">
+            <div class="col-md-3 mrg5">
+                <a href=" {% url 'app_cursos:p_inicio' %} " class="btn btn-primary">Ver todo los Cursos </a>  
+            </div>    
+        </div>
+    </div>
+
+    <div class="continer-fluid cont_mensaj">
+        <div class="row">
+            <div class="col-md-12 centrar padi_index">
+                   <h3 class="h3-responsive product-name menja_ind"><strong>COMIENZA TU APRENDIZAJE</strong></h3>
+                   <p class="menja_ind">HEROS IMPACTOS</p>
+          </div>
+        </div>
+    </div>
+
+
+
+    
+{% endblock %}
+
+         
+                
+                              

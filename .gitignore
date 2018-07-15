@@ -1,0 +1,35 @@
+
+#GitIgnore de todas las migraciones
+aplicaciones/usuarios/migrations/*
+
+media/*
+#gitIgnore de Setting.py
+yachaycode/settings/base.py*
+public/*
+yachaycode/__pycache__/*
+local_settings.py
+
+# File types #
+##############
+*.pyo
+*.pyc
+*.swo
+*.swp
+*.swn
+
+# PyCharm project settings
+.idea
+
+# Directories #
+###############
+logs/
+
+# OS generated files #
+######################
+.DS_Store
+*.db
+Icon
+Thumbs.db
+*~HASLLAs
+,9   					
+
