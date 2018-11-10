@@ -1,10 +1,11 @@
 
 #GitIgnore de todas las migraciones
-aplicaciones/usuarios/migrations/*
+apps/usuarios/migrations/*
+apps/blog/migrations/*
 
 media/*
 #gitIgnore de Setting.py
-yachaycode/settings/base.py*
+yachaycode/settings/config.json
 public/*
 yachaycode/__pycache__/*
 local_settings.py

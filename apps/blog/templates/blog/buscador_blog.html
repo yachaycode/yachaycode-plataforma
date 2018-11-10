@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+<!-- Start cursos -->
+{% block title %}YachayCode | Buscador blog{% endblock title %}
+{% block contenido %}
+<!-- Start cursos -->
+    <div class="container">
+        <div class="row text-center marg2">
+           
+        </div>
+        <div class="row justify-content-center">
+                <div class="col-md-8 ">
+                    <!-- Search form -->
+                    <form method="GET" action="#" class="">
+                        <input class="form-control mr-sm-2" id="q" name="q" type="text" placeholder="Buscar..." aria-label="Search" />
+                    </form>
+                </div>
+        </div>
+        {% if blogs %}
+            <h2>{{ blogs.titulo }}</h2>
+            <p>{{ blogs.resumen }}</p>
+        {%else%}
+        <h5> No se encontraron resultados</h5>
+        {% endif %}
+
+        <div class="row justify-content-center">
+                            
+           <div class="col-md-4">
+                <div class="md-form">
+                <select class="form-control select_categorias_buscador" onchange="location = this.value;">
+                    <option value="">--------------</option>
+                    {% for categoria in categorias %}
+                         <option value=" {% url 'app_blog:p_buscador_categoria' categoria.slug %} "> {{categoria.nombre}} </option>
+                    {% endfor %}
+                </select> 
+                </div>
+            </div>
+
+           <div class="col-md-4">
+
+            </div>
+        </div>
+
+        <div class="row justify-content-center row-cur">
+        {% for blog in blogs %}
+        <div class="col-md-4 col1">             
+            <div class="card">
+
+                <div class="view overlay hm-white-slight">
+                    <img src=" {{blog.portada.url }} " class="img-fluid" alt="">
+                    <a href="{% url 'app_blog:p_detalle_blog' blog.slug %}">
+                        <div class="mask"></div>
+                    </a>
+                </div>
+        
+                <!--content-->
+                <div class="card-body">
+                    <!--Title-->
+                    <a href="{% url 'app_blog:p_detalle_blog' blog.slug %}"><h4 class="card-title">{{blog.titulo}}</h4></a>
+                    <hr>
+                    <!--Text-->
+                    <p class="card-text">{{ blog.resumen}} </p>  
+                  <a href=" {% url 'app_blog:p_detalle_blog' blog.slug %} " class="btn btn-primary">Ver detalles</a>
+                         
+              
+                </div>
+                <!--content-->
+                    
+                <!-- footer -->
+                <div class="card-data">
+                    {% if curso.es_gratis %}
+                        <span>Gratis</span>
+                    {% else %}
+                        <span>Premium</span>
+                    {% endif %}
+                </div>
+                <!-- footer -->
+
+            </div>
+        </div>
+        {% endfor %}
+        </div>  
+        <div class="paginador ">
+            <span class="step-links ">
+                {% if blogs.has_previous %}
+                    <a href="?page={{ blogs.previous_page_number }} {% if request.GET.q %} &q={{ request.GET.q}}  {%endif%}"> Anterior</a>
+                {% endif %}
+
+                <span class="current">
+                    Página {{ blogs.number }} de {{ blogs.paginator.num_pages }}.
+                </span>
+
+                {% if blogs.has_next %}
+                    <a href="?page={{ blogs.next_page_number }} {% if request.GET.q %} &q={{ request.GET.q}}  {%endif%}">Siguiente</a>
+                {% endif %}
+            </span>
+        </div>
+    </div>  
+{% endblock %}

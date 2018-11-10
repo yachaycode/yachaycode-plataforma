@@ -1,0 +1,16 @@
+{
+	"db-connection":{
+		"engine": "django.db.backends.postgresql_psycopg2",
+		"name":"db_yachaycode",
+		"user": "uappsebr",
+		"password":"sistemas",
+		"host":"localhost",
+		"port":"5432"
+	},
+	"sentry":{
+		"key":""
+	},
+	"secret_key": {
+		"key":"'bht8n^v8=8tw2@dq=5%=vap%&q26%$_bd#ov!srm5@+(0h)by('"
+	}
+}
