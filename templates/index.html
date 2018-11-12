@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Yachay Code - Inicio {% endblock title %}
+{% block title %}YachayCode - Inicio {% endblock title %}
 {% block contenido %}
 
  <!--/.start bannner-->
@@ -8,8 +8,8 @@
   <div class="row">
      <div class="col-md-6 centerv">
         <div class="vert-banner  mg-l">
-                <h2 class="title-banner"><b>Equipo Yachaycode</b></h2>
-              <p class="p-banner">suscribite para enterarte de toda las publicacion y nuevas actualizaciones sobre el mundo de la programacion.</p>
+                <h2 class="title-banner"><b>Equipo YachayCode</b></h2>
+              <p class="p-banner">Suscribite para enterarte de todas las publicaciones y actualizaciones relacionado al desarrollo de Software.</p>
 
               <form class="form-inline">
               <div class="container-1">
@@ -27,18 +27,20 @@
 <div class="container mb-lg1">
   <div class="row mt-5 mb-5">
     <div class="col-md-12 text-center">
-       <h5 class="color-title" id="myModalLabel"><b>Ultimas publicaciones</b></h5>
+       <h5 class="color-title" id="myModalLabel"><b>Últimas publicaciones</b></h5>
     </div>
   </div>
+   
   <div class="row mb-5">
+  {% for blog in blogs %}
     <div class="col-md-4">
       <!-- Card -->
         <div class="card">
 
           <!-- Card image -->
           <div class="view overlay">
-            <img class="card-img-top" src="static/img/img.jpg" alt="Card image cap">
-            <a href="#">
+            <img class="card-img-top" src="{{ blog.portada.url }}" alt="Card image cap">
+            <a href="{% url 'app_blog:p_detalle_blog' blog.slug %}">
               <div class="mask rgba-white-slight"></div>
             </a>
           </div>
@@ -47,29 +49,27 @@
           <div class="card-body">
 
             <!-- Title -->
-            <a href="#"><h5 class="card-title">Curso profesional de django.</h5></a>
+            <a href="#"><h5 class="card-title">{{blog.titulo}}</h5></a>
             <!-- Text -->
-            <p class="card-text">el mejor curso de programacion para personas intermedio que dominen este lenguaje de progracion </p>
+            <p class="card-text">{{blog.resumen}} </p>
             <!-- Button -->
           
 
           </div>
            <!-- Card footer -->
             <div class="rounded-bottom  lighten-3  pt-3 ">
-
-
               <div class="row pd-gblog mb-1">
                   <div class="col-md-8">
                     <div class="row">
                         <div class="col-md-2 ">
                               <div class="avatar-blog ">
-                              <img src="static/img/user.jpg" class="rounded-circle img-fluid">
+                              <img src="{{ blog.autor.perfil_usuario.foto.url }}" class="rounded-circle img-fluid">
                               </div>
                         </div>
                           
                         <div class="col-md-10  pd-lblog cy-blog">
-                            <p class="text-avatar mpg">Posteado por <b>alejo</b></p>
-                            <p class="text-avatar mpg">5 Julio,2018</p>
+                            <p class="text-avatar mpg">Posteado por <b>{{ blog.autor.perfil_usuario.nombres }} {{ blog.autor.perfil_usuario.apellidos }}</b></p>
+                            <p class="text-avatar mpg">{{blog.fecha_publicacion|date:"d M, Y"}}</p>
                         </div>
                     </div>
                   </div>
@@ -83,276 +83,8 @@
         </div>
         <!-- Card -->
     </div>
-
-        <div class="col-md-4">
-      <!-- Card -->
-        <div class="card">
-
-          <!-- Card image -->
-          <div class="view overlay">
-            <img class="card-img-top" src="static/img/img.jpg" alt="Card image cap">
-            <a href="#">
-              <div class="mask rgba-white-slight"></div>
-            </a>
-          </div>
-
-          <!-- Card content -->
-          <div class="card-body">
-
-            <!-- Title -->
-            <a href="#"><h5 class="card-title">Curso profesional de django.</h5></a>
-            <!-- Text -->
-            <p class="card-text">el mejor curso de programacion para personas intermedio que dominen este lenguaje de progracion </p>
-            <!-- Button -->
-          
-
-          </div>
-           <!-- Card footer -->
-            <div class="rounded-bottom  lighten-3  pt-3 ">
-
-
-              <div class="row pd-gblog mb-1">
-                  <div class="col-md-8">
-                    <div class="row">
-                        <div class="col-md-2 ">
-                              <div class="avatar-blog ">
-                              <img src="static/img/user.jpg" class="rounded-circle img-fluid">
-                              </div>
-                        </div>
-                          
-                        <div class="col-md-10  pd-lblog cy-blog">
-                            <p class="text-avatar mpg">Posteado por <b>alejo</b></p>
-                            <p class="text-avatar mpg">5 Julio,2018</p>
-                        </div>
-                    </div>
-                  </div>
-
-                  <div class="col-md-4 cy-blog">
-                    <p class="text-avatar mpg">Leelo en 3 min.</p>
-                </div>
-            </div>
-
-          </div>
-        </div>
-        <!-- Card -->
-    </div>
-  <div class="col-md-4">
-      <!-- Card -->
-        <div class="card">
-
-          <!-- Card image -->
-          <div class="view overlay">
-            <img class="card-img-top" src="static/img/img.jpg" alt="Card image cap">
-            <a href="#">
-              <div class="mask rgba-white-slight"></div>
-            </a>
-          </div>
-
-          <!-- Card content -->
-          <div class="card-body">
-
-            <!-- Title -->
-            <a href="#"><h5 class="card-title">Curso profesional de django.</h5></a>
-            <!-- Text -->
-            <p class="card-text">el mejor curso de programacion para personas intermedio que dominen este lenguaje de progracion </p>
-            <!-- Button -->
-          
-
-          </div>
-           <!-- Card footer -->
-            <div class="rounded-bottom  lighten-3  pt-3 ">
-
-
-              <div class="row pd-gblog mb-1">
-                  <div class="col-md-8">
-                    <div class="row">
-                        <div class="col-md-2 ">
-                              <div class="avatar-blog ">
-                              <img src="static/img/user.jpg" class="rounded-circle img-fluid">
-                              </div>
-                        </div>
-                          
-                        <div class="col-md-10  pd-lblog cy-blog">
-                            <p class="text-avatar mpg">Posteado por <b>alejo</b></p>
-                            <p class="text-avatar mpg">5 Julio,2018</p>
-                        </div>
-                    </div>
-                  </div>
-
-                  <div class="col-md-4 cy-blog">
-                    <p class="text-avatar mpg">Leelo en 3 min.</p>
-                </div>
-            </div>
-
-          </div>
-        </div>
-        <!-- Card -->
-    </div>
-        
-    </div>
-
-
-    <div class="row mb-5">
-    <div class="col-md-4">
-      <!-- Card -->
-        <div class="card">
-
-          <!-- Card image -->
-          <div class="view overlay">
-            <img class="card-img-top" src="static/img/img.jpg" alt="Card image cap">
-            <a href="#">
-              <div class="mask rgba-white-slight"></div>
-            </a>
-          </div>
-
-          <!-- Card content -->
-          <div class="card-body">
-
-            <!-- Title -->
-            <a href="#"><h5 class="card-title">Curso profesional de django.</h5></a>
-            <!-- Text -->
-            <p class="card-text">el mejor curso de programacion para personas intermedio que dominen este lenguaje de progracion </p>
-            <!-- Button -->
-          
-
-          </div>
-           <!-- Card footer -->
-            <div class="rounded-bottom  lighten-3  pt-3 ">
-
-
-              <div class="row pd-gblog mb-1">
-                  <div class="col-md-8">
-                    <div class="row">
-                        <div class="col-md-2 ">
-                              <div class="avatar-blog ">
-                              <img src="static/img/user.jpg" class="rounded-circle img-fluid">
-                              </div>
-                        </div>
-                          
-                        <div class="col-md-10  pd-lblog cy-blog">
-                            <p class="text-avatar mpg">Posteado por <b>alejo</b></p>
-                            <p class="text-avatar mpg">5 Julio,2018</p>
-                        </div>
-                    </div>
-                  </div>
-
-                  <div class="col-md-4 cy-blog">
-                    <p class="text-avatar mpg">Leelo en 3 min.</p>
-                </div>
-            </div>
-
-          </div>
-        </div>
-        <!-- Card -->
-    </div>
-
-        <div class="col-md-4">
-      <!-- Card -->
-        <div class="card">
-
-          <!-- Card image -->
-          <div class="view overlay">
-            <img class="card-img-top" src="static/img/img.jpg" alt="Card image cap">
-            <a href="#">
-              <div class="mask rgba-white-slight"></div>
-            </a>
-          </div>
-
-          <!-- Card content -->
-          <div class="card-body">
-
-            <!-- Title -->
-            <a href="#"><h5 class="card-title">Curso profesional de django.</h5></a>
-            <!-- Text -->
-            <p class="card-text">el mejor curso de programacion para personas intermedio que dominen este lenguaje de progracion </p>
-            <!-- Button -->
-          
-
-          </div>
-           <!-- Card footer -->
-            <div class="rounded-bottom  lighten-3  pt-3 ">
-
-
-              <div class="row pd-gblog mb-1">
-                  <div class="col-md-8">
-                    <div class="row">
-                        <div class="col-md-2 ">
-                              <div class="avatar-blog ">
-                              <img src="static/img/user.jpg" class="rounded-circle img-fluid">
-                              </div>
-                        </div>
-                          
-                        <div class="col-md-10  pd-lblog cy-blog">
-                            <p class="text-avatar mpg">Posteado por <b>alejo</b></p>
-                            <p class="text-avatar mpg">5 Julio,2018</p>
-                        </div>
-                    </div>
-                  </div>
-
-                  <div class="col-md-4 cy-blog">
-                    <p class="text-avatar mpg">Leelo en 3 min.</p>
-                </div>
-            </div>
-
-          </div>
-        </div>
-        <!-- Card -->
-    </div>
-  <div class="col-md-4">
-      <!-- Card -->
-        <div class="card">
-
-          <!-- Card image -->
-          <div class="view overlay">
-            <img class="card-img-top" src="static/img/img.jpg" alt="Card image cap">
-            <a href="#">
-              <div class="mask rgba-white-slight"></div>
-            </a>
-          </div>
-
-          <!-- Card content -->
-          <div class="card-body">
-
-            <!-- Title -->
-            <a href="#"><h5 class="card-title">Curso profesional de django.</h5></a>
-            <!-- Text -->
-            <p class="card-text">el mejor curso de programacion para personas intermedio que dominen este lenguaje de progracion </p>
-            <!-- Button -->
-          
-
-          </div>
-           <!-- Card footer -->
-            <div class="rounded-bottom  lighten-3  pt-3 ">
-
-
-              <div class="row pd-gblog mb-1">
-                  <div class="col-md-8">
-                    <div class="row">
-                        <div class="col-md-2 ">
-                              <div class="avatar-blog ">
-                              <img src="static/img/user.jpg" class="rounded-circle img-fluid">
-                              </div>
-                        </div>
-                          
-                        <div class="col-md-10  pd-lblog cy-blog">
-                            <p class="text-avatar mpg">Posteado por <b>alejo</b></p>
-                            <p class="text-avatar mpg">5 Julio,2018</p>
-                        </div>
-                    </div>
-                  </div>
-
-                  <div class="col-md-4 cy-blog">
-                    <p class="text-avatar mpg">Leelo en 3 min.</p>
-                </div>
-            </div>
-
-          </div>
-        </div>
-        <!-- Card -->
-    </div>
-        
-    </div>
-
+  {% endfor %}
+  </div>
 
   </div>
 

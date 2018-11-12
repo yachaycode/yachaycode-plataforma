@@ -4,7 +4,7 @@
 <nav class="navbar fixed-top navbar-expand-lg navbar-light white ">
 
   <!-- Navbar brand -->
-  <a class="navbar-brand" href="#"><img src="static/img/logos.png"></a>
+  <a class="navbar-brand" href="/"><img src="{% static "img/logos.png" %} "></a>
 
   <!-- Collapse button -->
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
@@ -18,15 +18,11 @@
     <!-- Links -->
     <ul class="navbar-nav mr-auto">
      
-      <li class="nav-item ">
-        <a class="nav-link" href="#">Inicio
-        </a>
-      </li>
       <li class="nav-item">
         <a class="nav-link" href="#">Nosotros</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Blog</a>
+        <a class="nav-link" href="{% url 'app_blog:p_inicio' %} ">Blog</a>
       </li>
     </ul>
     <!-- Links -->

@@ -16,6 +16,7 @@ from django.shortcuts import get_object_or_404
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.http import JsonResponse
+from apps.blog.models import Blog
 # importacio para APIS
 # from .serializers import UsuarioSerializer, GroupSerializer
 # from django.contrib.auth.models import Group
@@ -103,8 +104,9 @@ class Index_principal(TemplateView):
         context = super(Index_principal,
                         self).get_context_data(**kwargs)
         # context['inscripcion_usuario'] = UsuarioForm()
+        context['blogs'] = Blog.objects.filter(
+        estado=True).order_by('fecha_publicacion')[:6]
         # pasamos un conjunto de numeros en un rango
-        
         return context
 
 

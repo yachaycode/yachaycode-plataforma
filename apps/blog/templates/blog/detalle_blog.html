@@ -3,37 +3,173 @@
 {% load static %}
 {% load markdown_deux_tags %}
 {% block contenido %}
-<!--stard detalles blog-->
-<div class="container-fluid">
-  <div class="container col-md-9">
-    <div class="row">
-      <div class="col-md-12">
-        <a  href=" {% url 'app_blog:p_inicio' %} "><i class="fas fa-arrow-left mr-2"></i><span>Blog</span></a>
-      </div>
-    </div>
-    <div class="row ">
-      <div class="col-md-12">
-           <h2 class="h2-responsive  mb-5 mt-4"><b> {{detalle_blog.titulo}}</b></h2>
-      </div>
-      <div class="col-md-12">
-         <img src="{{detalle_blog.portada.url}}" class=" img-fluid">            
-          <div class="col-md-12 mt-2 mpg mb-4">
-              <span class="  mr-5">Posteado por :<b>{{ detalle_blog.autor.perfil_usuario.nombres }} {{ detalle_blog.autor.perfil_usuario.apellidos }}</b></span>
-              <span class="">{{detalle_blog.fecha_publicacion|date:"d M, Y"}}</span>
+  <!-- detalle blog -->
+  <div class="single-w3l py-5">
+    <div class="container py-xl-5 py-lg-3">
+      <h3 class="title text-capitalize font-weight-light text-dark text-center mb-5">Programacion orientada a objetos con Django 12
+      </h3>
+      <div class="row inner_sec_info pt-md-4">
+        <!-- left side -->
+        <div class="col-lg-8 single-left">
+          <div class="single-left1">
+            <img src="{{detalle_blog.portada.url}}" alt=" " class="img-fluid" />
+            <h6 class="blog-first text-dark text-center my-4">
+              <i class="far fa-user mr-2"></i>{{ detalle_blog.autor.perfil_usuario.nombres }} {{ detalle_blog.autor.perfil_usuario.apellidos }}
+            </h6>
+            <ul class="blog_list my-3 text-center">
+              <li>{{detalle_blog.fecha_publicacion|date:"d M, Y"}}</li>
+              <li class="mx-3">
+                <a href="#">
+                  <i class="far fa-heart mr-1"></i>
+                  22</a>
+              </li>
+              <li>
+                <a href="#">
+                  <i class="far fa-comments mr-1"></i>
+                  16</a>
+              </li>
+            </ul>
+            <h5 class="card-title">
+              <a href="#" class="text-dark">{{detalle_blog.titulo}}</a>
+            </h5>
+            <p>
+              {{detalle_blog.contenido|markdown:"STYLE"}}
+            </p>
           </div>
+      
+          <div class="comments my-5">
+            <h3 class="blog-title text-dark">Articulos relacionados</h3>
+            <div class="comments-grids mt-4">
+
+              <div class="row comments-grid">
+                <div class="col-3 comments-grid-left">
+                 <img src="{% static "img/im.jpg" %} " alt=" " class="img-fluid" />
+                </div>
+                <div class="col-8 comments-grid-right mt-3">
+                 <a href="#"> <h5>Maquetacion adobe mouse</h5></a>
+                
+                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio magni, necessitatibus </p>
+                </div>
+              </div>
+
+
+              <div class="row comments-grid my-4">
+                <div class="col-3 comments-grid-left">
+                  <img src="{% static "img/im.jpg" %}" alt=" " class="img-fluid" />
+                </div>
+                <div class="col-8 comments-grid-right mt-3">
+                 <a href="#"> <h5>Maquetacion adobe mouse</h5></a>
+                
+                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio magni, necessitatibus holiiiiiiiiiii</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- //left side -->
+        <!-- right side -->
+        <div class="col-lg-4 event-right mt-lg-0 mt-sm-5 mt-5">
+          <div class="event-right1">
+
+            <div class="categories my-4 p-4 border">
+              <h3 class="blog-title text-dark">Categorias</h3>
+              <ul>
+                <li class="mt-3">
+                  <i class="fas fa-check mr-2"></i>
+                  <a href="single.html">programacion Django</a>
+                </li>
+                <li class="mt-3">
+                  <i class="fas fa-check mr-2"></i>
+                  <a href="single.html">Servidores</a>
+                </li>
+                <li class="mt-3">
+                  <i class="fas fa-check mr-2"></i>
+                  <a href="single.html">programacion java</a>
+                </li>
+                <li class="mt-3">
+                  <i class="fas fa-check mr-2"></i>
+                  <a href="single.html">diseno web</a>
+                </li>
+                <li class="mt-3">
+                  <i class="fas fa-check mr-2"></i>
+                  <a href="single.html">worpress</a>
+                </li>
+              
+              </ul>
+            </div>
+
+            <div class="posts p-4 border">
+              <h3 class="blog-title text-dark">Talleres</h3>
+              <div class="posts-grids">
+                <div class="row posts-grid mt-4">
+                  <div class="col-lg-4 col-md-3 col-4 posts-grid-left pr-0">
+                    <a href="single.html">
+                      <img src="{% static "img/im.jpg" %}" alt=" " class="img-fluid" />
+                    </a>
+                  </div>
+                  <div class="col-lg-8 col-md-7 col-8 posts-grid-right mt-lg-0 mt-md-5 mt-sm-4">
+                    <h4>
+                      <a href="single.html" class="text-dark">scraping con pyhon</a>
+                    </h4>
+                    <ul class="wthree_blog_events_list mt-2">
+                      <li class="mr-2 text-dark">
+                        <i class="fa fa-calendar mr-2" aria-hidden="true"></i>15/05/18</li>
+                      <li>
+                        <i class="fa fa-user" aria-hidden="true"></i>
+                        <a href="single.html" class="text-dark ml-2">Admin</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="row posts-grid mt-4">
+                  <div class="col-lg-4 col-md-3 col-4 posts-grid-left pr-0">
+                    <a href="single.html">
+                     <img src="{% static "img/im.jpg" %}" alt=" " class="img-fluid" />
+                    </a>
+                  </div>
+                  <div class="col-lg-8 col-md-7 col-8 posts-grid-right mt-lg-0 mt-md-5 mt-sm-4">
+                    <h4>
+                      <a href="single.html" class="text-dark">Java desde cero</a>
+                    </h4>
+                    <ul class="wthree_blog_events_list mt-2">
+                      <li class="mr-2 text-dark">
+                        <i class="fa fa-calendar mr-2" aria-hidden="true"></i>23/05/18</li>
+                      <li>
+                        <i class="fa fa-user" aria-hidden="true"></i>
+                        <a href="single.html" class="text-dark ml-2">Admin</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="row posts-grid mt-4">
+                  <div class="col-lg-4 col-md-3 col-4 posts-grid-left pr-0">
+                    <a href="single.html">
+                    <img src="{% static "img/im.jpg" %}" alt=" " class="img-fluid" />
+                    </a>
+                  </div>
+                  <div class="col-lg-8 col-md-7 col-8 posts-grid-right mt-lg-0 mt-md-5 mt-sm-4">
+                    <h4>
+                      <a href="single.html" class="text-dark">Arduino Abanzado </a>
+                    </h4>
+                    <ul class="wthree_blog_events_list mt-2">
+                      <li class="mr-2 text-dark">
+                        <i class="fa fa-calendar mr-2" aria-hidden="true"></i>13/06/18</li>
+                      <li>
+                        <i class="fa fa-user" aria-hidden="true"></i>
+                        <a href="single.html" class="text-dark ml-2">Admin</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+         
+          </div>
+        </div>
+        <!-- //right side -->
       </div>
     </div>
-    <div class="row ">
-        <div class="col-md-12">
-          <h4 class="h4-responsive "><b>{{detalle_blog.titulo}}</b></h4>
-        </div>
-        <div class="col-md-12">
-          <p align="justify">
-            {{detalle_blog.contenido|markdown:"STYLE"}}
-          </p>
-        </div>
-      </div>
   </div>
-</div>
-<!--end detalles blog-->
-{% endblock contenido %}
+  <!-- //blog -->
+  {% endblock contenido %}

@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import ListView, TemplateView, DetailView
-from .models import Blog
-from .models import Categoria
+from .models import Blog as Blogs, Categoria
 from django.db.models import Q
 # para paginador
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -10,12 +9,11 @@ class Blog(ListView):
     """docstring for ver_todas_tortas"""
     context_object_name = 'blogs'
     template_name = 'blog/blog.html'
-    queryset = Blog.objects.filter(
+    queryset = Blogs.objects.filter(
         estado=True).order_by('fecha_publicacion')
 
     def get_context_data(self, *args, **kwargs):
-        context_data = super(
-            Blog, self).get_context_data(*args, **kwargs)
+        context_data = super(Blog, self).get_context_data(*args, **kwargs)
         # realizamos consulta de todos los categorias de blogs
         context_data['categorias_blog'] = Categoria.objects.all()
         return context_data
@@ -25,7 +23,7 @@ class Detalle_blog(DetailView):
     # ordenar los modulos segun el orden de creacion
     context_object_name = 'detalle_blog'
     template_name = "blog/detalle_blog.html"
-    model = Blog
+    model = Blogs
     slug_field = 'slug'
 
 
@@ -38,7 +36,7 @@ def buscador_blog(request):
     consulta = request.GET.get('q', '')
     lista_blogs = None
     if consulta:
-        lista_blogs = Blog.objects.filter(
+        lista_blogs = Blogs.objects.filter(
             Q(titulo__icontains=consulta) |
             Q(resumen__icontains=consulta) |
             Q(palabras_clave__icontains=consulta) |
@@ -67,7 +65,7 @@ def buscador_blog(request):
 
 def buscador_categoria(request, slug):
     try:
-        consulta = Blog.objects.filter(
+        consulta = Blogs.objects.filter(
             categorias__slug=slug)
         categorias = Categoria.objects.all()
         return render(request, 'blog/buscador_blog.html',
