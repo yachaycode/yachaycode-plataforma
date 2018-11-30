@@ -71,4 +71,7 @@ def buscador_categoria(request, slug):
         return render(request, 'blog/buscador_blog.html',
                       {'blogs': consulta, 'categorias': categorias})
     except Exception as e:
-        raise e
+        raise 
+
+class AcercaDe(TemplateView):
+    template_name = 'blog/nosotros.html'

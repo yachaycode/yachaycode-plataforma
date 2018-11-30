@@ -11,13 +11,19 @@
                 <h2 class="title-banner"><b>Equipo YachayCode</b></h2>
               <p class="p-banner">Suscribite para enterarte de todas las publicaciones y actualizaciones relacionado al desarrollo de Software.</p>
 
-              <form class="form-inline">
+              <form class="form-inline" method="GET" action="/blog/buscador">
               <div class="container-1">
                     <span class="icon"><i class="fa fa-search"></i></span>
-                    <input class="form-control search" type="search" id="" placeholder="Buscar .." />
-                </div>
+                    <input class="form-control search" type="text" id="q" name="q" placeholder="Buscar .." />
+              </div>
             </form>  
         </div>
+        {% if blogs %}
+            <h2>{{ blogs.titulo }}</h2>
+            <p>{{ blogs.resumen }}</p>
+        {%else%}
+        <h5> No se encontraron resultados</h5>
+        {% endif %}
      </div>
      <div class="col-md-6 img-banner"></div>
   </div>
@@ -49,7 +55,7 @@
           <div class="card-body">
 
             <!-- Title -->
-            <a href="#"><h5 class="card-title">{{blog.titulo}}</h5></a>
+            <a href="{% url 'app_blog:p_detalle_blog' blog.slug %}"><h5 class="card-title">{{blog.titulo}}</h5></a>
             <!-- Text -->
             <p class="card-text">{{blog.resumen}} </p>
             <!-- Button -->
