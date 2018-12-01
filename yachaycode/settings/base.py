@@ -24,6 +24,8 @@ ALLOWED_HOSTS = ['*']
 INSTALLED_APPS = [
     'suit',
     'django.contrib.admin',
+    # para comentarios discus
+    'django.contrib.sites',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -35,8 +37,11 @@ INSTALLED_APPS = [
     'import_export',
     'pagedown',
     'markdown_deux',
-    'apps.blog'
+    'apps.blog',
+    'disqus'
 ]
+
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -58,6 +63,11 @@ ROOT_URLCONF = 'yachaycode.urls'
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # Envio en verdad a un Correo
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+# COMMENT DISCUS
+
+DISQUS_API_KEY = 'SpRepBAGdrpkBIKuJRDj9QikL2flnCprp1jWHx98EyMCNc3VIZTA8DaFiiWSJ8iO'
+DISQUS_WEBSITE_SHORTNAME = 'Yachaycode'
 
 # para login y de paso reutilizaremos para autenticacion con redes sociales
 LOGIN_URL = 'iniciar_sesion'  #estamos llamando por su nombre del Url no por su URL
