@@ -4,17 +4,16 @@
 {% block contenido %}
 <div class="container-fluid bg-mora">
  <div class="container pt-lg pb-5">
-    <div class="row justify-content-center ">
-    <div class="col-md-8">
+    <div class="row justify-content-center">
+  
       <!-- Search form -->
-        <div class="container-1">
-            <span class="icon"><i class="fa fa-search"></i></span>
+        <div class="col-md-9 container-1">
+            <span class="icon1"><i class="fa fa-search"></i></span>
             <form  method="GET" action="{% url 'app_blog:p_buscador_blog' %}" > 
             <input class="form-control search pl" type="search" id="q" name="q" placeholder="Buscar Topicos ..." />
             </form>
         </div>
 
-    </div>
   </div>
   <div class="row justify-content-center mt-4">
     <div class="col-md-9">
@@ -35,7 +34,7 @@
   </div>
   <div class="row">
     {% for blog in blogs %}
-    <div class="col-md-3">
+    <div class="col-md-3 ">
       <!-- Card -->
         <div class="card">
 
