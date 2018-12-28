@@ -30,7 +30,7 @@ body {
   left: 1em;
   top: 1.4em;
   z-index: 2;
-  color: #533259;
+  color: #00c6ff;
 }
 .container-1 .icon1{
   position: absolute;
@@ -42,6 +42,7 @@ body {
 
   .container-1 .search{
   height: 35px;
+  width: 100%;
   background-color: #FAFAFA;
   font-size: 15px;
   color: #533259;
@@ -61,7 +62,8 @@ body {
   height: 355px;
 }
 .banner{
-background-image: linear-gradient(to right, #EDEDED , #FCFCFC);
+background-color: #2b3034;
+border-bottom: 2px solid #00c6ff;
 }
 @media only screen and (max-width: 768px) {
   .img-banner{
@@ -78,10 +80,10 @@ background-image: linear-gradient(to right, #EDEDED , #FCFCFC);
 padding-left: 5em;
 }
 .title-banner{
-  color: var(--blue1);
+  color: #00c6ff;
 }
 .p-banner{
-  color: var(--blue1);
+  color: #dedfdf;
 }
 .vert-banner{
   background: ;
@@ -133,11 +135,10 @@ padding-left: 5em;
 /*end blog*/
 /*footer*/
 .fond_footer{
-  /*background-color: var(--blue1);*/
-  background-image: linear-gradient(#f8f8f8, #009BFF);
+  background-color: var(--blue1);
 }
 .footer_icon{
-  color: var(--blue1);
+  color: white;
   margin-right: 1em;
 }
 
@@ -833,4 +834,7 @@ html {
 }
 .pt-s{
   padding-top: 0.4rem;
+}
+.card-title{
+  color: var(--blue1);
 }

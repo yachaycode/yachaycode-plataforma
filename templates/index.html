@@ -7,17 +7,16 @@
 <div class="container-fluid banner pt-general">
   <div class="row">
      <div class="col-md-6 centerv">
-        <div class="vert-banner  mg-l">
-                <h2 class="title-banner"><b>Equipo YachayCode</b></h2>
+       <form class="form-inline" method="GET" action="/blog/buscador">
+        <div class="row vert-banner  mg-l">
+                <h2 class="title-banner pb-2"><b>Equipo YachayCode</b></h2>
               <p class="p-banner">Suscribite para enterarte de todas las publicaciones y actualizaciones relacionado al desarrollo de Software.</p>
-
-              <form class="form-inline" method="GET" action="/blog/buscador">
-              <div class="container-1 pt-3">
+              <div class="col-md-9 container-1 pt-3 p-0 m-0">
                     <span class="icon"><i class="fa fa-search"></i></span>
                     <input class="form-control search" type="text" id="q" name="q" placeholder="Buscar .." />
-              </div>
-            </form>  
+              </div>     
         </div>
+        </form>
         {% if blogs %}
             <h2>{{ blogs.titulo }}</h2>
             <p>{{ blogs.resumen }}</p>

@@ -59,11 +59,7 @@
           </div>
            <!-- Card footer -->
             <div class="rounded-bottom  lighten-3  pt-3 ">
-
-
               <div class="row pd-gblog mb-1">
-                  <div class="col-md-8">
-                    <div class="row">
                         <div class="col-md-2 ">
                               <div class="avatar-blog ">
                               <img src="{{ blog.autor.perfil_usuario.foto.url }}" class="rounded-circle img-fluid">
@@ -73,13 +69,7 @@
                         <div class="col-md-10  pd-lblog cy-blog">
                             <p class="text-avatar mpg">Posteado por <b>{{ blog.autor.perfil_usuario.nombres }} {{ blog.autor.perfil_usuario.apellidos }}</b></p>
                             <p class="text-avatar mpg">{{blog.fecha_publicacion|date:"d M, Y"}}</p>
-                        </div>
-                    </div>
-                  </div>
-
-                  <div class="col-md-3 cy-blog">
-                    <p class="text-avatar mpg">Leelo en 3 min.</p>
-                </div>
+                        </div>        
             </div>
 
           </div>
