@@ -1,7 +1,7 @@
 from django.conf.urls import url
 # para poder importar las imagenes
 from .views import (Blog, Detalle_blog, buscador_blog,
-					buscador_categoria, AcercaDe)
+					buscador_categoria, AcercaDe, contador_visitas)
 # from views import Usuarios
 from django.conf import settings
 from django.urls import path, include
@@ -15,6 +15,7 @@ urlpatterns = [
     url(r'^$', Blog.as_view(),
         name='p_inicio'),
     url(r'^buscador/$', buscador_blog, name='p_buscador_blog'),
+    url(r'^contador-visitas-ajax/$', contador_visitas, name='p_contador_visitas'),
     url(r'^acerca/$', AcercaDe.as_view(), name='p_acerca_de'),
     url(r'^buscador/categorias/(?P<slug>[^/]+)/$',
         buscador_categoria, name='p_buscador_categoria'),

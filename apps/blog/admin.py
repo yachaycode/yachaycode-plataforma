@@ -47,7 +47,7 @@ class ContadorVisita_resource(resources.ModelResource):
 
 
 class ContadorVisita_admin(ImportExportModelAdmin):
-	list_display = ('blog','contador','fecha_creacion')
+	list_display = ('blog','contador','fecha_visita')
 	search_fields = ('blog__titulo',)
 	resource_class = ContadorVisita_resource
 
