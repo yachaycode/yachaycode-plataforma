@@ -10,7 +10,7 @@
       <div class="row inner_sec_info pt-md-4 pt-sm-8 justify-content-center">
         <!-- left side -->
         <div class="col-md-10  col-11 single-left card1">
-          <h2 class="text-dark text-center mb-3 pt-4 strong">Programacion orientada a objetos con Django 12</h2>
+          <h2 class="text-dark text-center mb-3 pt-4 strong">{{detalle_blog.titulo}}</h2>
              <ul class="blog_list my-3 text-center">
               <li>{{detalle_blog.fecha_publicacion|date:"d M, Y"}}</li>
               <li class="mx-3">
@@ -25,7 +25,7 @@
               </li>
                <li>
               
-                 <span class="ml-3">tecnologias</span>
+                 <span class="ml-3">tecnologías</span>
                   
               </li>
             </ul>
@@ -42,63 +42,31 @@
             </p>
           </div>
           <!--stard relacionados-->
-            <div class="container-fluid m-0 p-0 ">
+          <div class="container-fluid m-0 p-0 ">
             <hr class="mt-5 mb-4">
-         <h3 class="blog-title text-dark mb-4">Articulos relacionados</h3>
+              <h3 class="blog-title text-dark mb-4">Artículos relacionados</h3>
               <div class="row">
-              <div class="col-md-4">
-                <!-- Card -->
-                <div class="">
+                {% if detalle_blog.posts_relacionados.all %}
+                  {% for post_relacionado in detalle_blog.posts_relacionados.all  %}
+                    <div class="col-md-4">
+                      <!-- Card -->
+                      <div class="">
 
-                  <!-- Card image -->
-                  <img class="card-img-top" src="{% static "img/img1.jpg" %}" alt="Card image cap">
+                        <!-- Card image -->
+                        <a href="{% url 'app_blog:p_detalle_blog' post_relacionado.slug %}"> <img class="card-img-top" src="{{post_relacionado.portada.url}}" alt="Card image cap"></a>
 
-                  <!-- Card content -->
-                  <div class="mt-2">
+                        <!-- Card content -->
+                        <div class="mt-2">
 
-                   <a href="#"><h5 class="card-title">Curso completo de django</h5></a>
-                  </div>
+                         <a href="{% url 'app_blog:p_detalle_blog' post_relacionado.slug %}"><h5 class="card-title">{{post_relacionado.titulo}}</h5></a>
+                        </div>
 
-                </div>
-                <!-- Card -->
-              </div>
-                <div class="col-md-4">
-                  <!-- Card -->
-                  <div class="">
-
-                    <!-- Card image -->
-                    <img class="card-img-top" src="{% static "img/img2.jpg" %}" alt="Card image cap">
-
-                    <!-- Card content -->
-                    <div class="mt-2">
-
-                      <!-- Title -->
-                      <a href="#"><h5 class="card-title">Curso completo de django y boostrap</h5></a>
-                  
+                      </div>
+                      <!-- Card -->
                     </div>
-
-                  </div>
-                  <!-- Card -->
-                </div>
-                 <div class="col-md-4">
-                  <!-- Card -->
-                  <div class="">
-
-                    <!-- Card image -->
-                    <img class="card-img-top" src="{% static "img/img2.jpg" %}" alt="Card image cap">
-
-                    <!-- Card content -->
-                    <div class="mt-2">
-
-                      <!-- Title -->
-                      <a href="#"><h5 class="card-title">Curso completo de django y boostrap</h5></a>
-                  
-                    </div>
-
-                  </div>
-                  <!-- Card -->
-                </div>
-              </div>
+                  {% endfor %}
+                {% endif %}
+             </div>
           </div>
              
         </div>
@@ -121,8 +89,8 @@
    
  </div>     
  <span class="btn-escribir whatsap text-center">
-    <a href="#"> <img class="img-whtsap1" src="/static/img/whatsapp.png"></a>
-    <a href="#"> <img class="img-whtsap" src="/static/img/messenger.png"></a>
+    <a href="https://api.whatsapp.com/send?phone=51983679449&text=Hola%20YachayCode..!" target="_blank"> <img class="img-whtsap1" src="/static/img/whatsapp.png" ></a>
+    <a href="https://www.messenger.com/t/618908005122073" target="_blank"> <img class="img-whtsap" src="/static/img/messenger.png"></a>
  </span>
 
   {% endblock contenido %}
