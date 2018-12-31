@@ -12,6 +12,11 @@
         <div class="col-md-10  col-11 single-left card1">
           <h2 class="text-dark text-center mb-3 pt-4 strong">{{detalle_blog.titulo}}</h2>
              <ul class="blog_list my-3 text-center">
+             <li>
+              
+              <i class="far fa-user mr-2"></i>{{ detalle_blog.autor.perfil_usuario.nombres }} {{ detalle_blog.autor.perfil_usuario.apellidos }}
+       
+             </li>
               <li>{{detalle_blog.fecha_publicacion|date:"d M, Y"}}</li>
               <li class="mx-3">
               
@@ -23,18 +28,10 @@
                   <i class="far fa-comments mr-1"></i>
                   16
               </li>
-               <li>
-              
-                 <span class="ml-3">tecnologías</span>
-                  
-              </li>
             </ul>
           <div class="single-left1">
             <img src="{{detalle_blog.portada.url}}" alt=" " class="img-fluid" />
-            <h6 class="blog-first text-dark text-center my-4">
-              <i class="far fa-user mr-2"></i>{{ detalle_blog.autor.perfil_usuario.nombres }} {{ detalle_blog.autor.perfil_usuario.apellidos }}
-            </h6>
-            <h5 class="card-title">
+            <h5 class="card-title pt-4">
               <a href="#" class="text-dark">{{detalle_blog.titulo}}</a>
             </h5>
             <p>
