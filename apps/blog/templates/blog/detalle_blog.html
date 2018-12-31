@@ -65,16 +65,17 @@
                     {% endfor %}
                </div>
                 <!---->
-                 <div class="row mt-4">
-                  <div class="col-md-12">
-                    <ul class="categoria m-0 p-0">
-                      <li><a href="#"><span>django</span></a></li>
-                      <li><a href="#"><span>php</span></a></li>
-                      <li><a href="#"><span>html5</span></a></li>
-                      <li><a href="#"><span>java</span></a></li>
-                    </ul>
-                  </div>
-               </div>
+                {% if detalle_blog.categorias.all %}
+                   <div class="row mt-4">
+                    <div class="col-md-12">
+                      <ul class="categoria m-0 p-0">
+                        {% for categoria in detalle_blog.categorias.all  %}
+                          <li><a href="#"><span>{{categoria.nombre}}</span></a></li>
+                        {% endfor%}
+                      </ul>
+                    </div>
+                 </div>
+               {%endif%}
                 <!---->
             </div>
           {% endif %}
