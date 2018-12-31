@@ -38,10 +38,11 @@ class Blog(models.Model):
     def __str__(self):
         return self.titulo or u''
 
+# De momento no se esta usando
 class ContadorVisita(models.Model):
     blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
     contador = models.IntegerField()
-    fecha_creacion = models.DateTimeField(auto_now_add=True)
+    fecha_visita = models.DateTimeField(auto_now_add=True)
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):

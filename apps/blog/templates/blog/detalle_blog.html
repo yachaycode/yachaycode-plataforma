@@ -21,12 +21,12 @@
               <li class="mx-3">
               
                   <i class="fas fa-eye mr-1"></i>
-                  22
+                  {{detalle_blog.vistas}}
               </li>
               <li>
               
                   <i class="far fa-comments mr-1"></i>
-                  16
+                  <a href="{{ object.get_absolute_url }}#disqus_thread" data-disqus-identifier="{{ object.id }}"> {% disqus_num_replies %} comentarios</a>
               </li>
             </ul>
           <div class="single-left1">
@@ -39,32 +39,33 @@
             </p>
           </div>
           <!--stard relacionados-->
-          <div class="container-fluid m-0 p-0 ">
-            <hr class="mt-5 mb-4">
-              <h3 class="blog-title text-dark mb-4">Artículos relacionados</h3>
-              <div class="row">
-                {% if detalle_blog.posts_relacionados.all %}
-                  {% for post_relacionado in detalle_blog.posts_relacionados.all  %}
-                    <div class="col-md-4">
-                      <!-- Card -->
-                      <div class="">
+          {% if detalle_blog.posts_relacionados.all %}
+            <div class="container-fluid m-0 p-0 ">
+              <hr class="mt-5 mb-4">
+                <h3 class="blog-title text-dark mb-4">Artículos relacionados</h3>
+                <div class="row">
+                  
+                    {% for post_relacionado in detalle_blog.posts_relacionados.all  %}
+                      <div class="col-md-4">
+                        <!-- Card -->
+                        <div class="">
 
-                        <!-- Card image -->
-                        <a href="{% url 'app_blog:p_detalle_blog' post_relacionado.slug %}"> <img class="card-img-top" src="{{post_relacionado.portada.url}}" alt="Card image cap"></a>
+                          <!-- Card image -->
+                          <a href="{% url 'app_blog:p_detalle_blog' post_relacionado.slug %}"> <img class="card-img-top" src="{{post_relacionado.portada.url}}" alt="Card image cap"></a>
 
-                        <!-- Card content -->
-                        <div class="mt-2">
+                          <!-- Card content -->
+                          <div class="mt-2">
 
-                         <a href="{% url 'app_blog:p_detalle_blog' post_relacionado.slug %}"><h5 class="card-title">{{post_relacionado.titulo}}</h5></a>
+                           <a href="{% url 'app_blog:p_detalle_blog' post_relacionado.slug %}"><h5 class="card-title">{{post_relacionado.titulo}}</h5></a>
+                          </div>
+
                         </div>
-
+                        <!-- Card -->
                       </div>
-                      <!-- Card -->
-                    </div>
-                  {% endfor %}
-                {% endif %}
-             </div>
-          </div>
+                    {% endfor %}
+               </div>
+            </div>
+          {% endif %}
              
         </div>
         <!-- //left side -->
@@ -72,7 +73,6 @@
           <div class="container  mt-5 ">
             <div class="row justify-content-center">
             <div class="col-md-10 col-11 single-left card1">
-                 {% load disqus_tags %}
             {% disqus_show_comments %}
             </div>
               
@@ -91,3 +91,49 @@
  </span>
 
   {% endblock contenido %}
+{% block script %}
+  <script>
+    $.ajaxSetup({
+         beforeSend: function(xhr, settings) {
+             function getCookie(name) {
+                 var cookieValue = null;
+                 if (document.cookie && document.cookie != '') {
+                     var cookies = document.cookie.split(';');
+                     for (var i = 0; i < cookies.length; i++) {
+                         var cookie = jQuery.trim(cookies[i]);
+                         // Does this cookie string begin with the name we want?
+                         if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                             cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                             break;
+                         }
+                     }
+                 }
+                 return cookieValue;
+             }
+             if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
+                 // Only send the token to relative URLs i.e. locally.
+                 xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+             }
+         }
+    });
+    $( document ).ready(function() {
+      $.ajax( {
+          type: "POST",
+          url: '/blog/contador-visitas-ajax/',
+          data: {'id': '{{detalle_blog.id}}'},
+          success: function( data ) {
+            var resultado = JSON.parse(data);
+            if (!resultado.estado) {
+               alert("Error de server: " + resultado.error)
+               return false 
+            }
+          },
+            error : function() {
+             alert('Disculpa, error del servidor o opción no válida..!');
+         }
+
+        } );
+    });
+
+  </script>
+{% endblock %}

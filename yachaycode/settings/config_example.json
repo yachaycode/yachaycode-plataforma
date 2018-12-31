@@ -2,8 +2,8 @@
 	"db-connection":{
 		"engine": "django.db.backends.postgresql_psycopg2",
 		"name":"db_yachaycode",
-		"user": "uappsebr",
-		"password":"sistemas",
+		"user": "xxx",
+		"password":"xxx",
 		"host":"localhost",
 		"port":"5432"
 	},
@@ -12,5 +12,10 @@
 	},
 	"secret_key": {
 		"key":"'bht8n^v8=8tw2@dq=5%=vap%&q26%$_bd#ov!srm5@+(0h)by('"
+	},
+	"disqus": {
+		"api_key":"'SpRepBAGdrpkBIKuJRDj9QikL2flnCprp1jWHx98EyMCNc3VIZTA8DaFiiWSJ8iO'",
+		"website_shortname":"Yachaycode"
 	}
+
 }

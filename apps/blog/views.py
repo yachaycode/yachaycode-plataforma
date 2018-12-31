@@ -1,9 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, render_to_response, get_object_or_404
 from django.views.generic import ListView, TemplateView, DetailView
 from .models import Blog as Blogs, Categoria
 from django.db.models import Q
 # para paginador
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.http import JsonResponse, HttpResponse
 # Create your views here.
 class Blog(ListView):
     """docstring for ver_todas_tortas"""
@@ -75,3 +76,21 @@ def buscador_categoria(request, slug):
 
 class AcercaDe(TemplateView):
     template_name = 'blog/nosotros.html'
+
+
+def contador_visitas(request):
+    if request.method == 'POST' and request.is_ajax():
+        try:
+            estado = False
+            blog = get_object_or_404(Blogs, 
+                estado=True, pk=request.POST.get('id'))
+            blog.vistas +=1
+            blog.save()
+            estado = True
+            response = JsonResponse({'estado': estado})
+            return HttpResponse(response.content)            
+        except Exception as e:
+            response = JsonResponse({'estado': estado, 'error': str(e)})
+            return HttpResponse(response.content)            
+    else:
+        return redirect('/')

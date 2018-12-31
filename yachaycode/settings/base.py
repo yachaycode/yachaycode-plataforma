@@ -65,9 +65,8 @@ ROOT_URLCONF = 'yachaycode.urls'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 # COMMENT DISCUS
-
-DISQUS_API_KEY = 'SpRepBAGdrpkBIKuJRDj9QikL2flnCprp1jWHx98EyMCNc3VIZTA8DaFiiWSJ8iO'
-DISQUS_WEBSITE_SHORTNAME = 'Yachaycode'
+DISQUS_API_KEY = dataConfig.get('disqus').get('api_key')
+DISQUS_WEBSITE_SHORTNAME = dataConfig.get('disqus').get('website_shortname')
 
 # para login y de paso reutilizaremos para autenticacion con redes sociales
 LOGIN_URL = 'iniciar_sesion'  #estamos llamando por su nombre del Url no por su URL
