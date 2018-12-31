@@ -38,7 +38,7 @@
    
   <div class="row mb-5">
   {% for blog in blogs %}
-    <div class="col-md-4">
+    <div class="col-md-4 mb-4">
       <!-- Card -->
         <div class="card">
 
@@ -55,6 +55,7 @@
 
             <!-- Title -->
             <a href="{% url 'app_blog:p_detalle_blog' blog.slug %}"><h5 class="card-title">{{blog.titulo}}</h5></a>
+              <p class="text-avatar m-0 p-0 pb-2 gris3">{{blog.fecha_publicacion|date:"d M, Y"}}</p>
             <!-- Text -->
             <p class="card-text">{{blog.resumen}} </p>
             <!-- Button -->
@@ -65,7 +66,7 @@
             <div class="rounded-bottom  lighten-3  pt-3 ">
               <div class="row pd-gblog mb-1">
                   <div class="col-md-8">
-                    <div class="row">
+                    <div class="row justify-content-center">
                         <div class="col-md-2 ">
                               <div class="avatar-blog ">
                               <img src="{{ blog.autor.perfil_usuario.foto.url }}" class="rounded-circle img-fluid">
@@ -74,14 +75,9 @@
                           
                         <div class="col-md-10  pd-lblog cy-blog">
                             <p class="text-avatar mpg">Posteado por <b>{{ blog.autor.perfil_usuario.nombres }} {{ blog.autor.perfil_usuario.apellidos }}</b></p>
-                            <p class="text-avatar mpg">{{blog.fecha_publicacion|date:"d M, Y"}}</p>
                         </div>
                     </div>
                   </div>
-
-                  <div class="col-md-4 cy-blog">
-                    <p class="text-avatar mpg">Leelo en 3 min.</p>
-                </div>
             </div>
 
           </div>

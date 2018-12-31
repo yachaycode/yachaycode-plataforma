@@ -19,6 +19,9 @@ body {
 .gris2{
   color: #D0D9F2;
 }
+.gris3{
+  color: #767676;
+}
 /*Search*/
 .container-1{
   position: relative;
@@ -837,4 +840,14 @@ html {
 }
 .card-title{
   color: var(--blue1);
+}
+/*categorias*/
+.categoria{
+  display: flex;
+}
+.categoria li{
+ list-style: none;
+  padding: 3px;
+  margin-right: 0.6rem;
+  background-color: #004e92;
 }
