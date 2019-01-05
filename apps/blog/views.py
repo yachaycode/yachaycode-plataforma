@@ -94,3 +94,13 @@ def contador_visitas(request):
             return HttpResponse(response.content)            
     else:
         return redirect('/')
+
+def tags(request, slug):
+    try:
+        consulta = Blogs.objects.filter(
+            categorias__slug=slug)
+        categorias = Categoria.objects.all()
+        return render(request, 'blog/categorias.html',
+                      {'blogs': consulta, 'slug': slug})
+    except Exception as e:
+        raise e

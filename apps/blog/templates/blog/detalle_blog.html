@@ -70,7 +70,7 @@
                     <div class="col-md-12">
                       <ul class="categoria m-0 p-0">
                         {% for categoria in detalle_blog.categorias.all  %}
-                          <li><a href="#"><span>{{categoria.nombre}}</span></a></li>
+                          <li><a href="{% url 'app_blog:p_tag_blog' categoria.slug %}"><span>{{categoria.nombre}}</span></a></li>
                         {% endfor%}
                       </ul>
                     </div>

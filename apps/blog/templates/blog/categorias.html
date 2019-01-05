@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}YachayCode - Categorias{% endblock title %}
+{% load static %}
+{% block contenido %}
+<!--stard categorie-->
+ <div class="container-fluid bg-color">
+  <!-- detalle blog -->
+    <div class="container py-xl-5 py-lg-3 ">
+      <div class="row inner_sec_info pt-md-4 pt-sm-8 justify-content-center">
+        <!-- left side -->
+        <div class="col-md-10  col-11 single-left card1">
+          <h5 class="text-dark text-center mb-3 pt-4 pb-3 strong ">Articulos con la etiqueta " <b>{{slug}}</b> "</h5>
+          {% for blog in blogs %}
+            <hr>
+            <a href=" {% url 'app_blog:p_detalle_blog' blog.slug %} "><span class="blue1"> {{blog.titulo}}</span></a>
+            <ul class="blog_list m-0 p-0">
+              <li>
+                 <span class="small pr-3">{{blog.fecha_publicacion}}</span>
+              </li>
+               <li>   
+                <span class="small">publicador por, {{blog.autor.perfil_usuario.nombres}} {{blog.autor.perfil_usuario.apellidos}}</span>
+               </li>
+            </ul>
+            <hr>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  <!-- //blog -->  
+ </div>
+
+<!--end categorie-->
+{% endblock contenido %}
