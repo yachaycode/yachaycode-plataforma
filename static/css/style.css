@@ -1,11 +1,12 @@
 
 :root{
   --image: url("../img/img-banner.jpg");
-  --blue1:#005891;
+  --blue1:#1a8cdd;
   --blue2:#4E8092;
   --blue3:#94BFCA;
   --white:white;
 }
+
 body {
    overflow-x: hidden;
 }
@@ -81,6 +82,20 @@ border-bottom: 2px solid #00c6ff;
     padding-bottom: 2em;
   }
 }
+.contenedor-banner{
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+@media (min-width: 1400px) {
+  .contenedor-banner {
+    max-width: 1140px;
+  }
+}
+
 .mg-l{
 
 padding-left: 5em;
@@ -141,7 +156,10 @@ padding-left: 5em;
 /*end blog*/
 /*footer*/
 .fond_footer{
-  background-color: var(--blue1);
+  background-color: #2d3546;
+}
+.color-p{
+color: #a0a4ab;
 }
 .footer_icon{
   color: white;
@@ -353,9 +371,9 @@ ul.team_icons li {
 .team_grid ul li:last-child {
   margin: 0;
 }
-.team_grid_info:hover{
+/*.team_grid_info:hover{
   background: #009BFF;
-}
+}*/
 .team_grid_info {
     text-align: center;
     padding: 0;
@@ -422,6 +440,9 @@ section.mid_slider {
 .bg-color{
   background-color: #f9f9f9;
 }
+.bg-color1{
+  background-color: #f5f5f5;
+}
 .card1 {
   background-color: #fff;
   background-clip: border-box;
@@ -467,7 +488,7 @@ body {
   font-weight: 300;
 }
 a {
-  color: #fff;
+  color: #767676;
   text-decoration: none;
   background: transparent;  
 }
@@ -676,7 +697,7 @@ a:focus {
   /*position: relative;*/
   min-height: 52px;
   /*margin-bottom: 20px;*/
-  background-color: var(--blue1);
+  background-color: white;
 }
 .menu-collapse {
   max-height: 340px;
@@ -760,16 +781,16 @@ a:focus {
   border-top-left-radius: 0;
 }
 
-
-.menu .menu-nav > li > a:hover,
+  .menu .menu-nav > li > a:hover,
 .menu .menu-nav > li > a:focus {
   background-color: transparent;
-  color: #fff;
-  -webkit-box-shadow: 0 -25px 0 #0065A6 inset, 0 25px 0 #0065A6 inset, 100px 0 0 #0065A6 inset, -100px 0 0 #0065A6 inset;
+  color: #1a8cdd;
+  -webkit-box-shadow: 0 -25px 0 #f8f8f8 inset, 0 25px 0 #f8f8f8 inset, 100px 0 0 #f8f8f8 inset, -100px 0 0 #f8f8f8 inset;
   /*-moz-box-shadow: 0 -25px 0 #004E8A inset, 0 25px 0 #004E8A inset, 100px 0 0 #004E8A inset, -100px 0 0 #004E8A inset;
   -ms-box-shadow: 0 -25px 0 #004E8A inset, 0 25px 0 #004E8A inset, 100px 0 0 #004E8A inset, -100px 0 0 #004E8A inset;
   box-shadow: 0 -25px 0 #004E8A inset, 0 25px 0 #004E8A inset, 100px 0 0 #004E8A inset, -100px 0 0 #004E8A inset;*/
 }
+
 .menu .menu-nav > .active > a,
 .menu .menu-nav > .active > a:hover,
 .menu .menu-nav > .active > a:focus {
@@ -777,15 +798,15 @@ a:focus {
   background-color: #063847;
 }
 .menu .navbar-toggle {
-  border-color: #fff;  
+  border-color: #767676;  
 }
 .menu .navbar-toggle:hover,
 .menu .navbar-toggle:focus {
-  background-color: #063847;
-  border-color: #063847;
+  background-color: var(--blue1);
+  border-color: #767676;
 }
 .menu .navbar-toggle .icon-bar {
-  background-color: #fff;
+  background-color: #767676;
 }
 /*reset*/
 
@@ -840,7 +861,7 @@ html {
   width: device-width;
 }
 .img-logo{
-  width: 70%;
+ width: 120px;
 }
 .pt-s{
   padding-top: 0.4rem;
