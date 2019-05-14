@@ -5,6 +5,7 @@ from django.db.models import Q
 # para paginador
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import JsonResponse, HttpResponse
+from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 class Blog(ListView):
     """docstring for ver_todas_tortas"""
@@ -77,7 +78,7 @@ def buscador_categoria(request, slug):
 class AcercaDe(TemplateView):
     template_name = 'blog/nosotros.html'
 
-
+@csrf_exempt 
 def contador_visitas(request):
     if request.method == 'POST' and request.is_ajax():
         try:
