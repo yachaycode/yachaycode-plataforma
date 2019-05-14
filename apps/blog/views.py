@@ -90,6 +90,7 @@ def contador_visitas(request):
             response = JsonResponse({'estado': estado})
             return HttpResponse(response.content)            
         except Exception as e:
+            print ("Error:", e)
             response = JsonResponse({'estado': estado, 'error': str(e)})
             return HttpResponse(response.content)            
     else:
