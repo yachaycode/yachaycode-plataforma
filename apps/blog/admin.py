@@ -2,7 +2,8 @@ from django.contrib import admin
 from import_export import resources
 from .models import Blog, Categoria, ContadorVisita
 from import_export.admin import ImportExportModelAdmin
-from pagedown.widgets import AdminPagedownWidget
+# from pagedown.widgets import AdminPagedownWidget
+from martor.widgets import AdminMartorWidget
 from django.db import models
 # Register your models here.
 
@@ -24,7 +25,7 @@ class Blog_admin(ImportExportModelAdmin):
 	list_editable = ('estado',)
 	resource_class = Blog_resource
 	formfield_overrides = {
-            models.TextField: {'widget': AdminPagedownWidget},
+            models.TextField: {'widget': AdminMartorWidget},
         }
 
 

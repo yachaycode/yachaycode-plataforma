@@ -20,3 +20,4 @@ social-auth-core==1.7.0
 tablib==0.12.1
 xlwt==1.3.0
 django-disqus==0.5
+martor==1.4.0

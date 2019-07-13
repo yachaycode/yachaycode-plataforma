@@ -35,10 +35,11 @@ INSTALLED_APPS = [
     'social_django',
     'django_extensions',
     'import_export',
-    'pagedown',
-    'markdown_deux',
+    # 'pagedown',
+    # 'markdown_deux',
     'apps.blog',
-    'disqus'
+    'disqus',
+    'martor'
 ]
 
 SITE_ID = 1

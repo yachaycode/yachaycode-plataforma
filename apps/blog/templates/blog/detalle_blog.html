@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block title %}YachayCode | Blog{% endblock title %}
 {% load static %}
-{% load markdown_deux_tags %}
+{% load martortags %}
 {% block contenido %}
 {% load disqus_tags %}
  <div class="container-fluid bg-color">
@@ -35,7 +35,7 @@
               <a href="#" class="text-dark">{{detalle_blog.titulo}}</a>
             </h5>
             <p>
-              {{detalle_blog.contenido|markdown:"STYLE"}}
+              {{detalle_blog.contenido|safe_markdown}}
             </p>
           </div>
           <!--stard relacionados-->
