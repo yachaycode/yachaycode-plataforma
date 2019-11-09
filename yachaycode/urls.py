@@ -39,6 +39,7 @@ urlpatterns = [
     path('', include('django.contrib.auth.urls')),
     path(r'registrarse/', Registrarse.as_view(), 
         name="registrarse_usuario"),
+    path('martor/', include('martor.urls'))
 ]
 
 if settings.DEBUG:
