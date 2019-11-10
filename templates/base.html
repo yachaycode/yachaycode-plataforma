@@ -9,6 +9,29 @@
         <!-- <link rel="shortcut icon" type="image/png" href=" {% static "img/favicon/faviconhero.png" %}"/> -->
         <meta name="description" content=" Blog sobre la tecnologia y desarrollo de software">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <!--SEO -->
+        <meta name="author" content="{% block author %}Yachay Code{% endblock %}"/>
+        <meta name="copyright" content="Copyright 2018 by Yachay Code" />
+        <meta name="disribution" content="global" />
+        <meta name="theme-color" content="#ff1500" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+        <link rel="canonical" href="{% block canonical %}https://yachaycode.com/{% endblock %}">
+        <link rel="shortcut icon" type="image/png" href=" {% static "img/favicon/faviconhero.png" %}"/>
+        <meta name="description" content="{% block description %}Creando tecnología, escriendo y compartiendo experiencias{% endblock %}">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="{% block twitter_title %}Yachay Code{% endblock %}">
+        <meta name="twitter:description" content="{% block twitter_description %}Creando tecnología, escriendo y compartiendo experiencias {% endblock %}">
+        <meta name="twitter:image" content="{% block twitter_image %}https://yachaycode.com/static/img/logo_hero.png{% endblock %}" />
+        <meta name="twitter:creator" content="{% block twitter_creator %}Yachay Code{% endblock %}">
+        <meta property="fb:app_id" content="133591580646053"/>
+        <meta property="fb:site_name" content="{% block fb_site_name %}Yachay Code{% endblock %}" />
+        <meta property="og:url" content="{% block og_url %}https://yachaycode.com/{% endblock %}">
+        <meta property="og:title" content="{% block og_title %}Yachay Code{% endblock %}">
+        <meta property="og:description" content="{% block og_description %}Creando tecnología, escriendo y compartiendo experiencias {% endblock %}">
+        <meta property="og:image" content="{% block og_image %}https://yachaycode.com/static/img/logo_hero.png{% endblock %}" />
+        <meta property="og:site_name" content="{% block og_site_name %}Yachay Code{% endblock %}">
+
+        <meta property="keywords" content="{% block keywords %}{% endblock %}">
         <!-- Font Awesome -->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">

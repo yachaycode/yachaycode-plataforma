@@ -1,98 +1,88 @@
 {% extends "base.html" %}
-<!-- Start cursos -->
 {% block title %}YachayCode | Buscador blog{% endblock title %}
+{% load static %}
 {% block contenido %}
-<!-- Start cursos -->
-    <div class="container">
-        <div class="row text-center marg2">
-           
+<div class="container-fluid">
+ <div class="container pt-lg  pt-1 pb-3">
+     <div class="row mt-5 mb-3">
+    <div class="col-md-12 ">
+       <p class="color-blue1 size30 fw700" id="myModalLabel">Lo más reciente de publicaciones</p>
+    </div>
+  </div>
+ </div>
+</div>
+
+<div class="container">
+  <div class="row  mb-5">
+      <!-- Search form -->
+      <div class="col-md-2"></div>
+        <div class="col-md-5 container-1">
+            <span class="icon1"><i class="fa fa-search color-blue1"></i></span>
+            <form  method="GET" action="{% url 'app_blog:p_buscador_blog' %}" > 
+            <input class="form-control search pl" type="search" id="q" name="q" placeholder="Buscar Topicos ..." />
+            </form>
         </div>
-        <div class="row justify-content-center">
-                <div class="col-md-8 ">
-                    <!-- Search form -->
-                    <form method="GET" action="#" class="">
-                        <input class="form-control mr-sm-2" id="q" name="q" type="text" placeholder="Buscar..." aria-label="Search" />
-                    </form>
-                </div>
-        </div>
-        {% if blogs %}
-            <h2>{{ blogs.titulo }}</h2>
-            <p>{{ blogs.resumen }}</p>
-        {%else%}
-        <h5> No se encontraron resultados</h5>
-        {% endif %}
+  </div>
+  <div class="row">
 
-        <div class="row justify-content-center">
-                            
-           <div class="col-md-4">
-                <div class="md-form">
-                <select class="form-control select_categorias_buscador" onchange="location = this.value;">
-                    <option value="">--------------</option>
-                    {% for categoria in categorias %}
-                         <option value=" {% url 'app_blog:p_buscador_categoria' categoria.slug %} "> {{categoria.nombre}} </option>
-                    {% endfor %}
-                </select> 
-                </div>
-            </div>
-
-           <div class="col-md-4">
-
-            </div>
-        </div>
-
-        <div class="row justify-content-center row-cur">
-        {% for blog in blogs %}
-        <div class="col-md-4 col1">             
-            <div class="card">
-
-                <div class="view overlay hm-white-slight">
-                    <img src=" {{blog.portada.url }} " class="img-fluid" alt="">
-                    <a href="{% url 'app_blog:p_detalle_blog' blog.slug %}">
-                        <div class="mask"></div>
-                    </a>
-                </div>
-        
-                <!--content-->
-                <div class="card-body">
-                    <!--Title-->
-                    <a href="{% url 'app_blog:p_detalle_blog' blog.slug %}"><h4 class="card-title">{{blog.titulo}}</h4></a>
-                    <hr>
-                    <!--Text-->
-                    <p class="card-text">{{ blog.resumen}} </p>  
-                  <a href=" {% url 'app_blog:p_detalle_blog' blog.slug %} " class="btn btn-primary">Ver detalles</a>
-                         
-              
-                </div>
-                <!--content-->
-                    
-                <!-- footer -->
-                <div class="card-data">
-                    {% if curso.es_gratis %}
-                        <span>Gratis</span>
-                    {% else %}
-                        <span>Premium</span>
-                    {% endif %}
-                </div>
-                <!-- footer -->
-
-            </div>
-        </div>
+    <div class="col-md-2">
+      <ul class="menu-ver  menu-blog tab1">
+        <li class="li-ver pb-4">
+          <span class="enl-ver">Filtro de categorias</span>
+        </li>
+        <li class="li-ver pb-4">
+            <a class="enl-ver activo1 " href="{% url 'app_blog:p_inicio' %}">Todos</a>
+        </li>
+        {% for categoria in categorias %}
+          <li class="li-ver pb-4">
+              <a class="enl-ver" href=" {% url 'app_blog:p_buscador_categoria' categoria.slug  %} ">{{categoria.nombre}}</a>
+          </li>  
         {% endfor %}
-        </div>  
-        <div class="paginador ">
-            <span class="step-links ">
-                {% if blogs.has_previous %}
-                    <a href="?page={{ blogs.previous_page_number }} {% if request.GET.q %} &q={{ request.GET.q}}  {%endif%}"> Anterior</a>
-                {% endif %}
+      </ul>
+    </div>
 
-                <span class="current">
-                    Página {{ blogs.number }} de {{ blogs.paginator.num_pages }}.
-                </span>
+  <div class="col-md-10">
+  <div class="row">
+    {% for blog in blogs %}
+    <div class="col-md-4 mb-5">
+      <!-- Card -->
+        <div class="card">
 
-                {% if blogs.has_next %}
-                    <a href="?page={{ blogs.next_page_number }} {% if request.GET.q %} &q={{ request.GET.q}}  {%endif%}">Siguiente</a>
-                {% endif %}
-            </span>
+          <!-- Card image -->
+          <div class="view overlay">
+            <img class="card-img-top" src="{{ blog.portada.url }}" alt="Card image cap">
+            <a href="{% url 'app_blog:p_detalle_blog' blog.slug %}"> 
+              <div class="mask rgba-white-slight"></div>
+            </a>
+          </div>
+
+          <!-- Card content -->
+          <div class="card-body">
+
+            <!-- Title -->
+            <a href="{% url 'app_blog:p_detalle_blog' blog.slug %} "><span class="size20 color-blue1  pb-2">{{blog.titulo}}</spaan></a>
+            <!-- Text -->
+            <p class="font1"> {{blog.resumen}} </p>
+            <!-- Button -->
+                <div class="col-md-12 p-0">
+                  <span class="color-blue2 size13 pr-2">Marketing Digital</span>
+                  <span class="text-avatar color-lead">{{blog.fecha_publicacion|date:"d M, Y"}}</span>
+               </div>
+               <div class="col-md-12  pb-2 pt-2 p-0">
+                <img src="{{ blog.autor.perfil_usuario.foto.url }}" class="rounded-circle img-blog">
+                <span class="text-avatar mpg">{{ blog.autor.perfil_usuario.nombres }} {{ blog.autor.perfil_usuario.apellidos }}</span>
+               </div> 
+          </div>
+           <!-- Card footer -->
         </div>
-    </div>  
-{% endblock %}
+
+        <!-- Card -->
+    </div>
+    {% endfor %}
+
+  </div>
+    </div>
+  </div>
+</div>
+{% endblock contenido %}
+

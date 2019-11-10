@@ -1,21 +1,43 @@
 {% extends "base.html" %}
-{% block title %}YachayCode | Blog{% endblock title %}
-{% load static %}
-{% load martortags %}
+{% load static martortags disqus_tags %}
+
+{% block title %} {{detalle_blog.titulo}} | Blog - YachayCode {% endblock title %}
+{% block author %}{{ detalle_blog.autor.perfil_usuario.nombres }} {{ detalle_blog.autor.perfil_usuario.apellidos}}{% endblock author %}
+{% block canonical %}{{domain}}/{{ detalle_blog.slug}}{% endblock canonical %}
+
+{% block description %}{% if detalle_blog.seoblog %}{{detalle_blog.seoblog.description}}{% else %}{{detalle_blog.resumen}}{% endif %}{% endblock description %}
+
+{% block twitter_title %}{{detalle_blog.titulo}} | Blog - YachayCode{% endblock twitter_title %}
+
+{% block twitter_description %}{% if detalle_blog.seoblog %}{{detalle_blog.seoblog.description}}{% else %}{{detalle_blog.resumen}}{% endif %}{% endblock twitter_description %}
+
+{% block twitter_image %}{{domain}}{{detalle_blog.portada.url}}{% endblock twitter_image %}
+
+{% block twitter_creator %}{{detalle_blog.autor.perfil_usuario.nombres }} {{detalle_blog.autor.perfil_usuario.apellidos}}{% endblock twitter_creator %}
+
+{% block og_url %}{{domain}}/{{ detalle_blog.slug}}{% endblock og_url %}
+
+{% block og_title %}{{detalle_blog.titulo}}{% endblock og_title %}
+
+{% block og_description %}{% if detalle_blog.seoblog %}{{detalle_blog.seoblog.description}}{% else %}{{detalle_blog.resumen}}{% endif %}{% endblock og_description %}
+
+{% block og_image %}{{domain}}{{detalle_blog.portada.url}}{% endblock og_image %}
+
+{% block keywords %}{{detalle_blog.seoblog.keyword}}{% endblock keywords %}
+
+
 {% block contenido %}
-{% load disqus_tags %}
  <div class="container-fluid bg-color">
   <!-- detalle blog -->
     <div class="container py-xl-5 py-lg-3 ">
       <div class="row inner_sec_info pt-md-4 pt-sm-8 justify-content-center">
         <!-- left side -->
-        <div class="col-md-10  col-11 single-left card1">
-          <h2 class="text-dark text-center mb-3 pt-4 strong">{{detalle_blog.titulo}}</h2>
-             <ul class="blog_list my-3 text-center">
+        <div class="col-md-10  col-11 single-left card1tg">
+          <h1 class="color-blue1 size30 fw700 pt-3 pb-2">{{detalle_blog.titulo}}</h1>
+             <ul class="blog_list my-3 pb-3">
              <li>
               
-              <i class="far fa-user mr-2"></i>{{ detalle_blog.autor.perfil_usuario.nombres }} {{ detalle_blog.autor.perfil_usuario.apellidos }}
-       
+              <i class="fas fa-user-circle mr-2"></i>{{ detalle_blog.autor.perfil_usuario.nombres }} {{ detalle_blog.autor.perfil_usuario.apellidos }}
              </li>
               <li>{{detalle_blog.fecha_publicacion|date:"d M, Y"}}</li>
               <li class="mx-3">
@@ -31,10 +53,8 @@
             </ul>
           <div class="single-left1">
             <img src="{{detalle_blog.portada.url}}" alt=" " class="img-fluid" />
-            <h5 class="card-title pt-4">
-              <a href="#" class="text-dark">{{detalle_blog.titulo}}</a>
-            </h5>
-            <p>
+            <p class="pt-5 cont-blog">
+            <p class="cont-blog color-red1 ">
               {{detalle_blog.contenido|safe_markdown}}
             </p>
           </div>
@@ -98,10 +118,10 @@
   <!-- //blog -->
    
  </div>     
- <span class="btn-escribir whatsap text-center">
-    <a href="https://web.whatsapp.com/send?phone=51983679449&text=Hola%20YachayCode..!" target="_blank"> <img class="img-whtsap1" src="/static/img/whatsapp.png" ></a>
+<!-- <span class="btn-escribir whatsap text-center">
+    <a href="https://api.whatsapp.com/send?phone=51983679449&text=Hola%20YachayCode..!" target="_blank"> <img class="img-whtsap1" src="/static/img/whatsapp.png" ></a>
     <a href="https://www.messenger.com/t/618908005122073" target="_blank"> <img class="img-whtsap" src="/static/img/messenger.png"></a>
- </span>
+ </span>-->
 
   {% endblock contenido %}
 {% block script %}

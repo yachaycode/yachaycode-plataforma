@@ -1,6 +1,7 @@
 from django.db import models
 from django.template.defaultfilters import slugify
 from apps.usuarios.models import Usuario
+from martor.models import MartorField
 # Create your models here.
 class Categoria(models.Model):
 
@@ -16,10 +17,10 @@ class Categoria(models.Model):
         return self.nombre
 
 class Blog(models.Model):
-    titulo = models.CharField(max_length=250, unique=True)
+    titulo = models.CharField(max_length=350, unique=True)
     slug = models.SlugField(editable=False, null=True, max_length=250)
-    resumen = models.TextField(null=True, max_length=80)
-    contenido = models.TextField()
+    resumen = models.TextField(null=True, max_length=1200)
+    contenido = MartorField()
     categorias = models.ManyToManyField(Categoria)
     portada = models.ImageField(upload_to='portadas-blog', null=True)
     fecha_publicacion = models.DateTimeField(auto_now=True)
@@ -27,6 +28,7 @@ class Blog(models.Model):
     vistas = models.PositiveIntegerField(default=0, blank=True, null=True)
     palabras_clave = models.CharField(max_length=800, null=True, blank=True) 
     estado = models.BooleanField(default=True)
+    es_pricipal = models.BooleanField(default=False)
     posts_relacionados = models.ManyToManyField("self",
                                      verbose_name=("Posts relacionados"), blank=True)
 

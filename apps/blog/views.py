@@ -6,6 +6,7 @@ from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import JsonResponse, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.sites.shortcuts import get_current_site
 # Create your views here.
 class Blog(ListView):
     """docstring for ver_todas_tortas"""
@@ -20,6 +21,8 @@ class Blog(ListView):
         context_data['categorias_blog'] = Categoria.objects.all()
         return context_data
 
+
+
 class Detalle_blog(DetailView):
     """docstring for Detalle_curso"""
     # ordenar los modulos segun el orden de creacion
@@ -27,6 +30,20 @@ class Detalle_blog(DetailView):
     template_name = "blog/detalle_blog.html"
     model = Blogs
     slug_field = 'slug'
+
+    def get_domain(self):
+        current_site = get_current_site(self.request)  
+        if current_site.domain in ['localhost', 'example.com']:
+            sheme = 'http://'
+        else:
+            sheme = 'https://'
+        return sheme + current_site.domain
+
+    def get_context_data(self, *args, **kwargs):
+        context_data = super(Detalle_blog, self).get_context_data(*args, **kwargs)
+        # realizamos consulta de todos los categorias de blogs
+        context_data['domain'] = self.get_domain()
+        return context_data
 
 
 def buscador_blog(request):
@@ -68,7 +85,7 @@ def buscador_blog(request):
 def buscador_categoria(request, slug):
     try:
         consulta = Blogs.objects.filter(
-            categorias__slug=slug)
+            categorias__slug=slug, estado=True)
         categorias = Categoria.objects.all()
         return render(request, 'blog/buscador_blog.html',
                       {'blogs': consulta, 'categorias': categorias})

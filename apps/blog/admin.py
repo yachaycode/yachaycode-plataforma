@@ -3,10 +3,23 @@ from import_export import resources
 from .models import Blog, Categoria, ContadorVisita
 from import_export.admin import ImportExportModelAdmin
 # from pagedown.widgets import AdminPagedownWidget
-from martor.widgets import AdminMartorWidget
 from django.db import models
+from martor.widgets import AdminMartorWidget
+from apps.seo.models import SeoBlog
 # Register your models here.
 
+
+class SeoInline(admin.StackedInline):
+    model = SeoBlog
+    can_delete = False
+    verbose_name_plural = 'Meta data'
+    fk_name = 'blog'
+    # para agregar solo un Seo, por defecto lo agregara varios
+    # eso es lo que no queremos
+    extra = 1
+    # max 1, porque la relacion es 1 a 1
+    max_num = 1
+    min_num = 1
 
 class Blog_resource(resources.ModelResource):
 
@@ -15,18 +28,19 @@ class Blog_resource(resources.ModelResource):
         exclude = ()
 
 class Blog_admin(ImportExportModelAdmin):
+	inlines = (SeoInline, )
 	filter_horizontal = ('categorias', 'posts_relacionados')
 	search_fields = ('titulo','resumen',
 				'fecha_publicacion','autor__perfil_usuario__nombres',
 				'autor__perfil_usuario__apellidos', 'palabras_clave')
 	list_display = ('titulo','resumen',
 				'fecha_publicacion','autor','vistas',
-				'estado',)
-	list_editable = ('estado',)
+				'estado', 'es_pricipal')
+	list_editable = ('estado', 'es_pricipal')
 	resource_class = Blog_resource
 	formfield_overrides = {
-            models.TextField: {'widget': AdminMartorWidget},
-        }
+		models.TextField: {'widget': AdminMartorWidget},
+    }
 
 
 class Categoria_resource(resources.ModelResource):

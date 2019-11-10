@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     # 'pagedown',
     # 'markdown_deux',
     'apps.blog',
+    'apps.seo',
     'disqus',
     'martor'
 ]

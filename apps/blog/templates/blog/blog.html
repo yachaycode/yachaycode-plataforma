@@ -2,39 +2,49 @@
 {% block title %}YachayCode - Blog{% endblock title %}
 {% load static %}
 {% block contenido %}
-<div class="container-fluid bg-mora">
- <div class="container pt-lg pb-5">
-    <div class="row justify-content-center">
-  
-      <!-- Search form -->
-        <div class="col-md-9 container-1">
-            <span class="icon1"><i class="fa fa-search"></i></span>
-            <form  method="GET" action="{% url 'app_blog:p_buscador_blog' %}" > 
-            <input class="form-control search pl" type="search" id="q" name="q" placeholder="Buscar Topicos ..." />
-            </form>
-        </div>
-
-  </div>
-  <div class="row justify-content-center mt-4">
-    <div class="col-md-9">
-      <ul class="list-bus ">
-        {% for categoria in categorias_blog %}
-          <li>  {{categoria.nombre}} </li>  
-        {% endfor %}                     
-      </ul>
+<div class="container-fluid">
+ <div class="container pt-lg  pt-1 pb-3">
+     <div class="row mt-5 mb-3">
+    <div class="col-md-12 ">
+       <p class="color-blue1 size30 fw700" id="myModalLabel">Publicaciones más recientes</p>
     </div>
   </div>
  </div>
 </div>
-<div class="container mb-lg1">
-  <div class="row mt-5 mb-5">
-    <div class="col-md-12 text-center">
-       <h5 class="color-title" id="myModalLabel"><b>Lo más reciente</b></h5>
-    </div>
+
+<div class="container">
+  <div class="row  mb-5">
+      <!-- Search form -->
+      <div class="col-md-2"></div>
+        <div class="col-md-5 container-1">
+            <span class="icon1"><i class="fa fa-search color-blue1"></i></span>
+            <form  method="GET" action="{% url 'app_blog:p_buscador_blog' %}" > 
+            <input class="form-control search pl" type="search" id="q" name="q" placeholder="Buscar Topicos ..." />
+            </form>
+        </div>
   </div>
   <div class="row">
+
+    <div class="col-md-2">
+      <ul class="menu-ver  menu-blog tab1">
+        <li class="li-ver pb-4">
+          <span class="enl-ver">Filtro de categorias</span>
+        </li>
+        <li class="li-ver pb-4">
+            <a class="enl-ver activo1 " href="{% url 'app_blog:p_inicio' %}">Todos</a>
+        </li>
+        {% for categoria in categorias_blog %}
+          <li class="li-ver pb-4">
+              <a class="enl-ver" href=" {% url 'app_blog:p_buscador_categoria' categoria.slug  %} ">{{categoria.nombre}}</a>
+          </li>  
+        {% endfor %}
+      </ul>
+    </div>
+
+  <div class="col-md-10">
+  <div class="row">
     {% for blog in blogs %}
-    <div class="col-md-3 mb-3">
+    <div class="col-md-4 mb-5">
       <!-- Card -->
         <div class="card">
 
@@ -50,34 +60,34 @@
           <div class="card-body">
 
             <!-- Title -->
-            <a href="{% url 'app_blog:p_detalle_blog' blog.slug %} "><h5 class="card-title">{{blog.titulo}}</h5></a>
+            <a href="{% url 'app_blog:p_detalle_blog' blog.slug %} "><span class="size20 color-blue1  pb-2">{{blog.titulo}}</spaan></a>
             <!-- Text -->
-            <p class="card-text"> {{blog.resumen}} </p>
+            <p class="font1"> {{blog.resumen}} </p>
             <!-- Button -->
-          
+                <div class="col-md-12 p-0">
+                  <span class="color-blue2 size13 pr-2">
+                    {% for categoria in blog.categorias.all %}
+                      {{categoria.nombre}}
+                    {% endfor %}
+                  </span>
 
+                  <span class="text-avatar color-lead">{{blog.fecha_publicacion|date:"d M, Y"}}</span>
+               </div>
+               <div class="col-md-12  pb-2 pt-2 p-0">
+                <img src="{{ blog.autor.perfil_usuario.foto.url }}" class="rounded-circle img-blog">
+                <span class="text-avatar mpg">{{ blog.autor.perfil_usuario.nombres }} {{ blog.autor.perfil_usuario.apellidos }}</span>
+               </div> 
           </div>
            <!-- Card footer -->
-            <div class="rounded-bottom  lighten-3  pt-3 ">
-              <div class="row pd-gblog mb-1">
-                        <div class="col-md-2 ">
-                              <div class="avatar-blog ">
-                              <img src="{{ blog.autor.perfil_usuario.foto.url }}" class="rounded-circle img-fluid">
-                              </div>
-                        </div>
-                          
-                        <div class="col-md-10  pd-lblog cy-blog">
-                            <p class="text-avatar mpg">Posteado por <b>{{ blog.autor.perfil_usuario.nombres }} {{ blog.autor.perfil_usuario.apellidos }}</b></p>
-                            <p class="text-avatar mpg">{{blog.fecha_publicacion|date:"d M, Y"}}</p>
-                        </div>        
-            </div>
-
-          </div>
         </div>
+
         <!-- Card -->
     </div>
     {% endfor %}
 
   </div>
+    </div>
+  </div>
 </div>
 {% endblock contenido %}
+

@@ -4,7 +4,6 @@ from .views import (Blog, Detalle_blog, buscador_blog,
 					buscador_categoria, AcercaDe, contador_visitas, tags)
 # from views import Usuarios
 from django.conf import settings
-from django.urls import path, include
 
 # from django.views.static.
 urlpatterns = [
