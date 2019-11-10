@@ -2,6 +2,7 @@
 #GitIgnore de todas las migraciones
 apps/usuarios/migrations/*
 apps/blog/migrations/*
+apps/seo/migrations/*
 
 media/*
 #gitIgnore de Setting.py
