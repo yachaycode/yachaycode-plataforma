@@ -12,13 +12,32 @@ class Blog(ListView):
     """docstring for ver_todas_tortas"""
     context_object_name = 'blogs'
     template_name = 'blog/blog.html'
-    queryset = Blogs.objects.filter(
-        estado=True).order_by('fecha_publicacion')
+    queryset = []
 
     def get_context_data(self, *args, **kwargs):
         context_data = super(Blog, self).get_context_data(*args, **kwargs)
         # realizamos consulta de todos los categorias de blogs
+        blogs = Blogs.objects.filter(estado=True).order_by('fecha_publicacion')
+        list_blogs = []
+        for blog in blogs:
+           dict_blog = {}
+           dict_blog['titulo'] = blog.titulo
+           dict_blog['slug'] = blog.slug
+           dict_blog['resumen'] = blog.resumen[0:85] + '...' if len(blog.resumen)>85 else blog.resumen
+           dict_blog['contenido'] = blog.contenido
+           dict_blog['categorias'] = blog.categorias
+           dict_blog['portada'] = blog.portada
+           dict_blog['fecha_publicacion'] = blog.fecha_publicacion
+           dict_blog['autor'] = blog.autor
+           dict_blog['vistas'] = blog.vistas
+           dict_blog['palabras_clave'] = blog.palabras_clave
+           dict_blog['estado'] = blog.estado
+           dict_blog['es_pricipal'] = blog.es_pricipal
+           dict_blog['posts_relacionados'] = blog.posts_relacionados
+           list_blogs.append(dict_blog)
+        context_data['blogs'] = list_blogs
         context_data['categorias_blog'] = Categoria.objects.all()
+
         return context_data
 
 
@@ -54,6 +73,7 @@ def buscador_blog(request):
     # siempre en cuando este estado = TRUE, inidica que está activo
     consulta = request.GET.get('q', '')
     lista_blogs = None
+    list_blogs = []
     if consulta:
         lista_blogs = Blogs.objects.filter(
             Q(titulo__icontains=consulta) |
@@ -64,7 +84,23 @@ def buscador_blog(request):
         # en caso si alguien entra directamente a /busquedas
         # lista_blogs = Curso.objects.all().order_by('-fecha_creacion')[:2]
     # paginandor
-    paginator = Paginator(lista_blogs, 9)  # Show 25 contacts per page
+        for blog in lista_blogs:
+           dict_blog = {}
+           dict_blog['titulo'] = blog.titulo
+           dict_blog['slug'] = blog.slug
+           dict_blog['resumen'] = blog.resumen[0:85] + '...' if len(blog.resumen)>85 else blog.resumen
+           dict_blog['contenido'] = blog.contenido
+           dict_blog['categorias'] = blog.categorias
+           dict_blog['portada'] = blog.portada
+           dict_blog['fecha_publicacion'] = blog.fecha_publicacion
+           dict_blog['autor'] = blog.autor
+           dict_blog['vistas'] = blog.vistas
+           dict_blog['palabras_clave'] = blog.palabras_clave
+           dict_blog['estado'] = blog.estado
+           dict_blog['es_pricipal'] = blog.es_pricipal
+           dict_blog['posts_relacionados'] = blog.posts_relacionados
+           list_blogs.append(dict_blog)
+    paginator = Paginator(list_blogs, 9)  # Show 25 contacts per page
 
     page = request.GET.get('page')
     try:
@@ -86,9 +122,26 @@ def buscador_categoria(request, slug):
     try:
         consulta = Blogs.objects.filter(
             categorias__slug=slug, estado=True)
+        list_blogs = []
+        for blog in consulta:
+           dict_blog = {}
+           dict_blog['titulo'] = blog.titulo
+           dict_blog['slug'] = blog.slug
+           dict_blog['resumen'] = blog.resumen[0:85] + '...' if len(blog.resumen)>85 else blog.resumen
+           dict_blog['contenido'] = blog.contenido
+           dict_blog['categorias'] = blog.categorias
+           dict_blog['portada'] = blog.portada
+           dict_blog['fecha_publicacion'] = blog.fecha_publicacion
+           dict_blog['autor'] = blog.autor
+           dict_blog['vistas'] = blog.vistas
+           dict_blog['palabras_clave'] = blog.palabras_clave
+           dict_blog['estado'] = blog.estado
+           dict_blog['es_pricipal'] = blog.es_pricipal
+           dict_blog['posts_relacionados'] = blog.posts_relacionados
+           list_blogs.append(dict_blog)
         categorias = Categoria.objects.all()
         return render(request, 'blog/buscador_blog.html',
-                      {'blogs': consulta, 'categorias': categorias})
+                      {'blogs': list_blogs, 'categorias': categorias})
     except Exception as e:
         raise 
 

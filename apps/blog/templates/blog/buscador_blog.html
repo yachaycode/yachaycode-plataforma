@@ -28,7 +28,7 @@
     <div class="col-md-2">
       <ul class="menu-ver  menu-blog tab1">
         <li class="li-ver pb-4">
-          <span class="enl-ver">Filtro de categorias</span>
+          <span class="enl-ver">Filtro por categorías</span>
         </li>
         <li class="li-ver pb-4">
             <a class="enl-ver activo1 " href="{% url 'app_blog:p_inicio' %}">Todos</a>
@@ -43,6 +43,7 @@
 
   <div class="col-md-10">
   <div class="row">
+  {% if blogs %}
     {% for blog in blogs %}
     <div class="col-md-4 mb-5">
       <!-- Card -->
@@ -65,7 +66,11 @@
             <p class="font1"> {{blog.resumen}} </p>
             <!-- Button -->
                 <div class="col-md-12 p-0">
-                  <span class="color-blue2 size13 pr-2">Marketing Digital</span>
+                  <span class="color-blue2 size13 pr-2">
+                    {% for categoria in blog.categorias.all %}
+                      {{categoria.nombre}}
+                    {% endfor %}
+                  </span>
                   <span class="text-avatar color-lead">{{blog.fecha_publicacion|date:"d M, Y"}}</span>
                </div>
                <div class="col-md-12  pb-2 pt-2 p-0">
@@ -79,6 +84,9 @@
         <!-- Card -->
     </div>
     {% endfor %}
+  {% else %}
+    <p>No se encontró resultados..</p>
+  {% endif %}
 
   </div>
     </div>

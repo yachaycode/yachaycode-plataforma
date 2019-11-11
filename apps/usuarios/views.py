@@ -104,8 +104,26 @@ class Index_principal(TemplateView):
         context = super(Index_principal,
                         self).get_context_data(**kwargs)
         # context['inscripcion_usuario'] = UsuarioForm()
-        context['blogs'] = Blog.objects.filter(
+        blogs = Blog.objects.filter(
         estado=True).order_by('fecha_publicacion')[:6]
+        list_blogs = []
+        for blog in blogs:
+            dict_blog = {}
+            dict_blog['titulo'] = blog.titulo
+            dict_blog['slug'] = blog.slug
+            dict_blog['resumen'] = blog.resumen[0:85] + '...' if len(blog.resumen)>85 else blog.resumen
+            dict_blog['contenido'] = blog.contenido
+            dict_blog['categorias'] = blog.categorias
+            dict_blog['portada'] = blog.portada
+            dict_blog['fecha_publicacion'] = blog.fecha_publicacion
+            dict_blog['autor'] = blog.autor
+            dict_blog['vistas'] = blog.vistas
+            dict_blog['palabras_clave'] = blog.palabras_clave
+            dict_blog['estado'] = blog.estado
+            dict_blog['es_pricipal'] = blog.es_pricipal
+            dict_blog['posts_relacionados'] = blog.posts_relacionados
+            list_blogs.append(dict_blog)
+        context['blogs'] = list_blogs
         # pasamos un conjunto de numeros en un rango
         return context
 

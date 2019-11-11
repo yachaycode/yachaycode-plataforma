@@ -48,7 +48,7 @@
               <li>
               
                   <i class="far fa-comments mr-1"></i>
-                  <a href="{{ object.get_absolute_url }}#disqus_thread" data-disqus-identifier="{{ object.id }}"> {% disqus_num_replies %}<span class="gris3">comentarios</span></a>
+                  <a href="{{ object.get_absolute_url }}#disqus_thread" data-disqus-identifier="{{ object.id }}"> {% disqus_num_replies %}<span class="gris3">Comentarios</span></a>
               </li>
             </ul>
           <div class="single-left1">
@@ -117,13 +117,9 @@
  
   <!-- //blog -->
    
- </div>     
-<!-- <span class="btn-escribir whatsap text-center">
-    <a href="https://api.whatsapp.com/send?phone=51983679449&text=Hola%20YachayCode..!" target="_blank"> <img class="img-whtsap1" src="/static/img/whatsapp.png" ></a>
-    <a href="https://www.messenger.com/t/618908005122073" target="_blank"> <img class="img-whtsap" src="/static/img/messenger.png"></a>
- </span>-->
+ </div>    
 
-  {% endblock contenido %}
+{% endblock contenido %}
 {% block script %}
   <script>
     $.ajaxSetup({
