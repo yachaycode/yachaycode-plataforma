@@ -1,6 +1,6 @@
 from django.db import models
 from django.template.defaultfilters import slugify
-from apps.usuarios.models import Usuario
+from apps.users.models import Usuario
 from martor.models import MartorField
 # Create your models here.
 class Categoria(models.Model):

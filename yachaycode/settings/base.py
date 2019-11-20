@@ -31,7 +31,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'apps.usuarios',
+    'apps.users',
     'social_django',
     'django_extensions',
     'import_export',
@@ -95,7 +95,7 @@ TEMPLATES = [
 # para autenticacion con redes sociales FB y TWITTER
 AUTHENTICATION_BACKENDS = (
     # mi propio class para autenticacion por Usuario o Email
-    'apps.usuarios.functions.UsernameOrEmailBackend',
+    'apps.users.functions.UsernameOrEmailBackend',
     # autenticacion con redes sociales
     'social_core.backends.twitter.TwitterOAuth',
     'social_core.backends.google.GoogleOAuth2',
@@ -129,9 +129,9 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
     },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
+    # {
+    #     'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+    # },
     {
         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
     },
@@ -155,7 +155,7 @@ USE_L10N = True
 USE_TZ = True
 
 # MODIFICANDO EL SETTIING
-AUTH_USER_MODEL = 'usuarios.Usuario'
+AUTH_USER_MODEL = 'users.Usuario'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/

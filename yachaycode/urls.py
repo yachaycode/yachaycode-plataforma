@@ -15,19 +15,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from apps.usuarios.views import (change_password, 
+from apps.users.views import (change_password, 
                                         registro_usuario_modals, 
                                         Completar_registro_perfil,
                                         Registrarse, Index_principal,
                                         LogOut, userlogin, Aliados,
                                         activate)
-from apps.usuarios import views as core_views
+from apps.users import views as core_views
 from django.conf import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path(r'', Index_principal.as_view(), name="index_principal"),
     path(r'oauth/', include('social_django.urls', namespace='social')),
-    path(r'usuarios/', include(('apps.usuarios.urls', 'app_usuarios'), 
+    path(r'usuarios/', include(('apps.users.urls', 'app_usuarios'), 
         namespace='app_usuarios')),
     path(r'blog/', include(('apps.blog.urls', 'app_blog'), 
         namespace='app_blog')),
