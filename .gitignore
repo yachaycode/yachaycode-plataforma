@@ -1,6 +1,6 @@
 
 #GitIgnore de todas las migraciones
-apps/usuarios/migrations/*
+apps/users/migrations/*
 apps/blog/migrations/*
 apps/seo/migrations/*
 
