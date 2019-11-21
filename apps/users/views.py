@@ -18,13 +18,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.http import JsonResponse
 from apps.blog.models import Blog
 # importacio para APIS
-# from .serializers import UsuarioSerializer, GroupSerializer
-# from django.contrib.auth.models import Group
-# from .models import Usuario
-# from .forms import UserRegisterForm, LoginForm
-# from .models import CustomUser
 from yachaycode import settings
-from yachaycode.settings.email_info import * 
 # para validacion de contraseñas
 # from django.core.exceptions import ValidationError
 # from django.utils.translation import gettext as _
@@ -140,7 +134,7 @@ def userlogin(request):
                 login(request, user)
                 return HttpResponseRedirect(next)
             else:
-                return HttpResponse("usuario inactivo, por favor confirme su cuenta o contáctenos al wsp : 965791848.")
+                return HttpResponse("usuario inactivo, por favor confirme su cuenta o contáctenos al wsp : 983679449.")
         else:
             messages.error(
             request, 'Correo o contraseña no son correctos..!', extra_tags='danger')
@@ -152,17 +146,6 @@ def userlogin(request):
 def LogOut(request):
     logout(request)
     return HttpResponseRedirect('/')
-
-# @login_required
-# def inicio(request):
-#     return render_to_response('usuarios/index.html', locals())
-
-
-# cuidado con esto, esta habilitado para cualquiera, y tien GRUD
-# class UsuarioVer(LoginRequiredMixin, ListView):
-#     context_object_name = 'usuarios'
-#     template_name = 'usuarios/index.html'
-#     queryset = Usuario.objects.all()
 
 
 class UsuarioEditar(LoginRequiredMixin, UpdateView):
@@ -246,11 +229,11 @@ def registro_usuario_modals(request):
             # iniciamos su sesion de Usuario
             user = authenticate(email=request.POST[
                                 'email'], password=request.POST['password'])
-            asunto = "Apertura de cuenta | Future Startup Hero"
-            mensaje = ('Bienvenido, se ha registrado en Future Starup Hero.\n '
+            asunto = "Apertura de cuenta | YachayCode"
+            mensaje = ('Bienvenido, se ha registrado en yachaycode.\n '
                     'Correo :' + user.email + '\n'
                     'usuario : ' + user.usuario + '\n'
-                    'http://futurestartuphero.com')
+                    'http://yachaycode.com')
             send_mail(asunto, mensaje, EMAIL_HOST_USER, [user.email])
             if user is not None:
                 if user.is_active:
@@ -310,11 +293,11 @@ class Registrarse(SuccessMessageMixin, CreateView):
         })
         # user = authenticate(email=self.request.POST['email'], 
         #     password=self.request.POST['password'])
-        asunto = "Confirma tu correo en Future Startup Hero"
-        # mensaje = ('Bienvenido, se ha registrado en Future Startup Hero.\n '
+        asunto = "Confirma tu correo en YachayCode"
+        # mensaje = ('Bienvenido, se ha registrado en YachayCode.\n '
         #         'Correo :' + user.email + '\n'
         #         'usuario : ' + user.usuario + '\n'
-        #         'http://futurestartuphero.com')
+        #         'http://yachaycode.com')
         send_mail(
             asunto, 
             'Verifica tu correo para entrar a nuestra plataforma',
@@ -405,37 +388,6 @@ class Editar_perfil(LoginRequiredMixin,SuccessMessageMixin, UpdateView):
     def get_object(self):
         return Perfil_usuario.objects.get(usuario=self.request.user.pk)
 
-    # MODIFICAR PARA QUE SOPORTE REDES SOCIALES 
-
-    # def get_context_data(self, **kwargs):
-    #     context = super(Editar_perfil,self).get_context_data(**kwargs)
-    #     user = self.request.user
-    #     try:
-    #         twitter_login = user.social_auth.get(provider='twitter')
-    #     except UserSocialAuth.DoesNotExist:
-    #         twitter_login = None
-    #     try:
-    #         facebook_login = user.social_auth.get(provider='facebook')
-    #     except UserSocialAuth.DoesNotExist:
-    #         facebook_login = None
-
-    #     can_disconnect = (user.social_auth.count() >
-    #                       1 or user.has_usable_password())
-
-    #     context['twitter_login'] = twitter_login,
-    #     context['facebook_login'] = twitter_login,
-    #     context['can_disconnect'] = twitter_login,
-    #     context['form'] = Perfil_usuario.objects.get(usuario=self.request.user.pk)
-    #     return context
-
-
-# class Cuenta_usuario(LoginRequiredMixin,SuccessMessageMixin, TemplateView):
-
-#     template_name = 'usuarios/perfil/cuenta.html'
-#     success_message = "Ha actualizado correctamente sus datos..!"
-
-#     def get_object(self):
-#         return Perfil_usuario.objects.get(usuario=self.request.user.pk)
 
 class Cuenta_usuario(LoginRequiredMixin, TemplateView):
     """docstring for Ver_perfil"""
@@ -463,8 +415,6 @@ class Cambiar_cuenta_usuario(LoginRequiredMixin,SuccessMessageMixin, UpdateView)
         return context
 
 
-class Aliados(TemplateView):
-    template_name = 'usuarios/aliados.html'
 
 # para activar la cuenta via confirmacion de CORREO
 def activate(request, uidb64, token):

@@ -19,7 +19,7 @@ from apps.users.views import (change_password,
                                         registro_usuario_modals, 
                                         Completar_registro_perfil,
                                         Registrarse, Index_principal,
-                                        LogOut, userlogin, Aliados,
+                                        LogOut, userlogin,
                                         activate)
 from apps.users import views as core_views
 from django.conf import settings

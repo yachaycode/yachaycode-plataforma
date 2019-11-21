@@ -9,7 +9,7 @@ from .actions import export_as_csv
 
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin
-from pagedown.widgets import AdminPagedownWidget
+# from pagedown.widgets import AdminPagedownWidget
 
 # Register your models here.
 from django.contrib.auth.models import Group

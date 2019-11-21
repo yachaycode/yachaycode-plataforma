@@ -1,5 +1,4 @@
 import os
-from .email_info import *
 import json
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -173,42 +172,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'public/static')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'public/media')
 MEDIA_URL = '/media/'
 
-# para recuperacion de contraseñas 
-EMAIL_USE_TLS = EMAIL_USE_TLS
-# DEFAULT_FROM_EMAIL = DEFAULT_FROM_EMAIL
-# SERVER_EMAIL = SERVER_EMAIL
-EMAIL_HOST = EMAIL_HOST
-EMAIL_PORT = EMAIL_PORT
-EMAIL_HOST_USER = EMAIL_HOST_USER
-EMAIL_HOST_PASSWORD = EMAIL_HOST_PASSWORD
-
-# para autenticaciones con API de fb y twi
-SOCIAL_AUTH_TWITTER_KEY = ''
-SOCIAL_AUTH_TWITTER_SECRET = ''
-
-SOCIAL_AUTH_FACEBOOK_KEY = ''
-SOCIAL_AUTH_FACEBOOK_SECRET = ''
-SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
-
-# importante para que nos traiga los datos como EMAIL no solo 
-# no solo basta SOCIAL_AUTH_FACEBOOK_SCOPE
-SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
-  'fields': 'id, name, email'
-}
-
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '906022676963-moedj1bnvg9opc9ckl2q17gprd7mirtm.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'K5TNXMxwmIhgO0ZitaOJNury'
-
-SOCIAL_AUTH_LOGIN_ERROR_URL = '/settings/'
-# averiguar para redirigir despues de crearse una cuenta, para que complete sus datos
-# que se redirija a cuenta, despues
-# cuando uno incia sesion, debe de redireccionar a /
-# SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/settings/'
-SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/'
-# Muy Importante para que los Usuarios nuevos rellenen sus otros Datos
-SOCIAL_AUTH_NEW_USER_REDIRECT_URL = '/completar_registro_usuario/'  
-SOCIAL_AUTH_NEW_ASSOCIATION_REDIRECT_URL = '/'
-
 
 # personalizando django SOIT, template para admin 
 SUIT_CONFIG = {
@@ -219,5 +182,5 @@ SUIT_CONFIG = {
     'CONFIRM_UNSAVED_CHANGES': True,
     'MENU_OPEN_FIRST_CHILD': True,
     # falta algo, para buscar un cierto usuario
-    'SEARCH_URL': '/admin/usuarios/',
+    'SEARCH_URL': '/admin/users/',
 }
