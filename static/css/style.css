@@ -51,7 +51,7 @@ a:link
 text-decoration:none; 
 }
 :root{
-  --image: url("../img/img-banner.jpg");
+  --image: url("../img/banner-pagina.png");
   --blue1:#1a8cdd;
   --blue2:#4E8092;
   --blue3:#94BFCA;
