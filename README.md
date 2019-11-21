@@ -1,8 +1,7 @@
-### Arquitectura del proyecto
+### YachayCode
 ![Arquitectura](arquitectura-yachaycode.jpg)
 
-## YachayCode
-YachaCode es una plataforma de gestión de contenido(CMS) minimal. Construido utilizando el marco Django , YachaCode proporciona una arquitectura potente para generar contenido de blog totalmente administrable y tiene licencia BSD.
+YachaCode es una plataforma de gestión de contenido(CMS) minimal. Construido utilizando el marco Django, YachaCode proporciona una arquitectura potente para generar contenido de blog totalmente administrable y escalable.
 
 ### Requisitos:
 - git
