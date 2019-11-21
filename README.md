@@ -21,6 +21,8 @@ cp yachaycode/yachaycode/settings/config_example.json yachaycode/yachaycode/sett
 ```
 pip install -r install requeriments.txt
 ```
+Confgurar su DB 
+
 ```
 ./manage.py makemigrations users && ./manage.py makemigrations blog  && ./manage.py makemigrations seo && ./manage.py migrate
 ```
