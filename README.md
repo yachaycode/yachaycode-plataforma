@@ -17,7 +17,7 @@ YachaCode es una plataforma de gestión de contenido(CMS) minimal. Construido ut
 git clone git@gitlab.com:iisotec/yachaycode.git
 ```
 ```
-cp yachaycode/yachaycode/settings/config_example.json yachaycode/yachaycode/settings/config.json 
+cp yachaycode/yachaycode/settings/config_example.json yachaycode/yachaycode/settings/config.json && cd yachaycode
 ```
 ```
 pip install -r install requeriments.txt
