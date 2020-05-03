@@ -110,10 +110,11 @@ WSGI_APPLICATION = 'yachaycode.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
+# Conection db mongodb
 DATABASES = {
     'default': {
         'ENGINE': dataConfig.get('db-connection').get('engine'),
-        'NAME': dataConfig.get('db-connection').get('name'),
+        'NAME': dataConfig.get('db-connection').get('database_name'),
         'USER': dataConfig.get('db-connection').get('user'),
         'PASSWORD': dataConfig.get('db-connection').get('password'),
         'HOST': dataConfig.get('db-connection').get('host'),
