@@ -32,3 +32,15 @@ Confgurar su DB, antes de ejecutar las migraciones..
 ```
  ./manage.py runserver
 ```
+
+## Configuracion de mongo
+
+en terminal de 
+
+>> mongod o mongodb o mongo
+>> use admin;
+>> db.createUser( { user: "umongo", pwd: "xxxx", roles: [ { role: "userAdminAnyDatabase", db: "admin" }, "readWriteAnyDatabase" ] } )
+
+en /etc/mongod.conf
+
+agregar el ip y en la seccion de secury habilitar en caso autenticar via usaurio y contraseña.
