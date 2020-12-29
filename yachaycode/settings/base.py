@@ -114,11 +114,11 @@ WSGI_APPLICATION = 'yachaycode.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': dataConfig.get('db-connection').get('engine'),
-        'NAME': dataConfig.get('db-connection').get('database_name'),
+        'NAME': dataConfig.get('db-connection').get('name'),
         'USER': dataConfig.get('db-connection').get('user'),
         'PASSWORD': dataConfig.get('db-connection').get('password'),
         'HOST': dataConfig.get('db-connection').get('host'),
-        'PORT': dataConfig.get('db-connection').get('port'),
+        'PORT': dataConfig.get('db-connection').get('port')
     }
 }
 
