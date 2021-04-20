@@ -17,3 +17,4 @@ tablib==0.12.1
 xlwt==1.3.0
 django-disqus==0.5
 martor==1.4.0
+psycopg2-binary==2.7.5
