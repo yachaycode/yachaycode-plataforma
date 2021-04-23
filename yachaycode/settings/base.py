@@ -161,6 +161,7 @@ AUTH_USER_MODEL = 'users.Usuario'
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'apps/blog/static'),
 )
 STATIC_URL = '/static/'
 
