@@ -12,7 +12,7 @@
 <!-- icon font -->
 <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet">
 <!-- Font Awesome -->
-<link rel="stylesheet" href="../../use.fontawesome.com/releases/v5.8.2/css/all.css' %}">
+<link rel="stylesheet" href="{% static 'css/fontawsome-582-all.css' %}">
 <!-- estilo de pagina de inicio y menu izquierdo  -->
 <link href="{% static 'css/dashboard.css' %}" rel="stylesheet">
 <!-- bordes de fieldset forms -->
@@ -34,7 +34,7 @@
 <!-- pay -->
 <link rel="stylesheet" href="{% static 'css/waitMe.min.css' %}">
 
-<link href="{% static 'fonts.googleapis.com/icone91f.css?family=Material+Icons' %}" rel="stylesheet">
+<link href="{% static 'css/icone91f.css' %}" rel="stylesheet">
 <link rel="stylesheet" href="{% static 'css/yachaycode.css' %}">
 
 <link rel="stylesheet" href="{% static 'blog/css/blog.css' %}">
@@ -43,214 +43,140 @@
 {% endblock %}
 {% block contenido %}
 
-<div class="container-fluid pt-3 base">
+<div class="container-fluid pt-3 base d-flex justify-content-center">
   <div class="row">
-      <picture>
-          <source srcset="/static/img/blog/movil.png" media="(max-width: 768px)">
-          <img loading="lazy" src="{% static 'img/banner.jpg' %}" class="img-fluid" alt="img-hero">
-      </picture>
+    <picture>
+      <!-- Image when width < 768px -->
+      <source srcset="{% static 'img/bannerazul.jpg' %}" media="(max-width: 768px)">
+      <!-- Normal image -->
+      <img loading="lazy" src="{% static 'img/bannerazul.jpg' %}" class="img-fluid" alt="img-yachay">
+    </picture>
   </div>
 </div>
 
 <div class="father-container d-flex justify-content-between">
 
-<div class="container mb-5">
-    <div class="row">
-        <div class="col-md-4 mt-5 mb-5">
-            <h5 class="f-mont c-r">Artículos más recientes</h5>
+  <div class="container mb-5">
+    <div>
+      <div class="d-flex justify-content-between">
+        <div class="col-md-3 mt-5 mb-5 d-flex">
+          <div class="btn-group">
+            <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <p class="color-grey mb-0">
+                Categorias
+                <i class="fas fa-angle-down pl-0 size14 color-grey ml-1"></i></a>
+              </p>
+            </button>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="{% url 'app_blog:p_inicio' %}">
+                Todos
+              </a>
+              {% for categoria in categorias_blog %}
+                <a class="dropdown-item" href="{% url 'app_blog:p_buscador_categoria' categoria.slug  %}">
+                  {{categoria.nombre}}
+                </a>
+              {% endfor %}
+            </div>
+          </div>
         </div>
-        <div class="col-md-8 mt-5 mb-5">
+        <div class="col-md-8 mt-5 mb-5 d-flex flex-row-reverse">
             <div class="col-md-5 container-1">
                 <span class="icon1"><i class="fa fa-search color-blue1"></i></span>
-                <form  method="GET" action="https://herostartup.com/blog/buscador/" > 
+                <form  method="GET" action="{% url 'app_blog:p_buscador_blog' %}" > 
                 <input class="form-control search pl" type="search" id="q" name="q" placeholder="Buscar artículos ..." />
                 </form>
             </div>
         </div>
+      </div>
     </div>
     <div class="row mb-5">
-        
+      {% for blog in blogs %}
+        <!-- First text -->
         <div class="col-md-4">
-            <p class="size12 f-mont c-r">
-                 Startup 
-            </p>
-            <!-- Card image -->
-            <a href="venture-capital-en-america-latina-estatus-de-elite-y-fundadores-subestimados/index.html"><img loading="lazy" class="card-img-top" src="{% static 'img/im.jpg' %}" alt="Card image cap"></a>
+          <p class="size12 f-mont c-r">
+            Startup 
+          </p>
 
+          <!-- Card image -->
+          <a href="{% url 'app_blog:p_detalle_blog' blog.slug %}"><img loading="lazy" class="card-img-top" src="{{ blog.portada.url }}" alt="Card image cap"></a>
 
-            <!-- Card content -->
-            <div class="card-body m-0 p-0">
-
-                <div class="row pt-1">
-                    <div class="col-md-6 col-6">
-                        <p class="size12 m-0 c-gray">22 Abr, 2021</p>
-                    </div>
-                    <!-- <div class="col-md-6 col-6">
-                        <p class="text-right size12 m-0 c-gray">3 min de lectura</p>
-                    </div> -->
-                    <div class="col-md-12">
-                        <p class="f-mont size18 pt-2 m-0 pb-2">Venture Capital en América Latina: estatus de élite y fundadores subestimados</p>
-                    </div>
-                    <div class="col-md-12">
-                        <p class="size12 c-gray">¿Startups élite?...</p>
-                    </div>
-                </div>
-
+          <!-- Card content -->
+          <div class="card-body m-0 p-0">
+            <div class="row pt-1">
+              <div class="col-md-6 col-6">
+                <p class="size12 m-0 c-gray">
+                  {{blog.fecha_publicacion|date:"d M, Y"}}
+                </p>
+              </div>
+              <div class="col-md-12">
+                <p class="f-mont size18 pt-2 m-0 pb-2">
+                  {{blog.titulo}}
+                </p>
+              </div>
+              <div class="col-md-12">
+                <p class="size12 c-gray">
+                  {{blog.resumen}}
+                </p>
+              </div>
             </div>
+          </div>
+
+          <!-- Card footer -->
+          <div class="rounded-bottom  lighten-3  pt-3 ">
+            <div class="row pd-gblog mb-1">
+              <div class="col-md-8">
+                <div class="row justify-content-center">
+                  <div class="col-md-2 ">
+                    <div class="avatar-blog ">
+                      <img src="{{ blog.autor.perfil_usuario.foto.url }}" class="rounded-circle img-fluid">
+                    </div>
+                  </div>
+                  <div class="col-md-10  pd-lblog cy-blog">
+                    <p class="text-avatar mpg">
+                      Posteado por <b>{{ blog.autor.perfil_usuario.nombres }} {{ blog.autor.perfil_usuario.apellidos }}</b>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        
+      {% endfor %}   
     </div>
     <div>
       <nav aria-label="Page navigation">
-        
-          <ul class="pagination pg-blue justify-content-center">
-            
-              <li class="page-item disabled">
-                <span class="page-link">Anterior</span>
-              </li>
-            
-            
-              
-                <li class="page-item active"><a class="page-link" href="index2679.html?page=1">1</a></li>
-              
-            
-              
-                <li class="page-item"><a class="page-link" href="index4658.html?page=2">2</a></li>
-              
-            
-              
-                <li class="page-item"><a class="page-link" href="index9ba9.html?page=3">3</a></li>
-              
-            
-              
-                <li class="page-item"><a class="page-link" href="indexfdb0.html?page=4">4</a></li>
-              
-            
-              
-                <li class="page-item"><a class="page-link" href="indexaf4d.html?page=5">5</a></li>
-              
-            
-              
-                <li class="page-item"><a class="page-link" href="indexc575.html?page=6">6</a></li>
-              
-            
-              
-                <li class="page-item"><a class="page-link" href="index235c.html?page=7">7</a></li>
-              
-            
-              
-                <li class="page-item"><a class="page-link" href="indexfdfa.html?page=8">8</a></li>
-              
-            
-            
-              <li class="page-item">
-                <a class="page-link" href="index4658.html?page=2" aria-label="Next">
-                  <span aria-hidden="true">Siguiente</span>
-                  <span class="sr-only">Siguiente</span>
-                </a>
-              </li>
-            
-          </ul>
-        
-      </nav>
-    </div>
-</div>
 
+        <ul class="pagination pg-blue justify-content-center">
 
-</div>
-<div>
-  <div class="container-fluid">
-   <div class="container pt-lg  pt-1 pb-3">
-       <div class="row mt-5 mb-3">
-      <div class="col-md-12 ">
-         <p class="color-blue1 size30 fw700" id="myModalLabel">Publicaciones más recientes</p>
-      </div>
-    </div>
-   </div>
-  </div>
-  
-  <div class="container">
-    <div class="row  mb-5">
-        <!-- Search form -->
-        <div class="col-md-2"></div>
-          <div class="col-md-5 container-1">
-              <span class="icon1"><i class="fa fa-search color-blue1"></i></span>
-              <form  method="GET" action="{% url 'app_blog:p_buscador_blog' %}" > 
-              <input class="form-control search pl" type="search" id="q" name="q" placeholder="Buscar Topicos ..." />
-              </form>
-          </div>
-    </div>
-    <div class="row">
-  
-      <div class="col-md-2">
-        <ul class="menu-ver  menu-blog tab1">
-          <li class="li-ver pb-4">
-            <span class="enl-ver">Filtro por categorías</span>
+          <li class="page-item disabled">
+            <span class="page-link">Anterior</span>
           </li>
-          <li class="li-ver pb-4">
-              <a class="enl-ver activo1 " href="{% url 'app_blog:p_inicio' %}">Todos</a>
+
+          <li class="page-item active"><a class="page-link" href="index2679.html?page=1">1</a></li>
+
+          <li class="page-item"><a class="page-link" href="index4658.html?page=2">2</a></li>
+  
+          <li class="page-item"><a class="page-link" href="index9ba9.html?page=3">3</a></li>
+
+          <li class="page-item"><a class="page-link" href="indexfdb0.html?page=4">4</a></li>
+
+          <li class="page-item"><a class="page-link" href="indexaf4d.html?page=5">5</a></li>
+
+          <li class="page-item"><a class="page-link" href="indexc575.html?page=6">6</a></li>
+
+          <li class="page-item"><a class="page-link" href="index235c.html?page=7">7</a></li>
+
+          <li class="page-item"><a class="page-link" href="indexfdfa.html?page=8">8</a></li>
+
+          <li class="page-item">
+            <a class="page-link" href="index4658.html?page=2" aria-label="Next">
+              <span aria-hidden="true">Siguiente</span>
+              <span class="sr-only">Siguiente</span>
+            </a>
           </li>
-          {% for categoria in categorias_blog %}
-            <li class="li-ver pb-4">
-                <a class="enl-ver" href=" {% url 'app_blog:p_buscador_categoria' categoria.slug  %} ">{{categoria.nombre}}</a>
-            </li>  
-          {% endfor %}
+
         </ul>
-      </div>
-  
-    <div class="col-md-10">
-    <div class="row">
-      {% for blog in blogs %}
-        <div class="col-md-4 mb-4">
-          <!-- Card -->
-            <div class="card">
-  
-              <!-- Card image -->
-              <div class="view overlay">
-                <img class="card-img-top" src="{{ blog.portada.url }}" alt="Card image cap">
-                <a href="{% url 'app_blog:p_detalle_blog' blog.slug %}">
-                  <div class="mask rgba-white-slight"></div>
-                </a>
-              </div>
-  
-              <!-- Card content -->
-              <div class="card-body">
-  
-                <!-- Title -->
-                <a href="{% url 'app_blog:p_detalle_blog' blog.slug %}"><h5 class="card-title">{{blog.titulo}}</h5></a>
-                  <p class="text-avatar m-0 p-0 pb-2 gris3">{{blog.fecha_publicacion|date:"d M, Y"}}</p>
-                <!-- Text -->
-                <p class="card-text">{{blog.resumen}} </p>
-                <!-- Button -->
-              
-  
-              </div>
-               <!-- Card footer -->
-                <div class="rounded-bottom  lighten-3  pt-3 ">
-                  <div class="row pd-gblog mb-1">
-                      <div class="col-md-8">
-                        <div class="row justify-content-center">
-                            <div class="col-md-2 ">
-                                  <div class="avatar-blog ">
-                                  <img src="{{ blog.autor.perfil_usuario.foto.url }}" class="rounded-circle img-fluid">
-                                  </div>
-                            </div>
-                              
-                            <div class="col-md-10  pd-lblog cy-blog">
-                                <p class="text-avatar mpg">Posteado por <b>{{ blog.autor.perfil_usuario.nombres }} {{ blog.autor.perfil_usuario.apellidos }}</b></p>
-                            </div>
-                        </div>
-                      </div>
-                </div>
-  
-              </div>
-            </div>
-            <!-- Card -->
-        </div>
-      {% endfor %}
-  
-    </div>
-      </div>
+      </nav>
     </div>
   </div>
 </div>
