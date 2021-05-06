@@ -43,58 +43,54 @@
 {% endblock %}
 {% block contenido %}
 
-<div class="container-fluid pt-3 base d-flex justify-content-center">
-  <div class="row">
-    <picture>
-      <!-- Image when width < 768px -->
-      <source srcset="{% static 'img/bannerazul.jpg' %}" media="(max-width: 768px)">
-      <!-- Normal image -->
-      <img loading="lazy" src="{% static 'img/bannerazul.jpg' %}" class="img-fluid" alt="img-yachay">
-    </picture>
+  <div class="container-fluid pt-3 base d-flex justify-content-center">
+    <div class="row">
+      <picture>
+        <!-- Image when width < 768px -->
+        <source srcset="{% static 'img/bannerazul.jpg' %}" media="(max-width: 768px)">
+        <!-- Normal image -->
+        <img loading="lazy" src="{% static 'img/bannerazul.jpg' %}" class="img-fluid" alt="img-yachay">
+      </picture>
+    </div>
   </div>
-</div>
-
-<div class="father-container d-flex justify-content-between">
 
   <div class="container mb-5">
-    <div>
-      <div class="d-flex justify-content-between">
-        <div class="col-md-3 mt-5 mb-5 d-flex">
-          <div class="btn-group">
-            <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <p class="color-grey mb-0">
-                Categorias
-                <i class="fas fa-angle-down pl-0 size14 color-grey ml-1"></i></a>
-              </p>
-            </button>
-            <div class="dropdown-menu">
-              <a class="dropdown-item" href="{% url 'app_blog:p_inicio' %}">
-                Todos
+    <div class="d-flex">
+      <div class="d-flex mt-5 mb-5">
+        <div class="btn-group">
+          <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <p class="color-grey mb-0">
+              Categorias
+              <i class="fas fa-angle-down pl-0 size14 color-grey ml-1"></i></a>
+            </p>
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="{% url 'app_blog:p_inicio' %}">
+              Todos
+            </a>
+            {% for categoria in categorias_blog %}
+              <a class="dropdown-item" href="{% url 'app_blog:p_buscador_categoria' categoria.slug  %}">
+                {{categoria.nombre}}
               </a>
-              {% for categoria in categorias_blog %}
-                <a class="dropdown-item" href="{% url 'app_blog:p_buscador_categoria' categoria.slug  %}">
-                  {{categoria.nombre}}
-                </a>
-              {% endfor %}
-            </div>
+            {% endfor %}
           </div>
         </div>
-        <div class="col-md-8 mt-5 mb-5 d-flex flex-row-reverse">
-            <div class="col-md-5 container-1">
-                <span class="icon1"><i class="fa fa-search color-blue1"></i></span>
-                <form  method="GET" action="{% url 'app_blog:p_buscador_blog' %}" > 
-                <input class="form-control search pl" type="search" id="q" name="q" placeholder="Buscar artículos ..." />
-                </form>
-            </div>
-        </div>
+      </div>
+      <div class="d-flex col-md-8 mt-5 mb-5 ml-0">
+          <div class="col-md-5 container-1">
+              <span class="icon1"><i class="fa fa-search color-blue1"></i></span>
+              <form  method="GET" action="{% url 'app_blog:p_buscador_blog' %}" > 
+              <input class="form-control search pl" type="search" id="q" name="q" placeholder="Buscar artículos ..." />
+              </form>
+          </div>
       </div>
     </div>
     <div class="row mb-5">
-      {% for blog in blogs %}
+      {% for blog in page_obj %}
         <!-- First text -->
         <div class="col-md-4">
           <p class="size12 f-mont c-r">
-            Startup 
+            <!-- Startup  -->
           </p>
 
           <!-- Card image -->
@@ -141,44 +137,42 @@
             </div>
           </div>
         </div>
-      {% endfor %}   
+      {% endfor %}
     </div>
+
     <div>
       <nav aria-label="Page navigation">
 
         <ul class="pagination pg-blue justify-content-center">
 
-          <li class="page-item disabled">
-            <span class="page-link">Anterior</span>
-          </li>
+          {% if page_obj.has_previous %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previus">
+                <!-- <span class="page-link" href="?page={{ contacts.previous_page_number }}">Anterior</span> -->
+                <span aria-hidden="true step-links">Anterior</span>
+                <span class="sr-only">Anterior</span>
+              </a>
+            </li>
+          {% endif %}
 
-          <li class="page-item active"><a class="page-link" href="index2679.html?page=1">1</a></li>
+          {% for i in counter %}
+            {% if page_obj.number == i %}
+              <li class="page-item active"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+            {% else %}
+              <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+            {% endif %}
+          {% endfor %}
 
-          <li class="page-item"><a class="page-link" href="index4658.html?page=2">2</a></li>
-  
-          <li class="page-item"><a class="page-link" href="index9ba9.html?page=3">3</a></li>
-
-          <li class="page-item"><a class="page-link" href="indexfdb0.html?page=4">4</a></li>
-
-          <li class="page-item"><a class="page-link" href="indexaf4d.html?page=5">5</a></li>
-
-          <li class="page-item"><a class="page-link" href="indexc575.html?page=6">6</a></li>
-
-          <li class="page-item"><a class="page-link" href="index235c.html?page=7">7</a></li>
-
-          <li class="page-item"><a class="page-link" href="indexfdfa.html?page=8">8</a></li>
-
-          <li class="page-item">
-            <a class="page-link" href="index4658.html?page=2" aria-label="Next">
-              <span aria-hidden="true">Siguiente</span>
-              <span class="sr-only">Siguiente</span>
-            </a>
-          </li>
-
+          {% if page_obj.has_next %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                <span aria-hidden="true">Siguiente</span>
+                <span class="sr-only">Siguiente</span>
+              </a>
+            </li>
+          {% endif %}
         </ul>
       </nav>
     </div>
   </div>
-</div>
 {% endblock contenido %}
-
