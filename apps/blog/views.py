@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, render_to_response, get_object_or
 from django.views.generic import ListView, TemplateView, DetailView
 from .models import Blog as Blogs, Categoria
 from django.db.models import Q
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 # para paginador
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import JsonResponse, HttpResponse
@@ -12,8 +13,8 @@ class Blog(ListView):
     """docstring for ver_todas_tortas"""
     context_object_name = 'blogs'
     template_name = 'blog/blog.html'
-    queryset = []
-
+    paginate_by = 3
+    model = Blogs
     def get_context_data(self, *args, **kwargs):
         context_data = super(Blog, self).get_context_data(*args, **kwargs)
         # realizamos consulta de todos los categorias de blogs
@@ -38,9 +39,15 @@ class Blog(ListView):
         context_data['blogs'] = list_blogs
         context_data['categorias_blog'] = Categoria.objects.all()
 
+        counter = len(context_data['blogs'])/3
+
+        if type(counter) == float:
+            counter = int(counter+1)
+        context_data['counter'] = range(1,counter+1)
+
+        print(context_data['counter'])
+
         return context_data
-
-
 
 class Detalle_blog(DetailView):
     """docstring for Detalle_curso"""
