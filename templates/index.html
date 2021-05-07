@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}YachayCode - Inicio {% endblock title %}
 {% block author %}YachayCode{% endblock author %}
@@ -22,6 +23,9 @@
 
 {% block contenido %}
 
+{% block head_imports %}
+{% endblock %}
+
 <!--/.start bannner-->
 <div class="container-fluid m-0 p-0 bg-color1">
   <div class="contenedor-banner banner pt-general">
@@ -29,16 +33,16 @@
      <div class="col-md-6 centerv">
        <form class="form-inline" method="GET" action="/blog/buscador">
         <div class="row vert-banner  mg-l">
-                <h2 class="title-banner pb-2"><b>Comunidad YachayCode</b><br></h2>
-              <p class="p-banner">Apasionados por la tecnología, computación y la informática; compartimos experiencias mediante la generación de contenido de valor.</p>
+                <h2 class="title-banner pb-2 f-mont size30"><b>Comunidad YachayCode</b><br></h2>
+              <p class="p-banner f-mont size18">Apasionados por la tecnología, computación y la informática; compartimos experiencias mediante la generación de contenido de valor.</p>
               <div class="col-md-9 container-1 pt-3 p-0 m-0">
                     <span class="icon"><i class="fa fa-search"></i></span>
-                    <input class="form-control search" type="text" id="q" name="q" placeholder="Buscar .." />
+                    <input class="form-control search f-mont size15" type="text" id="q" name="q" placeholder="Buscar..." />
               </div>     
         </div>
         </form>
         {% if blogs %}
-            <h2>{{ blogs.titulo }}</h2>
+            <h2 class="mb-5">{{ blogs.titulo }}</h2>
             <p>{{ blogs.resumen }}</p>
         {%else%}
         <h5> No se encontraron resultados</h5>
@@ -53,7 +57,7 @@
 <div class="container mb-lg1">
   <div class="row mt-5 mb-5">
     <div class="col-md-12 text-center">
-       <h5 class="color-title" id="myModalLabel"><b>Últimas publicaciones</b></h5>
+       <h5 class="color-title f-mont size18" id="myModalLabel"><b>Últimas publicaciones</b></h5>
     </div>
   </div>
    
@@ -65,7 +69,7 @@
 
           <!-- Card image -->
           <div class="view overlay">
-            <img class="card-img-top" src="{{ blog.portada.url }}" alt="Card image cap">
+            <img class="card-img-top f-mont" src="{{ blog.portada.url }}" alt="Card image cap">
             <a href="{% url 'app_blog:p_detalle_blog' blog.slug %}">
               <div class="mask rgba-white-slight"></div>
             </a>
@@ -75,10 +79,10 @@
           <div class="card-body">
 
             <!-- Title -->
-            <a href="{% url 'app_blog:p_detalle_blog' blog.slug %}"><h5 class="card-title">{{blog.titulo}}</h5></a>
-              <p class="text-avatar m-0 p-0 pb-2 gris3">{{blog.fecha_publicacion|date:"d M, Y"}}</p>
+            <a href="{% url 'app_blog:p_detalle_blog' blog.slug %}"><h5 class="card-title f-mont">{{blog.titulo}}</h5></a>
+              <p class="text-avatar size12 m-0 c-gray">{{blog.fecha_publicacion|date:"d M, Y"}}</p>
             <!-- Text -->
-            <p class="card-text">{{blog.resumen}} </p>
+            <p class="size12 c-gray">{{blog.resumen}} </p>
             <!-- Button -->
           
 
@@ -95,7 +99,7 @@
                         </div>
                           
                         <div class="col-md-10  pd-lblog cy-blog">
-                            <p class="text-avatar mpg">Posteado por <b>{{ blog.autor.perfil_usuario.nombres }} {{ blog.autor.perfil_usuario.apellidos }}</b></p>
+                            <p class="text-avatar size12 c-gray">Posteado por <b>{{ blog.autor.perfil_usuario.nombres }} {{ blog.autor.perfil_usuario.apellidos }}</b></p>
                         </div>
                     </div>
                   </div>
@@ -113,7 +117,3 @@
 
 
 {% endblock %}
-
-         
-                
-                              
