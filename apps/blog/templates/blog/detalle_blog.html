@@ -27,30 +27,40 @@
 
 
 {% block contenido %}
-<link rel="stylesheet" href="{% static 'blog/css/blog.css' %}">
- <div class="container-fluid bg-color">
-  <!-- detalle blog -->
-    <div class="container py-xl-5 py-lg-3 ">
+<link rel="stylesheet" href="{% static 'blog/css/detailed.css' %}">
+  <div class="container-fluid bg-color">
+    <!-- detalle blog -->
+    <div class="container py-xl-4 py-lg-3 ">
       <div class="row inner_sec_info pt-md-4 pt-sm-8 justify-content-center">
         <!-- left side -->
-        <div class="col-md-10  col-11 single-left card1tg">
-          <h1 class="color-blue1 size30 fw700 pt-3 pb-2">{{detalle_blog.titulo}}</h1>
-             <ul class="blog_list my-3 pb-3">
-             <li>
-              
-              <i class="fas fa-user-circle mr-2"></i>{{ detalle_blog.autor.perfil_usuario.nombres }} {{ detalle_blog.autor.perfil_usuario.apellidos }}
-             </li>
-              <li>{{detalle_blog.fecha_publicacion|date:"d M, Y"}}</li>
-              <li class="mx-3">
-              
-                  <i class="fas fa-eye mr-1"></i>
-                  {{detalle_blog.vistas}}
-              </li>
-              <li>
-              
-                  <i class="far fa-comments mr-1"></i>
-                  <a href="{{ object.get_absolute_url }}#disqus_thread" data-disqus-identifier="{{ object.id }}"> {% disqus_num_replies %}<span class="gris3">Comentarios</span></a>
-              </li>
+        <div class="col-md-10 col-11 single-left card1tg">
+          <h1 class="color-blue1 f-mont size30 fw700 pt-3 pb-2">
+            {{detalle_blog.titulo}}
+          </h1>
+          <ul class="blog_list my-3 pb-3 pl-0">
+            <li>
+              <i class="fas fa-user-circle mr-2"></i>
+            </li>
+            <li>
+              <p class="f-mont size18">{{ detalle_blog.autor.perfil_usuario.nombres }} {{ detalle_blog.autor.perfil_usuario.apellidos }}</p>
+            </li>
+            <li>
+              <p class="f-ml size15">{{detalle_blog.fecha_publicacion|date:"d M, Y"}}</p>
+            </li>
+            <li class="mx-1">
+              <i class="fas fa-eye mr-1"></i>{{detalle_blog.vistas}}
+            </li>
+            <li>
+            </li>
+            <li>
+              <i class="far fa-comments mr-1"></i>
+              <a href="{{ object.get_absolute_url }}#disqus_thread" data-disqus-identifier="{{ object.id }}">{% disqus_num_replies %}<span class="gris3">Comentarios</span></a>
+            </li>
+            <li>
+              <p>
+
+              </p>
+            </li>
             </ul>
           <div class="single-left1">
             <img src="{{detalle_blog.portada.url}}" alt=" " class="img-fluid" />
@@ -63,7 +73,7 @@
           {% if detalle_blog.posts_relacionados.all %}
             <div class="container-fluid m-0 p-0 ">
               <hr class="mt-5 mb-4">
-                <h3 class="blog-title text-dark mb-4">Artículos relacionados</h3>
+                <h3 class="blog-title f-mont size30 mb-4">Artículos relacionados</h3>
                 <div class="row">
                   
                     {% for post_relacionado in detalle_blog.posts_relacionados.all  %}
@@ -77,7 +87,7 @@
                           <!-- Card content -->
                           <div class="mt-2">
 
-                           <a href="{% url 'app_blog:p_detalle_blog' post_relacionado.slug %}"><h5 class="card-title">{{post_relacionado.titulo}}</h5></a>
+                           <a href="{% url 'app_blog:p_detalle_blog' post_relacionado.slug %}"><h5 class="card-title f-mont">{{post_relacionado.titulo}}</h5></a>
                           </div>
 
                         </div>
@@ -91,7 +101,15 @@
                     <div class="col-md-12">
                       <ul class="categoria m-0 p-0">
                         {% for categoria in detalle_blog.categorias.all  %}
-                          <li><a href="{% url 'app_blog:p_tag_blog' categoria.slug %}"><span>{{categoria.nombre}}</span></a></li>
+                          <li>
+                            <a href="{% url 'app_blog:p_tag_blog' categoria.slug %}">
+                              <span>
+                                <p class="f-ml size18">
+                                  {{categoria.nombre}}
+                                </p>
+                              </span>
+                            </a>
+                          </li>
                         {% endfor%}
                       </ul>
                     </div>
@@ -107,7 +125,7 @@
           <div class="container  mt-5 ">
             <div class="row justify-content-center">
             <div class="col-md-10 col-11 single-left card1">
-            {% disqus_show_comments %}
+              {% disqus_show_comments %}
             </div>
               
             </div>
