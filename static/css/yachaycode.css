@@ -1,4 +1,13 @@
-/* =========== Nuevos estilos para la pagina ================*/
+/**color**/
+:root {
+	--color-brow1: #2f3b40;
+	--color-purple: #662d91;
+	--color-cherry: #e72124;
+	--color-blue: #335078;
+	--color-gris: #BDBDBD;
+	--color-gray3: #828282;
+}
+
 @font-face {
   font-family: nunito;
   src: url('../font/nunito/Nunito-Light.ttf');
