@@ -1,7 +1,8 @@
-{% extends "apps/blog/templates/blog/blog.html" %}
+{% extends "base.html" %}
 {% block title %}YachayCode | Buscador blog{% endblock title %}
 {% load static %}
 {% block contenido %}
+<link rel="stylesheet" href="{% static 'blog/css/blog.css' %}">
 
   <div class="container-fluid pt-3 base d-flex justify-content-center">
     <div class="row">
@@ -40,7 +41,7 @@
               <a class="dropdown-item" href="{% url 'app_blog:p_inicio' %}">
                 Todos
               </a>
-              {% for categoria in categorias_blog %}
+              {% for categoria in categorias %}
                 <a class="dropdown-item" href="{% url 'app_blog:p_buscador_categoria' categoria.slug  %}">
                   {{categoria.nombre}}
                 </a>
@@ -49,7 +50,7 @@
           </div>
         </div>
         <div class="d-flex col-md-8 mt-5 mb-5 ml-0">
-            <div class="col-md-5 container-1">
+            <div class="col-md-7 container-1">
                 <span class="icon1"><i class="fa fa-search color-blue1"></i></span>
                 <form  method="GET" action="{% url 'app_blog:p_buscador_blog' %}" > 
                 <input class="form-control search pl" type="search" id="q" name="q" placeholder="Buscar artículos ..." />

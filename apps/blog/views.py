@@ -99,7 +99,7 @@ def buscador_blog(request):
            dict_blog['es_pricipal'] = blog.es_pricipal
            dict_blog['posts_relacionados'] = blog.posts_relacionados
            list_blogs.append(dict_blog)
-    paginator = Paginator(list_blogs, 9)  # Show 25 contacts per page
+    paginator = Paginator(list_blogs, 12)  # Show 25 contacts per page
 
     page = request.GET.get('page')
     try:
