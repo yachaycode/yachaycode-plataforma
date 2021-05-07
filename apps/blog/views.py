@@ -13,7 +13,7 @@ class Blog(ListView):
     """docstring for ver_todas_tortas"""
     context_object_name = 'blogs'
     template_name = 'blog/blog.html'
-    paginate_by = 3
+    paginate_by = 12
     model = Blogs
     def get_context_data(self, *args, **kwargs):
         context_data = super(Blog, self).get_context_data(*args, **kwargs)
@@ -38,14 +38,6 @@ class Blog(ListView):
            list_blogs.append(dict_blog)
         context_data['blogs'] = list_blogs
         context_data['categorias_blog'] = Categoria.objects.all()
-
-        counter = len(context_data['blogs'])/3
-
-        if type(counter) == float:
-            counter = int(counter+1)
-        context_data['counter'] = range(1,counter+1)
-
-        print(context_data['counter'])
 
         return context_data
 
