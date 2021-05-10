@@ -88,7 +88,7 @@
 
           </div>
            <!-- Card footer -->
-            <div class="rounded-bottom  lighten-3  pt-3 ">
+            <div class="rounded-bottom lighten-3 pt-0">
               <div class="row pd-gblog mb-1">
                   <div class="col-md-8">
                     <div class="row justify-content-center">
@@ -99,7 +99,13 @@
                         </div>
                           
                         <div class="col-md-10  pd-lblog cy-blog">
-                            <p class="text-avatar size12 c-gray">Posteado por <b>{{ blog.autor.perfil_usuario.nombres }} {{ blog.autor.perfil_usuario.apellidos }}</b></p>
+                            <p class="text-avatar size12 c-gray">Posteado por 
+                              {% if blog.autor.perfil_usuario.nombres and blog.autor.perfil_usuario.apellidos %}
+                                <b>{{ blog.autor.perfil_usuario.nombres }} {{ blog.autor.perfil_usuario.apellidos }}</b>
+                              {% else %}
+                                <b>{{ blog.autor.perfil_usuario.usuario }}</b>
+                              {% endif %}
+                            </p>
                         </div>
                     </div>
                   </div>
