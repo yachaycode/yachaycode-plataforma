@@ -1,0 +1,30 @@
+p {
+    line-height: 2em;
+    font-family: montserrat-regular !important;
+    font-size: 16px;
+    text-align: justify;
+}
+h1 {
+    font-family: montserrat-bold;
+    border: none;
+    text-decoration: none;
+    margin-bottom: 20px;
+    padding-bottom: 9px;
+    border-bottom: 1px solid #eee;
+}
+h2, h3,h4,h5 {
+    font-family: montserrat;
+    border: none;
+    text-decoration: none;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+}
+.categoria li {
+    background: none;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+body > div.container-fluid.bg-color > div > div > div.col-md-10.col-11.single-left.card1tg > div.container-fluid.m-0.p-0 > div.row.mt-4 > div > ul {
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+}
