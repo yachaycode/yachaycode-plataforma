@@ -19,7 +19,7 @@ class Categoria(models.Model):
 class Blog(models.Model):
     titulo = models.CharField(max_length=350, unique=True)
     slug = models.SlugField(editable=False, null=True, max_length=250)
-    resumen = models.TextField(null=True, max_length=1200)
+    resumen = models.TextField(null=True, max_length=1800)
     contenido = MartorField()
     categorias = models.ManyToManyField(Categoria)
     portada = models.ImageField(upload_to='portadas-blog', null=True)

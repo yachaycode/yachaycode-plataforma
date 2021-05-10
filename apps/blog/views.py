@@ -24,7 +24,7 @@ class Blog(ListView):
            dict_blog = {}
            dict_blog['titulo'] = blog.titulo
            dict_blog['slug'] = blog.slug
-           dict_blog['resumen'] = blog.resumen[0:85] + '...' if len(blog.resumen)>85 else blog.resumen
+           dict_blog['resumen'] = blog.resumen[0:250] + '...' if len(blog.resumen)>250 else blog.resumen
            dict_blog['contenido'] = blog.contenido
            dict_blog['categorias'] = blog.categorias
            dict_blog['portada'] = blog.portada
@@ -87,7 +87,7 @@ def buscador_blog(request):
            dict_blog = {}
            dict_blog['titulo'] = blog.titulo
            dict_blog['slug'] = blog.slug
-           dict_blog['resumen'] = blog.resumen[0:85] + '...' if len(blog.resumen)>85 else blog.resumen
+           dict_blog['resumen'] = blog.resumen[0:250] + '...' if len(blog.resumen)>250 else blog.resumen
            dict_blog['contenido'] = blog.contenido
            dict_blog['categorias'] = blog.categorias
            dict_blog['portada'] = blog.portada
@@ -126,7 +126,7 @@ def buscador_categoria(request, slug):
            dict_blog = {}
            dict_blog['titulo'] = blog.titulo
            dict_blog['slug'] = blog.slug
-           dict_blog['resumen'] = blog.resumen[0:85] + '...' if len(blog.resumen)>85 else blog.resumen
+           dict_blog['resumen'] = blog.resumen[0:250] + '...' if len(blog.resumen)>250 else blog.resumen
            dict_blog['contenido'] = blog.contenido
            dict_blog['categorias'] = blog.categorias
            dict_blog['portada'] = blog.portada
