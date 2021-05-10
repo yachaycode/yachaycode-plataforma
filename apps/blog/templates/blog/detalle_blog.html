@@ -30,42 +30,60 @@
 <link rel="stylesheet" href="{% static 'blog/css/detailed.css' %}">
   <div class="container-fluid bg-color">
     <!-- detalle blog -->
-    <div class="container py-xl-4 py-lg-3 ">
+    <div class="container py-xl-5 py-lg-3">
       <div class="row inner_sec_info pt-md-4 pt-sm-8 justify-content-center">
         <!-- left side -->
         <div class="col-md-10 col-11 single-left card1tg">
-          <h1 class="color-blue1 f-mont size30 fw700 pt-3 pb-2">
+          <a href="">
+            <span class="size18 c-r f-mont">
+              Startup
+            </span>
+          </a>
+          <h1 class="color_black f-mont f-mont  pb-2">
             {{detalle_blog.titulo}}
           </h1>
-          <ul class="blog_list my-3 pb-3 pl-0">
+          <span class="size13 f-mont-r">
+            {% if detalle_blog.usuario %}
+              Escrito por: <strong>{{ detalle_blog.autor.perfil_usuario.nombres }}</strong>
+            {%endif%}
+          </span>
+          <ul class="blog_list my-3 pb-3 p-0">
             <li>
-              <i class="fas fa-user-circle mr-2"></i>
+              <span class="c-gris size13 f-mont-r">
+                {{detalle_blog.fecha_publicacion|date:"d M, Y"}}
+              </span>
             </li>
-            <li>
-              <p class="f-mont size18">{{ detalle_blog.autor.perfil_usuario.nombres }} {{ detalle_blog.autor.perfil_usuario.apellidos }}</p>
+            <li class="mx-3">
+              <span class="c-gris size13 f-mont-r">
+                6 min de lectura
+              </span>
             </li>
-            <li>
-              <p class="f-ml size15">{{detalle_blog.fecha_publicacion|date:"d M, Y"}}</p>
-            </li>
-            <li class="mx-1">
-              <i class="fas fa-eye mr-1"></i>{{detalle_blog.vistas}}
-            </li>
-            <li>
+            <li class="mx-3">
+              <i class="fas fa-eye mr-1"></i>
+              <span class="c-gris size13 f-mont-r">{{detalle_blog.vistas}}</span>
             </li>
             <li>
               <i class="far fa-comments mr-1"></i>
-              <a href="{{ object.get_absolute_url }}#disqus_thread" data-disqus-identifier="{{ object.id }}">{% disqus_num_replies %}<span class="gris3">Comentarios</span></a>
+              <a href="#disqus_thread" id="link_to_comments" data-disqus-identifier="102"><script type="text/javascript">
+                var disqus_shortname = 'hero';
+                  (function () {
+                  var s = document.createElement('script'); s.async = true;
+                  s.type = 'text/javascript';
+                  s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+                  (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+                  }());
+                </script>
+                <span class="gris3">comentarios</span>
+              </a>
             </li>
-            <li>
-              <p>
+          </ul>
 
-              </p>
-            </li>
-            </ul>
+          <!-- Contenido -->
+
           <div class="single-left1">
-            <img src="{{detalle_blog.portada.url}}" alt=" " class="img-fluid" />
-            <p class="pt-5 cont-blog">
-            <p class="cont-blog color-blue1 ">
+            <img loading="lazy" src="{{detalle_blog.portada.url}}" alt=" " class="img-fluid">
+            <p class="pt-5 cont-blog"></p>
+            <p class="cont-blog color-blue1">
               {{detalle_blog.contenido|safe_markdown}}
             </p>
             <input type="hidden" name="id_blog" id="id_blog" value="{{detalle_blog.id}}">
@@ -104,10 +122,8 @@
                         {% for categoria in detalle_blog.categorias.all  %}
                           <li>
                             <a href="{% url 'app_blog:p_tag_blog' categoria.slug %}">
-                              <span>
-                                <p class="f-ml size18">
-                                  {{categoria.nombre}}
-                                </p>
+                              <span class="card-title f-mont size18">
+                                {{categoria.nombre}}
                               </span>
                             </a>
                           </li>
@@ -131,7 +147,6 @@
               
             </div>
           </div>
-    
       </div>
     </div>
  

@@ -13,7 +13,7 @@
         <!-- Image when width < 768px -->
         <source srcset="{% static 'img/bannerazul.jpg' %}" media="(max-width: 768px)">
         <!-- Normal image -->
-        <img loading="lazy" src="{% static 'img/bannerazul.jpg' %}" class="img-fluid" alt="img-yachay">
+        <img loading="lazy" src="{% static 'img/banner.jpg' %}" class="img-fluid" alt="img-yachay">
       </picture>
     </div>
   </div>
@@ -82,7 +82,7 @@
           </div>
 
           <!-- Card footer -->
-          <div class="rounded-bottom  lighten-3  pt-3 ">
+          <div class="rounded-bottom lighten-3 pt-0">
             <div class="row pd-gblog mb-1">
               <div class="col-md-8">
                 <div class="row justify-content-center">
@@ -93,7 +93,11 @@
                   </div>
                   <div class="col-md-10  pd-lblog cy-blog">
                     <p class="text-avatar mpg">
-                      Posteado por <b>{{ blog.autor.perfil_usuario.nombres }} {{ blog.autor.perfil_usuario.apellidos }}</b>
+                      {% if blog.autor.perfil_usuario.nombres and blog.autor.perfil_usuario.apellidos %}
+                        Posteado por <b>{{ blog.autor.perfil_usuario.nombres }} {{ blog.autor.perfil_usuario.apellidos }}</b>
+                      {% else %}
+                        Posteado por <b>{{ blog.autor.perfil_usuario.usuario }}</b>
+                      {% endif %}
                     </p>
                   </div>
                 </div>
