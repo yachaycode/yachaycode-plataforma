@@ -45,7 +45,9 @@
           <span class="size13 f-mont-r">
             {% if detalle_blog.usuario %}
               Escrito por: <strong>{{ detalle_blog.autor.perfil_usuario.nombres }}</strong>
-            {%endif%}
+            {% else %}
+              Escrito por: <strong>{{ detalle_blog.autor.perfil_usuario.usuario }}</strong>
+            {% endif %}
           </span>
           <ul class="blog_list my-3 pb-3 p-0">
             <li>
@@ -154,7 +156,7 @@
    
  </div>    
 
-<h1>{{detalle_blog.id}}</h1>
+<!-- <h1>{{detalle_blog.id}}</h1> -->
 
 {% endblock contenido %}
 {% block script %}
