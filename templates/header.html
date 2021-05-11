@@ -17,9 +17,9 @@
   
     <div class="collapse menu-collapse m-0 p-0" id="menu">
       <ul class="menu-nav idx">
-        <li><a href="/" class="size14 color-grey f-ms">Inicio</a></li>
-        <li><a href="{% url 'app_blog:p_acerca_de' %}" class="size14 color-grey f-ms">Nosotros</a></li>
-        <li><a href="{% url 'app_blog:p_inicio' %} " class="size14 color-grey f-ms">Blog</a></li>
+        <li><a href="/" class="size14 color-grey f-mont">Inicio</a></li>
+        <li><a href="{% url 'app_blog:p_acerca_de' %}" class="size14 color-grey f-mont">Nosotros</a></li>
+        <li><a href="{% url 'app_blog:p_inicio' %} " class="size14 color-grey f-mont">Blog</a></li>
       </ul>
   
       <ul class="nav navbar-right nav-right">
@@ -30,8 +30,8 @@
         <div class="md-form my-0 pr-3">
           <ul class="menu-nav idx">
             <li class="no-border">
-              <a class="buton_ingre pl-3 pr-3 hv-acceso" href="#" data-toggle="modal" data-target="#login_modal" id="login_user">
-                <span class="size14 line1 f-ms color-grey">Acceder</span>
+              <a class="buton_ingre pl-3 pr-3 hv-acceso" href="{% url 'admin:index' %}" id="login_user">
+                <span class="size14 line1 f-mont color-grey">Acceder</span>
                 <i class="fas fa-angle-right pl-2 size14 color-grey"></i></a>
             </li>
           </ul>
