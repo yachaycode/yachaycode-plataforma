@@ -50,7 +50,7 @@
       </div>
     </div>
     <div class="row mb-5">
-      {% for blog in page_obj %}
+      {% for blog in blogs %}
         <!-- First text -->
         <div class="col-md-4">
           <p class="size12 f-mont c-r">
@@ -75,7 +75,7 @@
               </div>
               <div class="col-md-12">
                 <p class="size12 c-gray">
-                    {{blog.resumen|slice:":250"}}...
+                    {{blog.resumen}}
                 </p>
               </div>
             </div>
