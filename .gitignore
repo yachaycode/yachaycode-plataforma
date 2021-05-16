@@ -1,8 +1,10 @@
 
 #GitIgnore de todas las migraciones
-apps/users/migrations/*
-apps/blog/migrations/*
-apps/seo/migrations/*
+# django migrations
+**/migrations/**
+!**/migrations
+!**/migrations/__init__.py
+
 
 media/*
 #gitIgnore de Setting.py
