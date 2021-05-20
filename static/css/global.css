@@ -276,6 +276,10 @@ strong {
 	display: flex;
 	align-items: center;
 }
+.logo-inicio{
+  max-height: 30px;
+  margin-top: 7px;
+}
 
 .center_text {
 	text-align: left;
