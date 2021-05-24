@@ -5,7 +5,7 @@
   <!-- Blog Styles -->
   <link rel="stylesheet" href="{% static 'blog/css/blog.css' %}">
 {% endblock %}
-{% block contenido %}
+{% block section %}
 
   <div class="container-fluid pt-3 base d-flex justify-content-center">
     <div class="row">
@@ -32,9 +32,9 @@
             <a class="dropdown-item" href="{% url 'app_blog:p_inicio' %}">
               Todos
             </a>
-            {% for categoria in categorias_blog %}
+            {% for categoria in categories_blog %}
               <a class="dropdown-item" href="{% url 'app_blog:p_buscador_categoria' categoria.slug  %}">
-                {{categoria.nombre}}
+                {{categoria.name}}
               </a>
             {% endfor %}
           </div>
@@ -58,24 +58,24 @@
           </p>
 
           <!-- Card image -->
-          <a href="{% url 'app_blog:p_detalle_blog' blog.slug %}"><img loading="lazy" class="card-img-top" src="{{ blog.portada.url }}" alt="Card image cap"></a>
+          <a href="{% url 'app_blog:p_detalle_blog' blog.slug %}"><img loading="lazy" class="card-img-top" src="{{ blog.cover_image.url }}" alt="Card image cap"></a>
 
           <!-- Card content -->
           <div class="card-body m-0 p-0">
             <div class="row pt-1">
               <div class="col-md-6 col-6">
                 <p class="size12 m-0 c-gray">
-                  {{blog.fecha_publicacion|date:"d M, Y"}}
+                  {{blog.created_at|date:"d M, Y"}}
                 </p>
               </div>
               <div class="col-md-12">
                 <p class="f-mont size18 pt-2 m-0 pb-2">
-                  {{blog.titulo}}
+                  {{blog.title}}
                 </p>
               </div>
               <div class="col-md-12">
                 <p class="size12 c-gray">
-                    {{blog.resumen}}
+                    {{blog.summary}}
                 </p>
               </div>
             </div>
@@ -88,15 +88,15 @@
                 <div class="row justify-content-center">
                   <div class="col-md-2 ">
                     <div class="avatar-blog ">
-                      <img src="{{ blog.autor.perfil_usuario.foto.url }}" class="rounded-circle img-fluid">
+                      <img src="{{ blog.author.userprofile.photo.url }}" class="rounded-circle img-fluid">
                     </div>
                   </div>
                   <div class="col-md-10  pd-lblog cy-blog">
                     <p class="text-avatar mpg">
-                      {% if blog.autor.perfil_usuario.nombres and blog.autor.perfil_usuario.apellidos %}
-                        Posteado por <b>{{ blog.autor.perfil_usuario.nombres }} {{ blog.autor.perfil_usuario.apellidos }}</b>
+                      {% if blog.author.userprofile.first_name and blog.author.userprofile.last_name %}
+                        Posteado por <b>{{ blog.author.userprofile.first_name }} {{ blog.author.userprofile.last_name }}</b>
                       {% else %}
-                        Posteado por <b>{{ blog.autor.perfil_usuario.usuario }}</b>
+                        Posteado por <b>{{ blog.author.userprofile.username }}</b>
                       {% endif %}
                     </p>
                   </div>
@@ -143,4 +143,4 @@
       </nav>
     </div>
   </div>
-{% endblock contenido %}
+{% endblock section %}

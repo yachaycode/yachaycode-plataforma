@@ -16,8 +16,8 @@ class CustomUserCreationForm(UserCreationForm):
         del self.fields['username']
 
     class Meta:
-        model = Usuario
-        fields = ("usuario",)
+        model = User
+        fields = ("username",)
 
 
 class CustomUserChangeForm(UserChangeForm):
@@ -29,28 +29,28 @@ class CustomUserChangeForm(UserChangeForm):
 
     def __unicode__(self, *args, **kargs):
         super(CustomUserChangeForm, self).__init__(*args, **kargs)
-        del self.fields['usuario']
+        del self.fields['username']
 
     class Meta:
-        model = Usuario
-        fields = ("usuario",)
+        model = User
+        fields = ("username",)
         exclude = ()
 
 
-class UsuarioForm(forms.ModelForm):
+class UserForm(forms.ModelForm):
 
     # validacion del correo a nivel del form
     # def clean(self):
-    #     consulta = Usuario.objects.filter(email=self.cleaned_data.get('email')).exists()
+    #     consulta = User.objects.filter(email=self.cleaned_data.get('email')).exists()
     #     if consulta:
-    #         raise ValidationError("Ya existe un Usuario con este correo")
+    #         raise ValidationError("Ya existe un User con este correo")
     #     return self.cleaned_data
     class Meta:
-        model = Usuario
+        model = User
         exclude = ('date_joined', 'is_staff',
                    'is_active', 'is_superuser')
         widgets = {
-            'usuario': forms.TextInput(
+            'username': forms.TextInput(
                 attrs={'class': 'form-control',
                 'pattern': '[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚüÜ.-_]{2,35}',
                 'title': "No es un formato válido, revise por favor..!"}),
@@ -59,30 +59,30 @@ class UsuarioForm(forms.ModelForm):
             # 'date_joined': forms.TextInput(attrs={'class': 'form-control'}),
         }
 
-# para cambiar nombre de USUARIO
-class UsuarioForm_usaurio(forms.ModelForm):
+# para cambiar name de USUARIO
+class UserForm_usaurio(forms.ModelForm):
 
     class Meta:
-        model = Usuario
+        model = User
         exclude = ('date_joined', 'is_staff',
                    'is_active', 'is_superuser','password')
         widgets = {
-            'usuario': forms.TextInput(
+            'username': forms.TextInput(
                 attrs={'class': 'form-control',
                 'pattern': '[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚüÜ.-_]{2,35}',
                 'title': "No es un formato válido, revise por favor..!",
                 'placeholder': 'Ususario',
-                'id': 'id_usuario_register'}),
+                'id': 'id_user_register'}),
             'email': forms.EmailInput(
                 attrs={'class': 'form-control',
                 'placeholder': 'Correo electronico'}),
             # 'date_joined': forms.TextInput(attrs={'class': 'form-control'}),
         }
 
-class Perfil_usuario_form(forms.ModelForm):
+class UserProfileForm(forms.ModelForm):
 
     class Meta:
-        model = Perfil_usuario
+        model = UserProfile
         exclude = ('fecha_nacimiento',)
         widgets = {
             # 'password': forms.PasswordInput(attrs={'class': 'form-control'}),
@@ -92,35 +92,35 @@ class Perfil_usuario_form(forms.ModelForm):
             #                               'title': "Solo esta permitido NUMEROS 8 dígitos de 0 al 9..!",
             #                               'autocomplete': 'off',
             #                               'autocorrect': 'off'}),
-            'apellidos': forms.TextInput(
+            'last_name': forms.TextInput(
                 attrs={'class': 'form-control',
                 'pattern': '[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,60}',
                 'title': "No es un formato válido, revise por favor..!",
                 'autocomplete': 'off',
                 'autocorrect': 'off'}),
             # 'readonly': 'readonly'}),
-            'nombres': forms.TextInput(
+            'first_name': forms.TextInput(
                 attrs={'class': 'form-control',
                 'pattern': "[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,45}",
                 'autocomplete': 'off',
                 'autocorrect': 'off'}),
             # 'readonly': 'readonly'}),
-            'celular': forms.TextInput(
+            'cellphone': forms.TextInput(
                 attrs={'class': 'form-control',
                 'maxlength': '9',
                 'pattern':'\d*',
                 'title': "Solo esta permitido NUMEROS 9 dígitos de 0 al 9..!"}),
-            'pais': forms.Select(attrs={'class': 'form-control'}),
+            'country': forms.Select(attrs={'class': 'form-control'}),
             'sexo': forms.Select(attrs={'class': 'form-control'}),
-            'usuario': forms.HiddenInput(),
+            'username': forms.HiddenInput(),
         }
 
 
-class Perfil_usuario_editar_form(forms.ModelForm):
+class UserProfileEditForm(forms.ModelForm):
 
     class Meta:
-        model = Perfil_usuario
-        exclude = ('usuario', 'codigo_pais')
+        model = UserProfile
+        exclude = ('username', 'country_code')
         widgets = {
             # 'password': forms.PasswordInput(attrs={'class': 'form-control'}),
             # 'dni': forms.TextInput(attrs={'class': 'form-control',
@@ -129,14 +129,14 @@ class Perfil_usuario_editar_form(forms.ModelForm):
             #                               'title': "Solo esta permitido NUMEROS 8 dígitos de 0 al 9..!",
             #                               'autocomplete': 'off',
             #                               'autocorrect': 'off'}),
-            'apellidos': forms.TextInput(
+            'last_name': forms.TextInput(
                 attrs={'class': 'form-control',
                 'pattern': '[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,60}',
                 'title': "No es un formato válido, revise por favor..!",
                 'autocomplete': 'off',
                 'autocorrect': 'off'}),
             # 'readonly': 'readonly'}),
-            'nombres': forms.TextInput(
+            'first_name': forms.TextInput(
                 attrs={'class': 'form-control',
                 'pattern': "[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,45}",
                 'autocomplete': 'off',
@@ -144,18 +144,18 @@ class Perfil_usuario_editar_form(forms.ModelForm):
             # 'readonly': 'readonly'}),
             'sexo': forms.Select(attrs={'class': 'form-control'}),
             'foto': forms.FileInput(attrs={'capture': 'camera'}),
-            'celular': forms.TextInput(
+            'cellphone': forms.TextInput(
                 attrs={'class': 'form-control',
                 'maxlength': '9',
                 'pattern':'\d*',
                 'title': "Solo esta permitido NUMEROS 9 dígitos de 0 al 9..!"}),
-            'pais': forms.Select(attrs={'class': 'form-control'}),
-            'ciudad': forms.TextInput(attrs={'class': 'form-control'}),
-            'ocupacion': forms.TextInput(attrs={'class': 'form-control'}),
+            'country': forms.Select(attrs={'class': 'form-control'}),
+            'city': forms.TextInput(attrs={'class': 'form-control'}),
+            'occupation': forms.TextInput(attrs={'class': 'form-control'}),
             'profesion': forms.TextInput(attrs={'class': 'form-control'}),
             # me parece que solo con material desing funciona style
-            'biografia': forms.Textarea(attrs={'class': 'form-control'}),
-            'sitio_web': forms.URLInput(attrs={'class': 'form-control'}),
+            'biography': forms.Textarea(attrs={'class': 'form-control'}),
+            'website': forms.URLInput(attrs={'class': 'form-control'}),
             'email': forms.EmailInput(attrs={'class': 'form-control',
                                              'data-rule-email': 'true'}),
             'fecha_nacimiento': forms.DateTimeInput(attrs={'class': 'form-control'})

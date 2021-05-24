@@ -1,7 +1,7 @@
 {% extends "base_registro_usuario.html" %}
 {% block title %}Inicio de Sesión{% endblock title %}
 {% load static %}
-{% block contenido %}
+{% block section %}
 
 <div class="container">
   {% if not request.user.is_authenticated %}
@@ -62,4 +62,4 @@
     {% endif %}
 </div>
 
-{% endblock contenido %}
+{% endblock section %}

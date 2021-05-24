@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block title %}YachayCode - Categorias{% endblock title %}
 {% load static %}
-{% block contenido %}
+{% block section %}
 <!--stard categorie-->
  <div class="container-fluid bg-color">
   <!-- detalle blog -->
@@ -12,13 +12,13 @@
           <h5 class="text-dark text-center mb-3 pt-4 pb-3 strong ">Articulos con la etiqueta " <b>{{slug}}</b> "</h5>
           {% for blog in blogs %}
             <hr>
-            <a href=" {% url 'app_blog:p_detalle_blog' blog.slug %} "><span class="blue1"> {{blog.titulo}}</span></a>
+            <a href=" {% url 'app_blog:p_detalle_blog' blog.slug %} "><span class="blue1"> {{blog.title}}</span></a>
             <ul class="blog_list m-0 p-0">
               <li>
-                 <span class="small pr-3">{{blog.fecha_publicacion}}</span>
+                 <span class="small pr-3">{{blog.created_at}}</span>
               </li>
                <li>   
-                <span class="small">publicador por, {{blog.autor.perfil_usuario.nombres}} {{blog.autor.perfil_usuario.apellidos}}</span>
+                <span class="small">publicador por, {{blog.author.userprofile.first_name}} {{blog.author.userprofile.last_name}}</span>
                </li>
             </ul>
             <hr>
@@ -30,4 +30,4 @@
  </div>
 
 <!--end categorie-->
-{% endblock contenido %}
+{% endblock section %}

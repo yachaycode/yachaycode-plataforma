@@ -1,32 +1,32 @@
 {% extends "base.html" %}
 {% load static martortags disqus_tags %}
 
-{% block title %} {{detalle_blog.titulo}} | Blog - YachayCode {% endblock title %}
-{% block author %}{{ detalle_blog.autor.perfil_usuario.nombres }} {{ detalle_blog.autor.perfil_usuario.apellidos}}{% endblock author %}
+{% block title %} {{detalle_blog.title}} | Blog - YachayCode {% endblock title %}
+{% block author %}{{ detalle_blog.author.userprofile.first_name }} {{ detalle_blog.author.userprofile.last_name}}{% endblock author %}
 {% block canonical %}{{domain}}/{{ detalle_blog.slug}}{% endblock canonical %}
 
-{% block description %}{% if detalle_blog.seoblog %}{{detalle_blog.seoblog.description}}{% else %}{{detalle_blog.resumen}}{% endif %}{% endblock description %}
+{% block description %}{% if detalle_blog.seoblog %}{{detalle_blog.seoblog.description}}{% else %}{{detalle_blog.summary}}{% endif %}{% endblock description %}
 
-{% block twitter_title %}{{detalle_blog.titulo}} | Blog - YachayCode{% endblock twitter_title %}
+{% block twitter_title %}{{detalle_blog.title}} | Blog - YachayCode{% endblock twitter_title %}
 
-{% block twitter_description %}{% if detalle_blog.seoblog %}{{detalle_blog.seoblog.description}}{% else %}{{detalle_blog.resumen}}{% endif %}{% endblock twitter_description %}
+{% block twitter_description %}{% if detalle_blog.seoblog %}{{detalle_blog.seoblog.description}}{% else %}{{detalle_blog.summary}}{% endif %}{% endblock twitter_description %}
 
-{% block twitter_image %}{{domain}}{{detalle_blog.portada.url}}{% endblock twitter_image %}
+{% block twitter_image %}{{domain}}{{detalle_blog.cover_image.url}}{% endblock twitter_image %}
 
-{% block twitter_creator %}{{detalle_blog.autor.perfil_usuario.nombres }} {{detalle_blog.autor.perfil_usuario.apellidos}}{% endblock twitter_creator %}
+{% block twitter_creator %}{{detalle_blog.author.userprofile.first_name }} {{detalle_blog.author.userprofile.last_name}}{% endblock twitter_creator %}
 
 {% block og_url %}{{domain}}/{{ detalle_blog.slug}}{% endblock og_url %}
 
-{% block og_title %}{{detalle_blog.titulo}}{% endblock og_title %}
+{% block og_title %}{{detalle_blog.title}}{% endblock og_title %}
 
-{% block og_description %}{% if detalle_blog.seoblog %}{{detalle_blog.seoblog.description}}{% else %}{{detalle_blog.resumen}}{% endif %}{% endblock og_description %}
+{% block og_description %}{% if detalle_blog.seoblog %}{{detalle_blog.seoblog.description}}{% else %}{{detalle_blog.summary}}{% endif %}{% endblock og_description %}
 
-{% block og_image %}{{domain}}{{detalle_blog.portada.url}}{% endblock og_image %}
+{% block og_image %}{{domain}}{{detalle_blog.cover_image.url}}{% endblock og_image %}
 
 {% block keywords %}{{detalle_blog.seoblog.keyword}}{% endblock keywords %}
 
 
-{% block contenido %}
+{% block section %}
 <link rel="stylesheet" href="{% static 'blog/css/detailed.css' %}">
   <div class="container-fluid bg-color">
     <!-- detalle blog -->
@@ -40,19 +40,19 @@
             </span>
           </a>
           <h1 class="color_black f-mont f-mont  pb-2">
-            {{detalle_blog.titulo}}
+            {{detalle_blog.title}}
           </h1>
           <span class="size13 f-mont-r">
-            {% if detalle_blog.usuario %}
-              Escrito por: <strong>{{ detalle_blog.autor.perfil_usuario.nombres }}</strong>
+            {% if detalle_blog.author.userprofile.first_name %}
+              Escrito por: <strong>{{ detalle_blog.author.userprofile.first_name }} {{ detalle_blog.author.userprofile.last_name }}</strong>
             {% else %}
-              Escrito por: <strong>{{ detalle_blog.autor.perfil_usuario.usuario }}</strong>
+              Escrito por: <strong>{{ detalle_blog.author.userprofile.username }}</strong>
             {% endif %}
           </span>
           <ul class="blog_list my-3 pb-3 p-0">
             <li>
               <span class="c-gris size13 f-mont-r">
-                {{detalle_blog.fecha_publicacion|date:"d M, Y"}}
+                {{detalle_blog.created_at|date:"d M, Y"}}
               </span>
             </li>
             <li class="mx-3">
@@ -62,7 +62,7 @@
             </li>
             <li class="mx-3">
               <i class="fas fa-eye mr-1"></i>
-              <span class="c-gris size13 f-mont-r">{{detalle_blog.vistas}}</span>
+              <span class="c-gris size13 f-mont-r">{{detalle_blog.number_views}}</span>
             </li>
             <li>
               <i class="far fa-comments mr-1"></i>
@@ -83,32 +83,32 @@
           <!-- Contenido -->
 
           <div class="single-left1">
-            <img loading="lazy" src="{{detalle_blog.portada.url}}" alt=" " class="img-fluid">
+            <img loading="lazy" src="{{detalle_blog.cover_image.url}}" alt=" " class="img-fluid">
             <p class="pt-5 cont-blog"></p>
             <p class="cont-blog color-blue1">
-              {{detalle_blog.contenido|safe_markdown}}
+              {{detalle_blog.content|safe_markdown}}
             </p>
             <input type="hidden" name="id_blog" id="id_blog" value="{{detalle_blog.id}}">
           </div>
           <!--stard relacionados-->
-          {% if detalle_blog.posts_relacionados.all %}
+          {% if detalle_blog.related_posts.all %}
             <div class="container-fluid m-0 p-0 ">
               <hr class="mt-5 mb-4">
                 <h3 class="blog-title f-mont size30 mb-4">Artículos relacionados</h3>
                 <div class="row">
                   
-                    {% for post_relacionado in detalle_blog.posts_relacionados.all  %}
+                    {% for post_relacionado in detalle_blog.related_posts.all  %}
                       <div class="col-md-4">
                         <!-- Card -->
                         <div class="">
 
                           <!-- Card image -->
-                          <a href="{% url 'app_blog:p_detalle_blog' post_relacionado.slug %}"> <img class="card-img-top" src="{{post_relacionado.portada.url}}" alt="Card image cap"></a>
+                          <a href="{% url 'app_blog:p_detalle_blog' post_relacionado.slug %}"> <img class="card-img-top" src="{{post_relacionado.cover_image.url}}" alt="Card image cap"></a>
 
                           <!-- Card content -->
                           <div class="mt-2">
 
-                           <a href="{% url 'app_blog:p_detalle_blog' post_relacionado.slug %}"><h5 class="card-title f-mont">{{post_relacionado.titulo}}</h5></a>
+                           <a href="{% url 'app_blog:p_detalle_blog' post_relacionado.slug %}"><h5 class="card-title f-mont">{{post_relacionado.title}}</h5></a>
                           </div>
 
                         </div>
@@ -117,15 +117,15 @@
                     {% endfor %}
                </div>
                 <!---->
-                {% if detalle_blog.categorias.all %}
+                {% if detalle_blog.categories.all %}
                    <div class="row mt-4">
                     <div class="col-md-12">
                       <ul class="categoria m-0 p-0">
-                        {% for categoria in detalle_blog.categorias.all  %}
+                        {% for categoria in detalle_blog.categories.all  %}
                           <li>
                             <a href="{% url 'app_blog:p_tag_blog' categoria.slug %}">
                               <span class="card-title f-mont size18">
-                                {{categoria.nombre}}
+                                {{categoria.name}}
                               </span>
                             </a>
                           </li>
@@ -158,7 +158,7 @@
 
 <!-- <h1>{{detalle_blog.id}}</h1> -->
 
-{% endblock contenido %}
+{% endblock section %}
 {% block script %}
   <script type="text/javascript" src="{% static 'blog/js/detail_blog.js' %}"></script>
 {% endblock %}

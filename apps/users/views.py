@@ -4,7 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from requests.api import request
 
-from .models import Usuario, Perfil_usuario
+from .models import User, UserProfile
 from django.views.generic import ListView, UpdateView, DeleteView, CreateView, TemplateView
 from django.urls import reverse_lazy
 from .forms import *
@@ -97,25 +97,25 @@ class Index_principal(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(Index_principal,
                         self).get_context_data(**kwargs)
-        # context['inscripcion_usuario'] = UsuarioForm()
+        # context['inscripcion_usuario'] = UserForm()
         blogs = Blog.objects.filter(
-        estado=True).order_by('fecha_publicacion')[:6]
+        status=True).order_by('created_at')[:6]
         list_blogs = []
         for blog in blogs:
             dict_blog = {}
-            dict_blog['titulo'] = blog.titulo
+            dict_blog['title'] = blog.title
             dict_blog['slug'] = blog.slug
-            dict_blog['resumen'] = blog.resumen[0:250] + '...' if len(blog.resumen)>250 else blog.resumen
-            dict_blog['contenido'] = blog.contenido
-            dict_blog['categorias'] = blog.categorias
-            dict_blog['portada'] = blog.portada
-            dict_blog['fecha_publicacion'] = blog.fecha_publicacion
-            dict_blog['autor'] = blog.autor
-            dict_blog['vistas'] = blog.vistas
-            dict_blog['palabras_clave'] = blog.palabras_clave
-            dict_blog['estado'] = blog.estado
-            dict_blog['es_pricipal'] = blog.es_pricipal
-            dict_blog['posts_relacionados'] = blog.posts_relacionados
+            dict_blog['summary'] = blog.summary[0:250] + '...' if len(blog.summary)>250 else blog.summary
+            dict_blog['content'] = blog.content
+            dict_blog['categories'] = blog.categories
+            dict_blog['cover_image'] = blog.cover_image
+            dict_blog['created_at'] = blog.created_at
+            dict_blog['author'] = blog.author
+            dict_blog['number_views'] = blog.number_views
+            dict_blog['keywords'] = blog.keywords
+            dict_blog['status'] = blog.status
+            dict_blog['is_main_article'] = blog.is_main_article
+            dict_blog['related_posts'] = blog.related_posts
             list_blogs.append(dict_blog)
         context['blogs'] = list_blogs
         # pasamos un conjunto de numeros en un rango
@@ -148,12 +148,12 @@ def LogOut(request):
     return HttpResponseRedirect('/')
 
 
-class UsuarioEditar(LoginRequiredMixin, UpdateView):
+class UserEditar(LoginRequiredMixin, UpdateView):
 
     template_name = 'usuarios/editar_usuario.html'
-    success_url = reverse_lazy('app_usuarios:p_inicio')
-    model = Usuario
-    form_class = UsuarioForm
+    success_url = reverse_lazy('app_users:p_inicio')
+    model = User
+    form_class = UserForm
 
     def form_valid(self, form):
         if self.request.POST['password'] != '':
@@ -163,36 +163,36 @@ class UsuarioEditar(LoginRequiredMixin, UpdateView):
         # antes capturamos a que grupo pertenecia este usuario, para luego
         # actualizarlo
         pk_user = form.instance.pk
-        usuario = get_object_or_404(Usuario, pk=pk_user)
-        nombre_grupo = None
+        usuario = get_object_or_404(User, pk=pk_user)
+        name_grupo = None
         for g_name in usuario.groups.all():
-            nombre_grupo = g_name.name
+            name_grupo = g_name.name
         # forzamos el guardado de datos para poder asignar al grupo
         self.object = form.save()
         # y lo guardamos de nuevo al grupo que pertenecia antes, caso contrario
-        # el grupo que ha estado agregado se liimpiaria
-        p_grupo = get_object_or_404(Group, name=nombre_grupo)
+        # el grupo que ha status agregado se liimpiaria
+        p_grupo = get_object_or_404(Group, name=name_grupo)
         form.instance.groups.add(p_grupo)
         # agregamos al grupo establecido por el REGISTRADOR
         # redireccionamos al final, OJO: no estamos usando SUPER
         return HttpResponseRedirect(self.get_success_url())
 
 
-class UsuarioEliminar(LoginRequiredMixin, DeleteView):
+class UserEliminar(LoginRequiredMixin, DeleteView):
 
     template_name = 'usuarios/eliminar_usuario.html'
-    model = Usuario
-    success_url = reverse_lazy('app_usuarios:p_inicio')
+    model = User
+    success_url = reverse_lazy('app_users:p_inicio')
     context_object_name = 'usuarios'
 
 # Pueden registrar solo los admin
 
 
-class Usuario_crear(LoginRequiredMixin, CreateView):
-    form_class = UsuarioForm
+class User_crear(LoginRequiredMixin, CreateView):
+    form_class = UserForm
     template_name = 'usuarios/crear_usuario.html'
-    success_url = reverse_lazy('app_usuarios:p_inicio')
-    user_register = UsuarioForm
+    success_url = reverse_lazy('app_users:p_inicio')
+    user_register = UserForm
 
     def form_valid(self, form):
         form.instance.set_password(self.request.POST['password'])
@@ -202,13 +202,13 @@ class Usuario_crear(LoginRequiredMixin, CreateView):
         # agregamos al grupo establecido por el REGISTRADOR
         form.instance.groups.add(grupo)
         # redireccionamos al final, OJO: no estamos usando SUPER
-        # generamos su perfil de Usuario
-        Perfil_usuario.objects.create(usuario=self.object)
+        # generamos su perfil de User
+        UserProfile.objects.create(usuario=self.object)
         return HttpResponseRedirect(self.get_success_url())
 
     def get_context_data(self, *args, **kwargs):
         context_data = super(
-            Usuario_crear, self).get_context_data(*args, **kwargs)
+            User_crear, self).get_context_data(*args, **kwargs)
         # mostramos todos los grupos a la pertenecera un USUARIO
         grupos = Group.objects.all()
         context_data['grupos'] = grupos
@@ -217,37 +217,37 @@ class Usuario_crear(LoginRequiredMixin, CreateView):
 
 def registro_usuario_modals(request):
     if request.method == 'POST':
-        form = UsuarioForm(request.POST)
+        form = UserForm(request.POST)
         if form.is_valid():
             form.instance.set_password(request.POST['password'])
             insert = form.save()
-            # NOTA: cuidado si cambian de nombre al grupo habrá error
-            grupo = Group.objects.get_or_create(name='Emprendedor')
+            # NOTA: cuidado si cambian de name al grupo habrá error
+            grupo = Group.objects.get_or_create(name='Reader')
             insert.groups.add(grupo)
-            Perfil_usuario.objects.create(usuario=insert)
+            UserProfile.objects.create(usuario=insert)
             # cuando termine de registrarse, automaticamente
-            # iniciamos su sesion de Usuario
+            # iniciamos su sesion de User
             user = authenticate(email=request.POST[
                                 'email'], password=request.POST['password'])
             asunto = "Apertura de cuenta | YachayCode"
             mensaje = ('Bienvenido, se ha registrado en yachaycode.\n '
                     'Correo :' + user.email + '\n'
-                    'usuario : ' + user.usuario + '\n'
+                    'usuario : ' + user.username + '\n'
                     'http://yachaycode.com')
             send_mail(asunto, mensaje, EMAIL_HOST_USER, [user.email])
             if user is not None:
                 if user.is_active:
                     login(request, user)
-                    perfil = Perfil_usuario_form()
-                    return render(request, 'completar_registro_usuario.html',
-                                  {'datos_perfil': perfil, 'usuario': insert.pk})
+                    perfil = UserProfileForm()
+                    return render(request, 'complete_register_user.html',
+                                  {'datos_perfil': perfil, 'username': insert.pk})
                 else:
                     return HttpResponse("usuario inactivo.")
             else:
                 return HttpResponseRedirect('iniciar/')
 
         else:
-            usuario_form = UsuarioForm(form)
+            usuario_form = UserForm(form)
             messages.error(
                 request, 'Por favor corrija los datos..!', extra_tags='danger')
             return render(request, 'registrarse.html', {'form': usuario_form})
@@ -256,21 +256,21 @@ def registro_usuario_modals(request):
 
 
 class Completar_registro_perfil(LoginRequiredMixin, UpdateView):
-    form_class = Perfil_usuario_form
+    form_class = UserProfileForm
     template_name = 'completar_registro_usuario.html'
     success_url = reverse_lazy('p_registro_intereses')
 
     # esto es importantisimo, nos permite editar sin pasar por URL
     def get_object(self):
-        usuario = get_object_or_404(Usuario, usuario=self.request.user.usuario)
+        usuario = get_object_or_404(User, usuario=self.request.user.username)
         Interes_curso.objects.get_or_create(usuario=usuario)
-        return get_object_or_404(Perfil_usuario, usuario__usuario=usuario)
+        return get_object_or_404(UserProfile, usuario__usuario=usuario)
 
 class Registrarse(SuccessMessageMixin, CreateView):
-    form_class = UsuarioForm
+    form_class = UserForm
     template_name = 'registrarse.html'
     success_url = reverse_lazy('iniciar_sesion')
-    # user_register = UsuarioForm
+    # user_register = UserForm
     success_message  = ('''Te hemos enviado un correo, por favor confirme su CUENTA para completar su registro''')
 
     def form_valid(self, form):
@@ -278,12 +278,12 @@ class Registrarse(SuccessMessageMixin, CreateView):
         # forzamos el guardado de datos para poder asignar al grupo
         self.object = form.save()
         # grupo = get_object_or_404(Group, name__icontains='emprendedor')
-        grupo, created = Group.objects.get_or_create(name='Emprendedor')
+        grupo, created = Group.objects.get_or_create(name='Reader')
         # agregamos al grupo establecido por el REGISTRADOR
         form.instance.groups.add(grupo)
         # redireccionamos al final, OJO: no estamos usando SUPER
-        # generamos su perfil de Usuario
-        Perfil_usuario.objects.create(usuario=self.object)
+        # generamos su perfil de User
+        UserProfile.objects.create(usuario=self.object)
         # envio de confirmacion al correo 
         current_site = get_current_site(self.request)
         mensaje = render_to_string('acc_active_email.html', {
@@ -296,7 +296,7 @@ class Registrarse(SuccessMessageMixin, CreateView):
         asunto = "Confirma tu correo en YachayCode"
         # mensaje = ('Bienvenido, se ha registrado en YachayCode.\n '
         #         'Correo :' + user.email + '\n'
-        #         'usuario : ' + user.usuario + '\n'
+        #         'usuario : ' + user.username + '\n'
         #         'http://yachaycode.com')
         send_mail(
             asunto, 
@@ -305,38 +305,23 @@ class Registrarse(SuccessMessageMixin, CreateView):
             [self.object.email],
             html_message=mensaje,
             fail_silently=False)
-
-        # Sending activation link in terminal
-        # user.email_user(subject, message)
-        # if user is not None:
-        #     if user.is_active:
-        #         login(self.request, user)
-        #         # perfil = Perfil_usuario_form()
-        #         # return render(request, 'completar_registro_usuario.html',
-        #         #               {'datos_perfil': perfil, 'usuario': insert.pk})
-        #     else:
-        #         return HttpResponse("usuario inactivo.")
-        # else:
-        #     return HttpResponseRedirect('iniciar/')
-        # redirect_url = reverse('completar_registro_perfil_usuario')
-        # return HttpResponseRedirect(reverse('iniciar_sesion'))
         return super(Registrarse, self).form_valid(form)
 # verificar si un usuario ya existe, registro de formularios
 
 @login_required
 def change_password(request):
     if request.method == 'POST':
-        form = PasswordChangeForm(request.user.usuario, request.POST)
+        form = PasswordChangeForm(request.user.username, request.POST)
         if form.is_valid():
             user = form.save()
             update_session_auth_hash(request, user)  # Important!
             messages.success(
                 request, 'Su contraseña se ha actualizada con éxito!')
-            return redirect('app_usuarios:change_password')
+            return redirect('app_users:change_password')
         else:
             messages.error(request, 'Corrija el error a continuación.')
     else:
-        form = PasswordChangeForm(request.user.usuario)
+        form = PasswordChangeForm(request.user.username)
     return render(request, 'usuarios/cambio_contrasena.html', {
         'form': form
     })
@@ -351,7 +336,7 @@ def cambio_contrasena(request):
             update_session_auth_hash(request, user)  # Important!
             messages.success(
                 request, 'Su contraseña se ha actualizada con éxito!')
-            # es importante pasar el parametro porque la Url es con nombre usuario
+            # es importante pasar el parametro porque la Url es con name usuario
             return render(request, 'usuarios/perfil/cuenta.html', 
                                     {'form_password': PasswordChangeForm(request.user)})
         else:
@@ -371,8 +356,8 @@ class Ver_perfil(LoginRequiredMixin, TemplateView):
         context = super(Ver_perfil,self).get_context_data(**kwargs)
         proyectos = Proyecto.objects.filter(usuario = self.request.user)
         context['proyectos'] = proyectos
-        context['estado'] = proyectos.exists()
-        context['estado'] = proyectos.exists()
+        context['status'] = proyectos.exists()
+        context['status'] = proyectos.exists()
         context['cantidad_proyectos'] = proyectos.count()
         return context
 
@@ -381,12 +366,12 @@ class Ver_perfil(LoginRequiredMixin, TemplateView):
 class Editar_perfil(LoginRequiredMixin,SuccessMessageMixin, UpdateView):
 
     template_name = 'usuarios/perfil/editar_perfil.html'
-    form_class = Perfil_usuario_editar_form
-    success_url = reverse_lazy('app_usuarios:p_editar_perfil',  args=['request.user.usuario'])
+    form_class = UserProfileEditForm
+    success_url = reverse_lazy('app_users:p_editar_perfil',  args=['request.user.username'])
     success_message = "Ha actualizado correctamente sus datos..!"
 
     def get_object(self):
-        return Perfil_usuario.objects.get(usuario=self.request.user.pk)
+        return UserProfile.objects.get(usuario=self.request.user.pk)
 
 
 class Cuenta_usuario(LoginRequiredMixin, TemplateView):
@@ -395,19 +380,19 @@ class Cuenta_usuario(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(Cuenta_usuario,self).get_context_data(**kwargs)
-        context['form'] = UsuarioForm()
+        context['form'] = UserForm()
         context['form_password'] = PasswordChangeForm(self.request.user)
         return context
 
 class Cambiar_cuenta_usuario(LoginRequiredMixin,SuccessMessageMixin, UpdateView):
 
     template_name = 'usuarios/perfil/cuenta.html'
-    form_class = UsuarioForm_usaurio
-    success_url = reverse_lazy('app_usuarios:p_cuenta',  args=['request.user.usuario'])
+    form_class = UserForm_usaurio
+    success_url = reverse_lazy('app_users:p_cuenta',  args=['request.user.username'])
     success_message = "Se ha actualizado correctamente sus datos de Cuenta..!"
 
     def get_object(self):
-        return Usuario.objects.get(usuario=self.request.user.usuario)
+        return User.objects.get(usuario=self.request.user.username)
 
     def get_context_data(self, **kwargs):
         context = super(Cambiar_cuenta_usuario,self).get_context_data(**kwargs)
@@ -420,7 +405,7 @@ class Cambiar_cuenta_usuario(LoginRequiredMixin,SuccessMessageMixin, UpdateView)
 def activate(request, uidb64, token):
     try:
         uid = force_text(urlsafe_base64_decode(uidb64))
-        user = Usuario.objects.get(pk=uid)
+        user = User.objects.get(pk=uid)
     except(TypeError, ValueError, OverflowError, user.DoesNotExist):
         user = None
     if user is not None and account_activation_token.check_token(user, token):

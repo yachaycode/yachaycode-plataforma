@@ -29,7 +29,7 @@
         data: {'id': $('#id_blog').val()},
         success: function( data ) {
           var resultado = JSON.parse(data);
-          if (!resultado.estado) {
+          if (!resultado.status) {
              alert("Error de server: " + resultado.error)
              return false 
           }

@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 {% load static %}
-{% block title %}Startup Hero | Cuenta {% endblock title %}
+{% block title %}Yachaycode | Cuenta {% endblock title %}
 
-{% block contenido %}
+{% block section %}
 
       <!--star cuenta-->
   <div class="container-fluid">
@@ -12,7 +12,7 @@
                <h6 class="card-title sub_menu_perf"><i class="fa fa-cog sub_menu_perf" aria-hidden="true"></i><strong> CONFIGURACIÓN</strong></h6>      
             </div>
             <div class="col-md-12 sub_menu_div">
-               <a class="" href="{% url 'app_usuarios:p_editar_perfil' request.user.usuario %}"><strong><span class="sub_menu_perf">Perfil</span></strong></a>
+               <a class="" href="{% url 'app_users:p_editar_perfil' request.user.username %}"><strong><span class="sub_menu_perf">Perfil</span></strong></a>
             </div>
             <div class="col-md-12 sub_menu_div">
                <a class="" href="#"><strong><span class="sub_menu_perf">Cuenta</span></strong></a>
@@ -47,12 +47,12 @@
                   </div>
                 
              </div>
-              <form action=" {% url 'app_usuarios:p_cambiar_cuenta_usuario' %} " method="POST">{% csrf_token %}
+              <form action=" {% url 'app_users:p_cambiar_cuenta_usuario' %} " method="POST">{% csrf_token %}
                 <div class="row esp">
                 
                   <div class="col-md-6">
                       <div class="md-form">
-                        <input type="text" id="form52" class="form-control" value="{{request.user.usuario}}" name="usuario">
+                        <input type="text" id="form52" class="form-control" value="{{request.user.username}}" name="username">
                         <label for="form52" class="">Nombre de usuario</label>
                     </div>
                   </div>
@@ -72,7 +72,7 @@
                      <h4 class="card-title">Contraseña</h4>
                  </div>          
              </div>
-            <form action=" {% url 'app_usuarios:p_cambio_contrasena' %}" method="POST">{% csrf_token %}
+            <form action=" {% url 'app_users:p_cambio_contrasena' %}" method="POST">{% csrf_token %}
               {% if form_password.errors %}
                   <div class="alert alert-danger" role="alert">
                       {{ form_password.errors }}

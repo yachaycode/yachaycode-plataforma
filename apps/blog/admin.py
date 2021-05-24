@@ -1,6 +1,6 @@
 from django.contrib import admin
 from import_export import resources
-from .models import Blog, Categoria, ContadorVisita
+from .models import Blog, Category, VisitorCounter
 from import_export.admin import ImportExportModelAdmin
 # from pagedown.widgets import AdminPagedownWidget
 from django.db import models
@@ -21,52 +21,52 @@ class SeoInline(admin.StackedInline):
     max_num = 1
     min_num = 1
 
-class Blog_resource(resources.ModelResource):
+class BlogResource(resources.ModelResource):
 
     class Meta:
         model = Blog
         exclude = ()
 
-class Blog_admin(ImportExportModelAdmin):
+class BlogAdmin(ImportExportModelAdmin):
 	inlines = (SeoInline, )
-	filter_horizontal = ('categorias', 'posts_relacionados')
-	search_fields = ('titulo','resumen',
-				'fecha_publicacion','autor__perfil_usuario__nombres',
-				'autor__perfil_usuario__apellidos', 'palabras_clave')
-	list_display = ('titulo','resumen',
-				'fecha_publicacion','autor','vistas',
-				'estado', 'es_pricipal')
-	list_editable = ('estado', 'es_pricipal')
-	resource_class = Blog_resource
+	filter_horizontal = ('categories', 'related_posts')
+	search_fields = ('title','summary',
+				'created_at','author__userprofile__first_name',
+				'author__userprofile__last_name', 'keywords')
+	list_display = ('title','summary',
+				'created_at','author','number_views',
+				'status', 'is_main_article')
+	list_editable = ('status', 'is_main_article')
+	resource_class = BlogResource
 	formfield_overrides = {
 		models.TextField: {'widget': AdminMartorWidget},
     }
 
 
-class Categoria_resource(resources.ModelResource):
+class CategoryResource(resources.ModelResource):
 
     class Meta:
-        model = Categoria
+        model = Category
         exclude = ()
 
 
-class Categoria_admin(ImportExportModelAdmin):
-    resource_class = Categoria_resource
+class CategoryAdmin(ImportExportModelAdmin):
+    resource_class = CategoryResource
 
 
-class ContadorVisita_resource(resources.ModelResource):
+class VisitorCounterResource(resources.ModelResource):
 
     class Meta:
-        model = ContadorVisita
+        model = VisitorCounter
         exclude = ()
 
 
-class ContadorVisita_admin(ImportExportModelAdmin):
-	list_display = ('blog','contador','fecha_visita')
-	search_fields = ('blog__titulo',)
-	resource_class = ContadorVisita_resource
+class VisitorCounterAdmin(ImportExportModelAdmin):
+	list_display = ('blog','counter','created_date')
+	search_fields = ('blog__title',)
+	resource_class = VisitorCounterResource
 
-admin.site.register(Categoria, Categoria_admin)
-admin.site.register(Blog, Blog_admin)
-admin.site.register(ContadorVisita, ContadorVisita_admin)
+admin.site.register(Category, CategoryAdmin)
+admin.site.register(Blog, BlogAdmin)
+admin.site.register(VisitorCounter, VisitorCounterAdmin)
 

@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import ugettext_lazy as _
 
-# from .models import Usuario, Perfil_usuario, Testimonio, Terminos, Politicas
+# from .models import User, UserProfile, Testimonio, Terminos, Politicas
 from .models import *
 from .forms import CustomUserChangeForm, CustomUserCreationForm
 from .actions import export_as_csv
@@ -18,17 +18,17 @@ from django.contrib.auth.models import Group
 admin.site.unregister(Group)
 
 
-class UsuarioResource(resources.ModelResource):
+class UserResource(resources.ModelResource):
 
     class Meta:
-        model = Usuario
+        model = User
         # fields = ('id',
-        #           'usuario',
+        #           'username',
         #           'dni',
-        #           'apellidos',
-        #           'nombres',
+        #           'last_name',
+        #           'first_name',
         #           'sexo',
-        #           'celular',
+        #           'cellphone',
         #           'email',
         #           'is_superuser',
         #           'is_staff',
@@ -42,20 +42,20 @@ class UsuarioResource(resources.ModelResource):
         exclude = ()
 
 
-class UsuarioAdmin(ImportExportModelAdmin):
-    resource_class = UsuarioResource
+class UserAdminLocal(ImportExportModelAdmin):
+    resource_class = UserResource
 
 
 # Aqui integramos UserAdmin de todos los LISTAS de usuarios y
-# UsuarioAdmin para importar y exportar
+# UserAdmin para importar y exportar
 
-# En este caso agregaremos en Usuario su Perfil
+# En este caso agregaremos en User su Perfil
 
 class ProfileInline(admin.StackedInline):
-    model = Perfil_usuario
+    model = UserProfile
     can_delete = False
     verbose_name_plural = 'Perfil usuario'
-    fk_name = 'usuario'
+    fk_name = 'user'
     # para agrgar solo un perfil, por defecto lo agregara varios
     # eso es lo que no queremos
     extra = 1
@@ -64,9 +64,9 @@ class ProfileInline(admin.StackedInline):
     min_num = 1
 
 
-class CustomUserAdmin(UserAdmin, UsuarioAdmin):
+class CustomUserAdmin(UserAdmin, UserAdminLocal):
 
-    # para agregar perfil de usuario a Usuario
+    # para agregar perfil de usuario a User
     inlines = (ProfileInline, )
     # The forms to add and change user instances
 
@@ -74,7 +74,7 @@ class CustomUserAdmin(UserAdmin, UsuarioAdmin):
     # These override the definitions on the base UserAdmin
     # that reference the removed 'username' field
     fieldsets = (
-        (None, {'fields': ('usuario', 'password')}),
+        (None, {'fields': ('username', 'password')}),
         (_('Personal info'), {
          'fields': ('email',)}),
         (_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser',
@@ -84,41 +84,41 @@ class CustomUserAdmin(UserAdmin, UsuarioAdmin):
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('usuario', 'email', 'password1', 'password2')}
+            'fields': ('username', 'email', 'password1', 'password2')}
          ),
     )
     form = CustomUserChangeForm
     add_form = CustomUserCreationForm
-    list_display = ('usuario', 'get_nombres', 'get_apellidos', 'get_celular',
-                    'get_pais', 'email', 'is_staff', 'is_active', 'date_joined')
+    list_display = ('username', 'get_first_name', 'get_last_name', 'get_cellphone',
+                    'get_country', 'email', 'is_staff', 'is_active', 'date_joined')
     list_filter = ('is_active', 'groups__name')
     list_editable = ('is_active',)
-    search_fields = ('usuario', 'email')
+    search_fields = ('username', 'email')
     ordering = ('-date_joined',)
     actions = [export_as_csv, ]
 
-    # relacionar con un nombre para poder acceder a sus atributos de perfil Usuario
+    # relacionar con un name para poder acceder a sus atributos de perfil User
     # esto funcionara solo con relaciones OneToOneField
-    list_select_related = ('perfil_usuario', )
+    list_select_related = ('userprofile', )
 
-    # para agregar Perfil de Usuario
-    # para mostrar campos de perfil de Usuario en Usario(list_display)
+    # para agregar Perfil de User
+    # para mostrar campos de perfil de User en Usario(list_display)
 
-    def get_nombres(self, instance):
-        return instance.perfil_usuario.nombres
-    get_nombres.short_description = 'Nombres'
+    def get_first_name(self, instance):
+        return instance.userprofile.first_name
+    get_first_name.short_description = 'Firt name'
 
-    def get_apellidos(self, instance):
-        return instance.perfil_usuario.apellidos
-    get_apellidos.short_description = 'Apellidos'
+    def get_last_name(self, instance):
+        return instance.userprofile.last_name
+    get_last_name.short_description = 'Last name'
 
-    def get_celular(self, instance):
-        return instance.perfil_usuario.celular
-    get_celular.short_description = 'Celular'
+    def get_cellphone(self, instance):
+        return instance.userprofile.cellphone
+    get_cellphone.short_description = 'cellphone'
 
-    def get_pais(self, instance):
-        return instance.perfil_usuario.pais
-    get_pais.short_description = 'Pais'
+    def get_country(self, instance):
+        return instance.userprofile.country
+    get_country.short_description = 'Country'
 
     # Mostrar con su perfil el usuario
     def get_inline_instances(self, request, obj=None):
@@ -131,35 +131,35 @@ class CustomUserAdmin(UserAdmin, UsuarioAdmin):
 
 # para asignar importar e Exportar en GRUPOS
 # para eventos
-class Group_resource(resources.ModelResource):
+class GroupResource(resources.ModelResource):
 
     class Meta:
         model = Group
         exclude = ()
 
 
-class Group_admin(ImportExportModelAdmin):
-    resource_class = Group_resource
+class GroupAdmin(ImportExportModelAdmin):
+    resource_class = GroupResource
     filter_horizontal = ('permissions', )
 
 
-class Perfil_usuario_resource(resources.ModelResource):
+class UserProfileResource(resources.ModelResource):
 
     class Meta:
-        model = Perfil_usuario
+        model = UserProfile
         exclude = ()
 
 
-class Perfil_usuario_admin(ImportExportModelAdmin):
-    list_display = ('usuario', 'nombres',
-                    'apellidos', 'celular', 'pais',
-                    'ocupacion')
-    search_fields = ('nombres', 'apellidos',
-                     'celular', 'pais')
-    list_filter = ('pais',)
-    resource_class = Perfil_usuario_resource
+class UserProfileAdmin(ImportExportModelAdmin):
+    list_display = ('user', 'first_name',
+                    'last_name', 'cellphone', 'country',
+                    'occupation')
+    search_fields = ('first_name', 'last_name',
+                     'cellphone', 'country')
+    list_filter = ('country',)
+    resource_class = UserProfileResource
 
 
-admin.site.register(Group, Group_admin)
-admin.site.register(Usuario, CustomUserAdmin)
-admin.site.register(Perfil_usuario, Perfil_usuario_admin)
+admin.site.register(Group, GroupAdmin)
+admin.site.register(User, CustomUserAdmin)
+admin.site.register(UserProfile, UserProfileAdmin)

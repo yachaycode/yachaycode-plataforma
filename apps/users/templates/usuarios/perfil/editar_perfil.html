@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 {% load static %}
-{% block title %}Startup Hero | editar perfil {% endblock title %}
+{% block title %}Yachaycode | editar perfil {% endblock title %}
 
-{% block contenido %}
+{% block section %}
 
   <!--star editar perfil-->
   <div class="container-fluid contene_perfil">
@@ -15,7 +15,7 @@
                <a class="" href="#"><strong><span class="sub_menu_perf">Perfil</span></strong></a>
             </div>
             <div class="col-md-12 sub_menu_div">
-               <a class="" href=" {% url 'app_usuarios:p_cuenta' request.user.usuario %} "><strong><span class="sub_menu_perf">Cuenta</span></strong></a>
+               <a class="" href=" {% url 'app_users:p_cuenta' request.user.username %} "><strong><span class="sub_menu_perf">Cuenta</span></strong></a>
             </div>
             <div class="col-md-12 sub_menu_div">
                <p>PERFILES SOCIALES</p>
@@ -40,11 +40,11 @@
                <hr>
               <div class="row ">
                  <div class="col-md-6 ">
-                    <img src="{{request.user.perfil_usuario.foto.url}}" class="rounded-circle z-depth-1-half" width="100" height="120">
+                    <img src="{{request.user.userprofile.photo.url}}" class="rounded-circle z-depth-1-half" width="100" height="120">
                  </div>
                  <div class="col-md-6 ">
                     <label for="">Actualizar foto:</label>
-                    {{form.foto}}
+                    {{form.photo}}
                  </div>
              </div>
               <hr>
@@ -57,14 +57,14 @@
              <div class="row esp">
                   <div class="col-md-6">
                       <div class="md-form">
-                        {{form.nombres}}
-                        {{form.nombres.label_tag}}
+                        {{form.first_name}}
+                        {{form.first_name.label_tag}}
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="md-form">
-                        {{form.apellidos}}
-                        {{form.apellidos.label_tag}}
+                        {{form.last_name}}
+                        {{form.last_name.label_tag}}
                     </div>
                   </div>
              </div>
@@ -72,15 +72,15 @@
             <div class="row esp">
             <div class="col-md-6">
                 <div class="md-form hi">
-                    {{form.celular}}
-                    {{form.celular.label_tag}}
+                    {{form.cellphone}}
+                    {{form.cellphone.label_tag}}
                 </div>
             </div>
 
             <div class="col-md-6">
                 <div class="form-group">
-                    {{form.pais.label_tag}}
-                   {{form.pais}}
+                    {{form.country.label_tag}}
+                   {{form.country}}
                 </div>
             </div>
 
@@ -91,8 +91,8 @@
                 <div class="row">
                     <div class="col">
                        <div class="form-group">
-                          {{form.fecha_nacimiento.label_tag}}
-                          {{form.fecha_nacimiento}}
+                          {{form.birth_date.label_tag}}
+                          {{form.birth_date}}
                           <p class="help-block">Formato de fecha. DIA/MES/AÑO </p>
                       </div>
                     </div>
@@ -110,14 +110,14 @@
             <div class="row esp">
                   <div class="col-md-6">
                       <div class="md-form">
-                        {{form.ciudad}}
-                        {{form.ciudad.label_tag}}
+                        {{form.city}}
+                        {{form.city.label_tag}}
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="md-form">
-                        {{form.ocupacion}}
-                        {{form.ocupacion.label_tag}}
+                        {{form.occupation}}
+                        {{form.occupation.label_tag}}
                     </div>
                   </div>
              </div>
@@ -125,22 +125,22 @@
               <div class="row esp">
                   <div class="col-md-6">
                       <div class="md-form">
-                        {{form.profesion}}
-                        {{form.profesion.label_tag}}
+                        {{form.profession}}
+                        {{form.profession.label_tag}}
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="md-form">
-                        {{form.sitio_web}}
-                        {{form.sitio_web.label_tag}}
+                        {{form.website}}
+                        {{form.website.label_tag}}
                     </div>
                   </div>
              </div>
               <div class="row esp">
                   <div class="col-md-12">
                       <div class="md-form">
-                          {{form.biografia}}
-                          {{form.biografia.label_tag}}
+                          {{form.biography}}
+                          {{form.biography.label_tag}}
                       </div>
                   </div>
               </div>

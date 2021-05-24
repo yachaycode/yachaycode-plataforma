@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
-{% block title %}Startup Hero | Edición usuario {% endblock title %}
-{% block contenido %}   
+{% block title %}Yachaycode | edit user {% endblock title %}
+{% block section %}   
         <div class="container-fluid">
            <div class="row">
              <main class="col-sm-12 ml-sm-auto col-md-12 pt-3" role="main">
@@ -9,10 +9,10 @@
 	       	    <section class="content">
 	       	      	<div class="page-header">
 	       	      	    <h4>
-	       	      	        <a href="{% url 'app_usuarios:p_inicio' %}" class="btn btn-success">
+	       	      	        <a href="{% url 'app_users:p_inicio' %}" class="btn btn-success">
 	       	      	            <span class="glyphicon glyphicon-chevron-left"></span> Regresar
 	       	      	        </a>
-	       	      	        <strong>Editando a: {{ usuario.usuario }} </strong>
+	       	      	        <strong>Editando a: {{ usuario.username }} </strong>
 	       	      	    </h4>
 	       	      	</div><!-- page-header -->
       		    <form role="form" method="POST" enctype="multipart/form-data">{% csrf_token %}
@@ -28,8 +28,8 @@
 
       		   	      <div class="form-row">
       		   		        <div class="form-group col-xs-3">
-      		   		        <label >{{form.usuario.label_tag}} (*)</label>
-      		   		        {{form.usuario}}
+      		   		        <label >{{form.username.label_tag}} (*)</label>
+      		   		        {{form.username}}
       		   		        </div>
       		   		        <div class="form-group col-xs-3">
       		   		          <label>{{ form.password.label_tag }}(Ingrese uno NUEVO, o dejarlo en blanco)</label>
@@ -45,7 +45,7 @@
       		    	  	  {{ form.tienda }}
       		    	  	</div>
       		    	  	<div class="form-group col-xs-4">
-      		    	  	  <label>Tipo de Usuario(*)</label>
+      		    	  	  <label>Tipo de User(*)</label>
       		    	  	  <select name="tipo_usuario" required="" class="form-control">
       		    	  	  	<option value="">--------</option>
       		    	  	  {% for grupo in grupos %}
@@ -74,7 +74,7 @@
 
       				<div class="form-row">
       		    	  <div class="form-group col-xs-10">
-      		    	      <button type="submit" class="btn btn-primary">Actualizar Usuario</button>
+      		    	      <button type="submit" class="btn btn-primary">Actualizar User</button>
       		    	  </div>
       		    	</div>
       		    </form>

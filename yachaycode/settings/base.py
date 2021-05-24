@@ -70,7 +70,7 @@ DISQUS_API_KEY = dataConfig.get('disqus').get('api_key')
 DISQUS_WEBSITE_SHORTNAME = dataConfig.get('disqus').get('website_shortname')
 
 # para login y de paso reutilizaremos para autenticacion con redes sociales
-LOGIN_URL = 'iniciar_sesion'  #estamos llamando por su nombre del Url no por su URL
+LOGIN_URL = 'iniciar_sesion'  #estamos llamando por su name del Url no por su URL
 LOGOUT_URL = 'cerrar_sesion'
 LOGIN_REDIRECT_URL = 'index_principal'
 
@@ -93,7 +93,7 @@ TEMPLATES = [
 
 # para autenticacion con redes sociales FB y TWITTER
 AUTHENTICATION_BACKENDS = (
-    # mi propio class para autenticacion por Usuario o Email
+    # mi propio class para autenticacion por User o Email
     'apps.users.functions.UsernameOrEmailBackend',
     # autenticacion con redes sociales
     'social_core.backends.twitter.TwitterOAuth',
@@ -144,7 +144,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
-LANGUAGE_CODE = 'es-PE'
+LANGUAGE_CODE = 'en-US'
 
 TIME_ZONE = 'America/Lima'
 
@@ -155,7 +155,7 @@ USE_L10N = True
 USE_TZ = True
 
 # MODIFICANDO EL SETTIING
-AUTH_USER_MODEL = 'users.Usuario'
+AUTH_USER_MODEL = 'users.user'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
@@ -177,7 +177,7 @@ MEDIA_URL = '/media/'
 
 # personalizando django SOIT, template para admin 
 SUIT_CONFIG = {
-    'ADMIN_NAME': 'ADMINISTRADOR - YACHAYCODE',
+    'ADMIN_NAME': 'ADMINISTRATOR - YACHAYCODE',
     'HEADER_DATE_FORMAT': 'l, j. F Y', # Saturday, 16th March 2013
     'HEADER_TIME_FORMAT': 'H:i',     # 18:42
     'SHOW_REQUIRED_ASTERISK': True,

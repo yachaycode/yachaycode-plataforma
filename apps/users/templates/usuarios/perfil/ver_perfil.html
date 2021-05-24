@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 {% load static %}
-{% block title %}Startup Hero | ver perfil {% endblock title %}
+{% block title %}Yachaycode | ver perfil {% endblock title %}
 
-{% block contenido %}
+{% block section %}
 <!--ver perfil-->
  <div class="container-fluid">
     <div class="row ">
@@ -10,16 +10,16 @@
           <div class="row">
              <div class="col-md-12">
                   <div class="img_verPer">
-                     <img src=" {{request.user.perfil_usuario.foto.url}} " class="" width="100" height="110">
+                     <img src=" {{request.user.userprofile.photo.url}} " class="" width="100" height="110">
                   </div>
                   <div class="center_text">
-                      <h3 class="h3-responsive product-name color_white"><strong>{{request.user.perfil_usuario.nombres}} </strong></h3>
+                      <h3 class="h3-responsive product-name color_white"><strong>{{request.user.userprofile.first_name}} </strong></h3>
                   </div>
                   <div class="img_verPer center_text">
-                    <a href=" {% url 'app_usuarios:p_editar_perfil' request.user.usuario %} " class="btn btn-red btn-rounded"><i class="fa fa-cog sub_menu_perf" aria-hidden="true"></i> Editar perfil</a>
+                    <a href=" {% url 'app_users:p_editar_perfil' request.user.username %} " class="btn btn-red btn-rounded"><i class="fa fa-cog sub_menu_perf" aria-hidden="true"></i> Editar perfil</a>
                   </div>
                     <p class="color_white zise_font"><i class="fa fa-envelope" aria-hidden="true"></i>{{request.user.email}}</p>
-                         <p class="color_white zise_font"><i class="fa fa-map-marker" aria-hidden="true"></i> {{request.user.perfil_usuario.ciudad}}</p>
+                         <p class="color_white zise_font"><i class="fa fa-map-marker" aria-hidden="true"></i> {{request.user.userprofile.city}}</p>
 
                           <h4 class="h4-responsive product-name color_white"><strong>Información</strong></h4>
                       <p class="color_white zise_font">cursos inscritos: {{request.user.inscripcion_curso_set.count}}</p>
@@ -58,7 +58,7 @@
                 <div class="col-md-4 ">
                     <!--Card image-->
                     <div class="view overlay hm-white-slight">
-                        <img src="{{mi_curso.curso.portada.url}}" class="img-fluid" alt="">
+                        <img src="{{mi_curso.curso.cover_image.url}}" class="img-fluid" alt="">
                         <a href="{% url 'app_clases:p_clases' mi_curso.curso.slug  %}">
                             <div class="mask"></div>
                         </a>
@@ -68,9 +68,9 @@
                    <!--Card content-->
                     <div class="card-body">
                         <!--Title-->
-                        <a href="{% url 'app_clases:p_clases' mi_curso.curso.slug  %} "><h5 class="card-title">{{mi_curso.curso.nombre}}</h5></a>
+                        <a href="{% url 'app_clases:p_clases' mi_curso.curso.slug  %} "><h5 class="card-title">{{mi_curso.curso.name}}</h5></a>
                         <!--Text-->
-                        <p class="card-text">{{mi_curso.curso.resumen}}</p>
+                        <p class="card-text">{{mi_curso.curso.summary}}</p>
                           
                     </div>
 
@@ -152,7 +152,7 @@
               </div>
               <div class="row curso_not1">
                 {% for test1 in test1_facilitadores %}
-                {% if test1.estado_revision %}
+                {% if test1.status_revision %}
                  <div class="col vert1 cen_pad" >
                     <p href="#">{{test1.promedio}}</p>
                  </div>
@@ -164,7 +164,7 @@
 
                 {% endfor %}
                 {% for test2 in test2_facilitadores %}
-                {% if test2.estado_revision %}
+                {% if test2.status_revision %}
                  <div class="col vert1 cen_pad">
                     <a href="#">{{test2.promedio}}</a>
                  </div>
@@ -202,7 +202,7 @@
                   <div class="col-md-12 curso_notas">
                      <div class="row curso_not1 color_evalua">
                         <div class="col-md-12 cen_pad1">
-                          {% if estado %}
+                          {% if status %}
                           <h3>Mis proyectos</h3>
                           <table class="table-responsive">
                                 <!--Table head-->
@@ -220,7 +220,7 @@
                                 <tbody>
                                   {% for proyecto in proyectos %} 
                                     <tr>
-                                        <td>{{proyecto.titulo}}</td>
+                                        <td>{{proyecto.title}}</td>
                                         <td>{{proyecto.problema}}</td>
                                         <td>{{ proyecto.resolucion }}</td>
                                         <td>por evaluar</td>
@@ -260,16 +260,16 @@
 <!--<div class="container bord">
     <div class="row font">
        <div class="col-md-12">
-            <img src=" {{request.user.perfil_usuario.foto.url}} " class="rounded-circle z-depth-1-half" width="70" height="80">
+            <img src=" {{request.user.userprofile.photo.url}} " class="rounded-circle z-depth-1-half" width="70" height="80">
        </div>
     </div>
     <div class="row">
         <div class="col-md-4 ">                 
           <div class="card-body ">
-              <h5 class="card-title"> {{request.user.usuario}}</h5>
-              <h5 class="card-title"> <b> {{request.user.perfil_usuario.nombres}} {{request.user.perfil_usuario.apellidos}} </b></h3>
+              <h5 class="card-title"> {{request.user.username}}</h5>
+              <h5 class="card-title"> <b> {{request.user.userprofile.first_name}} {{request.user.userprofile.last_name}} </b></h3>
               <hr>
-               <a href=" {% url 'app_usuarios:p_editar_perfil' request.user.usuario %} " class="btn btn-primary">Editar perfil</a>  
+               <a href=" {% url 'app_users:p_editar_perfil' request.user.username %} " class="btn btn-primary">Editar perfil</a>  
                <p>Ultima acutualizacion  {{request.user.date_joined|date:'Y-m-d'}}</p> 
               <h4>Informacion</h4>  
               <ul class="list-unstyled">

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, render_to_response, get_object_or_404
 from django.views.generic import ListView, TemplateView, DetailView
-from .models import Blog as Blogs, Categoria
+from .models import Blog as Blogs, Category
 from django.db.models import Q
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 # para paginador
@@ -17,27 +17,27 @@ class Blog(ListView):
     model = Blogs
     def get_context_data(self, *args, **kwargs):
         context_data = super(Blog, self).get_context_data(*args, **kwargs)
-        # realizamos consulta de todos los categorias de blogs
-        blogs = Blogs.objects.filter(estado=True).order_by('fecha_publicacion')
+        # realizamos consulta de todos los categories de blogs
+        blogs = Blogs.objects.filter(status=True).order_by('created_at')
         list_blogs = []
         for blog in blogs:
            dict_blog = {}
-           dict_blog['titulo'] = blog.titulo
+           dict_blog['title'] = blog.title
            dict_blog['slug'] = blog.slug
-           dict_blog['resumen'] = blog.resumen[0:250] + '...' if len(blog.resumen)>250 else blog.resumen
-           dict_blog['contenido'] = blog.contenido
-           dict_blog['categorias'] = blog.categorias
-           dict_blog['portada'] = blog.portada
-           dict_blog['fecha_publicacion'] = blog.fecha_publicacion
-           dict_blog['autor'] = blog.autor
-           dict_blog['vistas'] = blog.vistas
-           dict_blog['palabras_clave'] = blog.palabras_clave
-           dict_blog['estado'] = blog.estado
-           dict_blog['es_pricipal'] = blog.es_pricipal
-           dict_blog['posts_relacionados'] = blog.posts_relacionados
+           dict_blog['summary'] = blog.summary[0:250] + '...' if len(blog.summary)>250 else blog.summary
+           dict_blog['content'] = blog.content
+           dict_blog['categories'] = blog.categories
+           dict_blog['cover_image'] = blog.cover_image
+           dict_blog['created_at'] = blog.created_at
+           dict_blog['author'] = blog.author
+           dict_blog['number_views'] = blog.number_views
+           dict_blog['keywords'] = blog.keywords
+           dict_blog['status'] = blog.status
+           dict_blog['is_main_article'] = blog.is_main_article
+           dict_blog['related_posts'] = blog.related_posts
            list_blogs.append(dict_blog)
         context_data['blogs'] = list_blogs
-        context_data['categorias_blog'] = Categoria.objects.all()
+        context_data['categories_blog'] = Category.objects.all()
 
         return context_data
 
@@ -59,7 +59,7 @@ class Detalle_blog(DetailView):
 
     def get_context_data(self, *args, **kwargs):
         context_data = super(Detalle_blog, self).get_context_data(*args, **kwargs)
-        # realizamos consulta de todos los categorias de blogs
+        # realizamos consulta de todos los categories de blogs
         context_data['domain'] = self.get_domain()
         return context_data
 
@@ -69,35 +69,35 @@ def buscador_blog(request):
 
     """docstring for Busqueda"""
     # todo tipo de buscador siempre buscara con cualquier parámetro, 
-    # siempre en cuando este estado = TRUE, inidica que está activo
+    # siempre en cuando este status = TRUE, inidica que está activo
     consulta = request.GET.get('q', '')
     lista_blogs = None
     list_blogs = []
     if consulta:
         lista_blogs = Blogs.objects.filter(
-            Q(titulo__icontains=consulta) |
-            Q(resumen__icontains=consulta) |
-            Q(palabras_clave__icontains=consulta) |
-            Q(categorias__nombre__icontains=consulta), estado=True).distinct()
+            Q(title__icontains=consulta) |
+            Q(summary__icontains=consulta) |
+            Q(keywords__icontains=consulta) |
+            Q(categories__name__icontains=consulta), status=True).distinct()
     # else:
         # en caso si alguien entra directamente a /busquedas
         # lista_blogs = Curso.objects.all().order_by('-fecha_creacion')[:2]
     # paginandor
         for blog in lista_blogs:
            dict_blog = {}
-           dict_blog['titulo'] = blog.titulo
+           dict_blog['title'] = blog.title
            dict_blog['slug'] = blog.slug
-           dict_blog['resumen'] = blog.resumen[0:250] + '...' if len(blog.resumen)>250 else blog.resumen
-           dict_blog['contenido'] = blog.contenido
-           dict_blog['categorias'] = blog.categorias
-           dict_blog['portada'] = blog.portada
-           dict_blog['fecha_publicacion'] = blog.fecha_publicacion
-           dict_blog['autor'] = blog.autor
-           dict_blog['vistas'] = blog.vistas
-           dict_blog['palabras_clave'] = blog.palabras_clave
-           dict_blog['estado'] = blog.estado
-           dict_blog['es_pricipal'] = blog.es_pricipal
-           dict_blog['posts_relacionados'] = blog.posts_relacionados
+           dict_blog['summary'] = blog.summary[0:250] + '...' if len(blog.summary)>250 else blog.summary
+           dict_blog['content'] = blog.content
+           dict_blog['categories'] = blog.categories
+           dict_blog['cover_image'] = blog.cover_image
+           dict_blog['created_at'] = blog.created_at
+           dict_blog['author'] = blog.author
+           dict_blog['number_views'] = blog.number_views
+           dict_blog['keywords'] = blog.keywords
+           dict_blog['status'] = blog.status
+           dict_blog['is_main_article'] = blog.is_main_article
+           dict_blog['related_posts'] = blog.related_posts
            list_blogs.append(dict_blog)
     paginator = Paginator(list_blogs, 12)  # Show 25 contacts per page
 
@@ -111,36 +111,36 @@ def buscador_blog(request):
         # If page is out of range (e.g. 9999), deliver last page of results.
         blogs = paginator.page(paginator.num_pages)
 
-    categorias = Categoria.objects.all()
+    categories = Category.objects.all()
 
     return render(request, 'blog/buscador_blog.html',
-                  {'blogs': blogs, 'categorias': categorias})
+                  {'blogs': blogs, 'categories': categories})
 
 
 def buscador_categoria(request, slug):
     try:
         consulta = Blogs.objects.filter(
-            categorias__slug=slug, estado=True)
+            categories__slug=slug, status=True)
         list_blogs = []
         for blog in consulta:
            dict_blog = {}
-           dict_blog['titulo'] = blog.titulo
+           dict_blog['title'] = blog.title
            dict_blog['slug'] = blog.slug
-           dict_blog['resumen'] = blog.resumen[0:250] + '...' if len(blog.resumen)>250 else blog.resumen
-           dict_blog['contenido'] = blog.contenido
-           dict_blog['categorias'] = blog.categorias
-           dict_blog['portada'] = blog.portada
-           dict_blog['fecha_publicacion'] = blog.fecha_publicacion
-           dict_blog['autor'] = blog.autor
-           dict_blog['vistas'] = blog.vistas
-           dict_blog['palabras_clave'] = blog.palabras_clave
-           dict_blog['estado'] = blog.estado
-           dict_blog['es_pricipal'] = blog.es_pricipal
-           dict_blog['posts_relacionados'] = blog.posts_relacionados
+           dict_blog['summary'] = blog.summary[0:250] + '...' if len(blog.summary)>250 else blog.summary
+           dict_blog['content'] = blog.content
+           dict_blog['categories'] = blog.categories
+           dict_blog['cover_image'] = blog.cover_image
+           dict_blog['created_at'] = blog.created_at
+           dict_blog['author'] = blog.author
+           dict_blog['number_views'] = blog.number_views
+           dict_blog['keywords'] = blog.keywords
+           dict_blog['status'] = blog.status
+           dict_blog['is_main_article'] = blog.is_main_article
+           dict_blog['related_posts'] = blog.related_posts
            list_blogs.append(dict_blog)
-        categorias = Categoria.objects.all()
+        categories = Category.objects.all()
         return render(request, 'blog/buscador_blog.html',
-                      {'blogs': list_blogs, 'categorias': categorias})
+                      {'blogs': list_blogs, 'categories': categories})
     except Exception as e:
         raise 
 
@@ -151,17 +151,17 @@ class AcercaDe(TemplateView):
 def contador_visitas(request):
     if request.method == 'POST' and request.is_ajax():
         try:
-            estado = False
+            status = False
             blog = get_object_or_404(Blogs, 
-                estado=True, pk=request.POST.get('id'))
-            blog.vistas +=1
+                status=True, pk=request.POST.get('id'))
+            blog.number_views +=1
             blog.save()
-            estado = True
-            response = JsonResponse({'estado': estado})
+            status = True
+            response = JsonResponse({'status': status})
             return HttpResponse(response.content)            
         except Exception as e:
             print ("Error:", e)
-            response = JsonResponse({'estado': estado, 'error': str(e)})
+            response = JsonResponse({'status': status, 'error': str(e)})
             return HttpResponse(response.content)            
     else:
         return redirect('/')
@@ -169,9 +169,9 @@ def contador_visitas(request):
 def tags(request, slug):
     try:
         consulta = Blogs.objects.filter(
-            categorias__slug=slug)
-        categorias = Categoria.objects.all()
-        return render(request, 'blog/categorias.html',
+            categories__slug=slug)
+        categories = Category.objects.all()
+        return render(request, 'blog/categories.html',
                       {'blogs': consulta, 'slug': slug})
     except Exception as e:
         raise e

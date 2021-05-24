@@ -1,27 +1,27 @@
 {% extends "base.html" %}
 
-{% block title %}Startup Hero |Eliminar usuario {% endblock title %}
-{% block contenido %}
+{% block title %}Yachaycode |Eliminar usuario {% endblock title %}
+{% block section %}
          
         <div class="container-fluid">
            <div class="row">
              <main class="col-sm-12 ml-sm-auto col-md-12 pt-3" role="main">
              <section class="content-header">
                <h1>
-                 <small>Eliminación de Usuario</small>
+                 <small>Eliminación de User</small>
                </h1>
                <ol class="breadcrumb">
-                 <li><a href="{% url 'app_usuarios:p_inicio' %}"><i class="fa fa-dashboard"></i> Inicio</a></li>
-                 <li class="active">Elminar Usuario</li>
+                 <li><a href="{% url 'app_users:p_inicio' %}"><i class="fa fa-dashboard"></i> Inicio</a></li>
+                 <li class="active">Elminar User</li>
                </ol>
              </section>
 
              <!-- Main content -->
              <section class="content">
-               <form role="form" action="{% url 'app_usuarios:p_eliminar' usuarios.id %}" method="POST">{% csrf_token %}
-                     <p class="">¿Desea eliminar al Usuario <b>"{{ usuarios.usuario }}"</b>?</p>
+               <form role="form" action="{% url 'app_users:p_eliminar' users.id %}" method="POST">{% csrf_token %}
+                     <p class="">¿Desea eliminar al User <b>"{{ users.username }}"</b>?</p>
                      <input type="submit" value="Sí" class="btn btn-danger"> 
-                     <a href="{% url 'app_usuarios:p_inicio' %}" class="btn btn-default">No</a>
+                     <a href="{% url 'app_users:p_inicio' %}" class="btn btn-default">No</a>
                  </form>
              </section>
              </main>

@@ -2,20 +2,20 @@ from django.conf.urls import url
 # para poder importar las imagenes
 from django.views.static import serve
 from .views import *
-# from views import Usuarios
+# from views import Users
 from django.conf import settings
 
 # from django.views.static.
 urlpatterns = [
-    # url(r'^usuarios', Usuarios.as_view(), name='inicio'),
-    # cuidado con esto tiene GRUD de Usuarios
-    # url(r'^$', UsuarioVer.as_view(), name='p_inicio'),
-    url(r'^nuevo/$', Usuario_crear.as_view(),
+    # url(r'^usuarios', Users.as_view(), name='inicio'),
+    # cuidado con esto tiene GRUD de Users
+    # url(r'^$', UserVer.as_view(), name='p_inicio'),
+    url(r'^nuevo/$', User_crear.as_view(),
         name='pu_nuevo'),
     url(r'^editar/(?P<pk>\d+)$',
-        UsuarioEditar.as_view(), name='p_editar'),
+        UserEditar.as_view(), name='p_editar'),
     url(r'^eliminar/(?P<pk>\d+)$',
-        UsuarioEliminar.as_view(), name='p_eliminar'),
+        UserEliminar.as_view(), name='p_eliminar'),
     url(r'^cambio_contrasena$', change_password,
         name='change_password'),
     url(r'^contrasena$', cambio_contrasena,
